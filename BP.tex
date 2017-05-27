@@ -1,93 +1,22 @@
-%% LyX 2.1.4 created this file.  For more info, see http://www.lyx.org/.
-%% Do not edit unless you really know what you are doing.
-\documentclass[11pt,american,czech]{book}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[a4paper]{geometry}
-\geometry{verbose,tmargin=4cm,bmargin=3cm,lmargin=3cm,rmargin=2cm,headheight=0.8cm,headsep=1cm,footskip=0.5cm}
-\pagestyle{headings}
-\setcounter{secnumdepth}{3}
-\usepackage{url}
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{amssymb}
+\documentclass[a4paper,11pt]{book}
+
+\usepackage{polyglossia}
+\usepackage{fontspec}
+\usepackage{geometry}
+\usepackage[intlimits]{amsmath}
 \usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{url}
+
+\geometry{verbose,tmargin=4cm,bmargin=3cm,lmargin=3cm,rmargin=2cm,headheight=0.8cm,headsep=1cm,footskip=0.5cm}
+\setmainlanguage{czech}
+\setmainfont{TeX Gyre Termes}
+\setcounter{secnumdepth}{3}
+
 \usepackage{setspace}
 
-\makeatletter
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
-\newenvironment{lyxlist}[1]
-{\begin{list}{}
-{\settowidth{\labelwidth}{#1}
- \setlength{\leftmargin}{\labelwidth}
- \addtolength{\leftmargin}{\labelsep}
- \renewcommand{\makelabel}[1]{##1\hfil}}}
-{\end{list}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
-%% Font setup: please leave the LyX font settings all set to 'default'
-%% if you want to use any of these packages:
-
-%% Use Times New Roman font for text and Belleek font for math
-%% Please make sure that the 'esint' package is turned off in the
-%% 'Math options' page.
-\usepackage[varg]{txfonts}
-
-%% Use Utopia text with Fourier-GUTenberg math
-%\usepackage{fourier}
-
-%% Bitstream Charter text with Math Design math
-%\usepackage[charter]{mathdesign}
-
-%%---------------------------------------------------------------------
-
-%% Make the multiline figure/table captions indent so that the second
-%% line "hangs" right below the first one.
-%\usepackage[format=hang]{caption}
-
-%% Indent even the first paragraph in each section
-\usepackage{indentfirst}
-
-%%---------------------------------------------------------------------
-
-%% Disable page numbers in the TOC. LOF, LOT (TOC automatically
-%% adds \thispagestyle{chapter} if not overriden
-%\addtocontents{toc}{\protect\thispagestyle{empty}}
-%\addtocontents{lof}{\protect\thispagestyle{empty}}
-%\addtocontents{lot}{\protect\thispagestyle{empty}}
-
-%% Shifts the top line of the TOC (not the title) 1cm upwards 
-%% so that the whole TOC fits on 1 page. Additional page size
-%% adjustment is performed at the point where the TOC
-%% is inserted.
-%\addtocontents{toc}{\protect\vspace{-1cm}}
-
-%%---------------------------------------------------------------------
-
-% completely avoid orphans (first lines of a new paragraph on the bottom of a page)
-\clubpenalty=9500
-
-% completely avoid widows (last lines of paragraph on a new page)
-\widowpenalty=9500
-
-% disable hyphenation of acronyms
-\hyphenation{CDFA HARDI HiPPIES IKEM InterTrack MEGIDDO MIMD MPFA DICOM ASCLEPIOS MedInria}
-
-%%---------------------------------------------------------------------
-
-%% Print out all vectors in bold type instead of printing an arrow above them
-\renewcommand{\vec}[1]{\boldsymbol{#1}}
-
-% Replace standard \cite by the parenthetical variant \citep
-%\renewcommand{\cite}{\citep}
-
-\makeatother
-
-\usepackage{babel}
 \begin{document}
-\def\documentdate{7. \v{c}ervence 2017}
-
-%%\def\documentdate{\today}
+\def\documentdate{7. července 2017}
 
 \pagestyle{empty}
 {\centering
@@ -133,15 +62,18 @@ Title of the Work in English}{\huge \par}
 
 \vfill{}
 
-\begin{lyxlist}{MMMMMMMMM}
-\begin{singlespace}
+\begin{list}{}{
+	\settowidth{\labelwidth}{MMMMMMMMM}
+ \setlength{\leftmargin}{\labelwidth}
+ \addtolength{\leftmargin}{\labelsep}
+	\renewcommand{\makelabel}[1]{#1\hfil}}
 \item [{Autor:}] \textbf{Jméno Autora}
 \item [{Vedoucí~práce:}] \textbf{prof. Ing. Jméno Školitele, DrSc.}
 \item [{Konzultant:}] \textbf{doc. RNDr. Jméno Konzultanta, CSc. }(pouze
 pokud konzultant byl jmenován.)
-\item [{Akademický~rok:}] 2016/2017\end{singlespace}
+\item [{Akademický~rok:}] 2016/2017
 
-\end{lyxlist}
+\end{list}
 \newpage{}
 
 ~\newpage{}
@@ -299,7 +231,6 @@ text. Max. 10 lines of English abstract text.
 \noindent \emph{Key words:} keywords in alphabetical order separated
 by commas
 
-\selectlanguage{czech}%
 \newpage{}
 
 ~\newpage{}
@@ -327,7 +258,7 @@ Text úvodu....
 
 \pagestyle{plain}
 
-\addcontentsline{toc}{chapter}{Záv\v{e}r}
+\addcontentsline{toc}{chapter}{Závěr}
 
 Text závěru....
 \begin{thebibliography}{1}
