@@ -2,114 +2,84 @@
 
 \usepackage{polyglossia}
 \usepackage{fontspec}
+\usepackage{csquotes}
 \usepackage{geometry}
 \usepackage[intlimits]{amsmath}
 \usepackage{graphicx}
 \usepackage{indentfirst}
 \usepackage{url}
 \usepackage[backend=biber,style=iso-authoryear,sortlocale=cs_CZ,autolang=other,bibencoding=UTF8]{biblatex}
+\usepackage{setspace}
 
 \geometry{verbose,tmargin=4cm,bmargin=3cm,lmargin=3cm,rmargin=2cm,headheight=0.8cm,headsep=1cm,footskip=0.5cm}
-\setmainlanguage{czech}
+\setdefaultlanguage{czech}
 \setotherlanguage{english}
 \setmainfont{TeX Gyre Termes}
 \setcounter{secnumdepth}{3}
 \addbibresource{test.bib}
 
-\usepackage{setspace}
-
 \begin{document}
 \def\documentdate{7. července 2017}
 
 \pagestyle{empty}
-{\centering
-
-\noindent %
-\begin{minipage}[c]{3cm}%
-\noindent \begin{center}
-\includegraphics[width=3cm,height=3cm,keepaspectratio]{images/titlepage/cvut}
-\par\end{center}%
-\end{minipage}%
-\begin{minipage}[c]{0.6\linewidth}%
 \begin{center}
-\textsc{\large{}České vysoké učení technické v Praze}{\large{}}\\
-{\large{}Fakulta jaderná a fyzikálně inženýrská}
-\par\end{center}%
-\end{minipage}%
-\begin{minipage}[c]{3cm}%
-\noindent \begin{center}
-\includegraphics[width=3cm,height=3cm,keepaspectratio]{images/titlepage/fjfi}
-\par\end{center}%
-\end{minipage}
+	\begin{minipage}{3cm}
+		\includegraphics[width=3cm,height=3cm,keepaspectratio]{images/titlepage/cvut}
+	\end{minipage}
+	\begin{minipage}{0.6\linewidth}
+		\begin{center}
+			\textsc{\large České vysoké učení technické v Praze}\\
+			{\large Fakulta jaderná a fyzikálně inženýrská}
+		\end{center}
+	\end{minipage}
+	\begin{minipage}{3cm}
+		\includegraphics[width=3cm,height=3cm,keepaspectratio]{images/titlepage/fjfi}
+	\end{minipage}
 
-\vspace{3cm}
+	\vspace{3.3cm}
 
+	\setstretch{1.75}\textbf{\huge Název práce česky název práce česky název práce česky název práce česky}
+	\vspace{1.1cm}
 
-\textbf{\huge{}Název práce česky název práce česky název práce česky
-název práce česky}{\huge \par}
+	\textenglish{\textbf{\huge Title of the Work in English Title of the Work in English Title of the Work in English}}
+	\vspace{1.7cm}
 
-\vspace{1cm}
+	{\large Bakalářská práce}
+\end{center}
 
-
-\selectlanguage{american}%
-\textbf{\huge{}Title of the Work in English Title of the Work in English
-Title of the Work in English}{\huge \par}
-
-\selectlanguage{czech}%
-\vspace{2cm}
-
-
-{\large{}Bakalářská práce}{\large \par}
-
-}
-
-\vfill{}
+\vfill
 
 \begin{list}{}{
 	\settowidth{\labelwidth}{MMMMMMMMM}
- \setlength{\leftmargin}{\labelwidth}
- \addtolength{\leftmargin}{\labelsep}
+	\setlength{\leftmargin}{\labelwidth}
 	\renewcommand{\makelabel}[1]{#1\hfil}}
-\item [{Autor:}] \textbf{Jméno Autora}
-\item [{Vedoucí~práce:}] \textbf{prof. Ing. Jméno Školitele, DrSc.}
-\item [{Konzultant:}] \textbf{doc. RNDr. Jméno Konzultanta, CSc. }(pouze
-pokud konzultant byl jmenován.)
-\item [{Akademický~rok:}] 2016/2017
-
+	\item [{Autor:}] \textbf{Jméno Autora}
+	\item [{Vedoucí práce:}] \textbf{prof. Ing. Jméno Školitele, DrSc.}
+	\item [{Konzultant:}] \textbf{doc. RNDr. Jméno Konzultanta, CSc. }(pouze pokud konzultant byl jmenován.)
+	\item [{Akademický rok:}] 2016/2017
 \end{list}
-\newpage{}
 
-~\newpage{}
+\newpage
 
-~
+\null\newpage
 
-\vfill{}
-
-
+\null\vfill
 \begin{center}
-- Zadání práce -
+	- Zadání práce -
 \par\end{center}
+\vfill
 
-\vfill{}
+\newpage
 
-
-~\newpage{}
-
-~
-
-\vfill{}
-
-
+\null\vfill
 \begin{center}
-- Zadání práce (zadní strana) -
+	- Zadání práce (zadní strana) -
 \par\end{center}
+\vfill
 
-\vfill{}
+\newpage
 
-
-~\newpage{}
-
-\noindent \emph{\Large{}Poděkování:}{\Large \par}
+\noindent \textit{\Large Poděkování:}
 
 \noindent Chtěl bych zde poděkovat především svému školiteli ...................
 za pečlivost, ochotu, vstřícnost a odborné i lidské zázemí při vedení
@@ -118,64 +88,57 @@ za ................
 
 \vfill
 
-\noindent \emph{\Large{}Čestné prohlášení:}{\Large \par}
+\noindent \textit{\Large Čestné prohlášení:}
 
 \noindent Prohlašuji, že jsem tuto práci vypracoval samostatně a uvedl
 jsem všechnu použitou literaturu.
 
-\bigskip{}
+\bigskip
 
-
-\noindent V Praze dne \documentdate\hfill{}Jméno Autora
+\noindent V Praze dne \documentdate\hfill Jméno Autora
 
 \vspace{2cm}
 
+\newpage
 
-\newpage{}
-
-~\newpage{}
+\null\newpage
 
 \begin{onehalfspace}
-\noindent \emph{Název práce:}
+	\noindent \textit{Název práce:}
 
-\noindent \textbf{Název práce}
+	\noindent \textbf{Název práce}
 \end{onehalfspace}
 
-\bigskip{}
+\bigskip
 
+\noindent \textit{Autor:} Jméno Autora
 
-\noindent \emph{Autor:} Jméno Autora
+\bigskip
 
-\bigskip{}
+\noindent \textit{Obor:} Celý název oboru (nikoliv zkratka)
 
+\bigskip
 
-\noindent \emph{Obor:} Celý název oboru (nikoliv zkratka)\bigskip{}
-
-
-\noindent \emph{Zaměření:} Celý název zaměření (Pokud obor neobsahuje
+\noindent \textit{Zaměření:} Celý název zaměření (Pokud obor neobsahuje
 zaměření, tuto řádku odstranit.)
 
-\bigskip{}
+\bigskip
 
+\noindent \textit{Druh práce:} Bakalářská práce
 
-\noindent \emph{Druh práce:} Bakalářská práce
+\bigskip
 
-\bigskip{}
-
-
-\noindent \emph{Vedoucí práce:} prof. Ing. Jméno Školitele, DrSc.,
+\noindent \textit{Vedoucí práce:} prof. Ing. Jméno Školitele, DrSc.,
 pracoviště školitele (název instituce, fakulty, katedry...)
 
-\bigskip{}
+\bigskip
 
-
-\noindent \emph{Konzultant:} doc. RNDr. Jméno Konzultanta, CSc., pracoviště
+\noindent \textit{Konzultant:} doc. RNDr. Jméno Konzultanta, CSc., pracoviště
 konzultanta. Pouze pokud konzultant byl jmenován.
 
-\bigskip{}
+\bigskip
 
-
-\noindent \emph{Abstrakt:} Abstrakt max. na 10 řádků. Abstrakt max.
+\noindent \textit{Abstrakt:} Abstrakt max. na 10 řádků. Abstrakt max.
 na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků.
 Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max.
 na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků.
@@ -188,82 +151,75 @@ na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků.
 Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max.
 na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. 
 
-\bigskip{}
+\bigskip
 
-
-\noindent \emph{Klíčová slova:} klíčová slova (nebo výrazy) seřazená
+\noindent \textit{Klíčová slova:} klíčová slova (nebo výrazy) seřazená
 podle abecedy a oddělená čárkou
 
-\vfill{}
-~
+\vfill
 
-\selectlanguage{american}%
-\begin{onehalfspace}
-\noindent \emph{Title:}
+\begin{english}
+	\begin{onehalfspace}
+		\noindent \textit{Title:}
 
-\noindent \textbf{Title of the Work}
-\end{onehalfspace}
+		\noindent \textbf{Title of the Work}
+	\end{onehalfspace}
 
-\bigskip{}
+	\bigskip
 
+	\noindent \textit{Author:} Author's Name
 
-\noindent \emph{Author:} Author's Name
+	\bigskip
 
-\bigskip{}
+	\noindent \textit{Abstract:} Max. 10 lines of English abstract text.
+	Max. 10 lines of English abstract text. Max. 10 lines of English abstract
+	text. Max. 10 lines of English abstract text. Max. 10 lines of English
+	abstract text. Max. 10 lines of English abstract text. Max. 10 lines
+	of English abstract text. Max. 10 lines of English abstract text.
+	Max. 10 lines of English abstract text. Max. 10 lines of English abstract
+	text. Max. 10 lines of English abstract text. Max. 10 lines of English
+	abstract text. Max. 10 lines of English abstract text. Max. 10 lines
+	of English abstract text. Max. 10 lines of English abstract text.
+	Max. 10 lines of English abstract text. Max. 10 lines \cite{Allen-Cahn} of English abstract
+	text. Max. 10 lines of English abstract text. Max. 10 lines of English
+	abstract text. Max. 10 lines of English abstract text. Max. 10 lines
+	of English abstract text. Max. 10 lines of English abstract text.
+	Max. 10 lines of English abstract text. Max. 10 lines of English abstract
+	text. Max. 10 lines of English abstract text.
 
+	\bigskip
 
-\noindent \emph{Abstract:} Max. 10 lines of English abstract text.
-Max. 10 lines of English abstract text. Max. 10 lines of English abstract
-text. Max. 10 lines of English abstract text. Max. 10 lines of English
-abstract text. Max. 10 lines of English abstract text. Max. 10 lines
-of English abstract text. Max. 10 lines of English abstract text.
-Max. 10 lines of English abstract text. Max. 10 lines of English abstract
-text. Max. 10 lines of English abstract text. Max. 10 lines of English
-abstract text. Max. 10 lines of English abstract text. Max. 10 lines
-of English abstract text. Max. 10 lines of English abstract text.
-Max. 10 lines of English abstract text. Max. 10 lines \cite{Allen-Cahn} of English abstract
-text. Max. 10 lines of English abstract text. Max. 10 lines of English
-abstract text. Max. 10 lines of English abstract text. Max. 10 lines
-of English abstract text. Max. 10 lines of English abstract text.
-Max. 10 lines of English abstract text. Max. 10 lines of English abstract
-text. Max. 10 lines of English abstract text.
+	\noindent \textit{Keywords:} keywords in alphabetical order separated
+	by commas
 
-\bigskip{}
+\end{english}
 
+\newpage
 
-\noindent \emph{Key words:} keywords in alphabetical order separated
-by commas
-
-\newpage{}
-
-~\newpage{}
+\null\newpage
 
 \pagestyle{plain}
 
-\tableofcontents{}
+\tableofcontents
 
-\newpage{}
-
+\newpage
 
 \chapter*{Úvod}
-
 \addcontentsline{toc}{chapter}{Úvod}
 
 Text úvodu....
-
 
 \chapter{Název první kapitoly}
 
 \pagestyle{headings}
 
-
 \chapter*{Závěr}
+\addcontentsline{toc}{chapter}{Závěr}
 
 \pagestyle{plain}
 
-\addcontentsline{toc}{chapter}{Závěr}
-
 Text závěru....
+
 \nocite{*}
 \printbibliography[title=Literatura]
 
