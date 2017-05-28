@@ -7,11 +7,14 @@
 \usepackage{graphicx}
 \usepackage{indentfirst}
 \usepackage{url}
+\usepackage[backend=biber,style=iso-authoryear,sortlocale=cs_CZ,autolang=other,bibencoding=UTF8]{biblatex}
 
 \geometry{verbose,tmargin=4cm,bmargin=3cm,lmargin=3cm,rmargin=2cm,headheight=0.8cm,headsep=1cm,footskip=0.5cm}
 \setmainlanguage{czech}
+\setotherlanguage{english}
 \setmainfont{TeX Gyre Termes}
 \setcounter{secnumdepth}{3}
+\addbibresource{test.bib}
 
 \usepackage{setspace}
 
@@ -218,7 +221,7 @@ Max. 10 lines of English abstract text. Max. 10 lines of English abstract
 text. Max. 10 lines of English abstract text. Max. 10 lines of English
 abstract text. Max. 10 lines of English abstract text. Max. 10 lines
 of English abstract text. Max. 10 lines of English abstract text.
-Max. 10 lines of English abstract text. Max. 10 lines of English abstract
+Max. 10 lines of English abstract text. Max. 10 lines \cite{Allen-Cahn} of English abstract
 text. Max. 10 lines of English abstract text. Max. 10 lines of English
 abstract text. Max. 10 lines of English abstract text. Max. 10 lines
 of English abstract text. Max. 10 lines of English abstract text.
@@ -261,17 +264,7 @@ Text úvodu....
 \addcontentsline{toc}{chapter}{Závěr}
 
 Text závěru....
-\begin{thebibliography}{1}
-\bibitem{Allen-Cahn}S. Allen, J. W. Cahn: \emph{A microscopic theory
-for antiphase boundary motion and its application to antiphase domain
-coarsening}. Acta Metall., 27:1084-1095, 1979.
-
-\bibitem{CINECA}G. Ballabio et al.: \emph{High Performance Systems
-User Guide}. High Performance Systems Department, CINECA, Bologna,
-2005. \url{www.cineca.it}
-
-\bibitem{rumpf3}J. Becker, T. Preusser, M. Rumpf: \emph{PDE methods
-in flow simulation post processing}. Computing and Visualization in
-Science, 3(3):159-167, 2000.\end{thebibliography}
+\nocite{*}
+\printbibliography[title=Literatura]
 
 \end{document}
