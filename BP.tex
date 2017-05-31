@@ -1,67 +1,13 @@
-\documentclass[a4paper,11pt]{book}
-
-\usepackage{polyglossia}
-\usepackage{fontspec}
-\usepackage{csquotes}
-\usepackage{geometry}
-\usepackage[intlimits]{amsmath}
-\usepackage{graphicx}
-\usepackage{indentfirst}
-\usepackage{url}
-\usepackage[backend=biber,style=iso-authoryear,sortlocale=cs_CZ,autolang=other,bibencoding=UTF8]{biblatex}
-\usepackage{setspace}
-
-\geometry{tmargin=4cm,bmargin=3cm,lmargin=3cm,rmargin=2cm,headheight=0.8cm,headsep=1cm,footskip=0.5cm,marginparwidth=1.6cm}
-\setdefaultlanguage{czech}
-\setotherlanguage{english}
-\setmainfont{TeX Gyre Termes}
-\setcounter{secnumdepth}{3}
-\addbibresource{zotero.bib}
+\input{preamble.tex}
 
 \begin{document}
 \def\documentdate{7. července 2017}
 
 \pagestyle{empty}
-\begin{center}
-	\begin{minipage}{3cm}
-		\includegraphics[width=3cm,height=3cm,keepaspectratio]{images/titlepage/cvut}
-	\end{minipage}
-	\begin{minipage}{0.6\linewidth}
-		\begin{center}
-			\textsc{\large České vysoké učení technické v Praze}\\
-			{\large Fakulta jaderná a fyzikálně inženýrská}
-		\end{center}
-	\end{minipage}
-	\begin{minipage}{3cm}
-		\includegraphics[width=3cm,height=3cm,keepaspectratio]{images/titlepage/fjfi}
-	\end{minipage}
 
-	\vspace{3.3cm}
+\input{titlepage.tex}
 
-	\setstretch{1.75}\textbf{\huge Hierarchické modely síťového provozu}
-	\vspace{1.1cm}
-
-	\textenglish{\textbf{\huge Hierarchical models of network traffic}}
-	\vspace{1.7cm}
-
-	{\large Bakalářská práce}
-\end{center}
-
-\vfill
-
-\begin{list}{}{
-	\settowidth{\labelwidth}{MMMMMMMMM}
-	\setlength{\leftmargin}{\labelwidth}
-	\renewcommand{\makelabel}[1]{#1\hfil}}
-	\item [{Autor:}] \textbf{Marek Dědič}
-	\item [{Vedoucí práce:}] \textbf{Ing. Tomáš Pevný, Ph.D.}
-	\item [{Konzultant:}] \textbf{Mgr. Petr Somol, Ph.D.}
-	\item [{Akademický rok:}] 2016/2017
-\end{list}
-
-\newpage
-
-\null\newpage
+\cleardoublepage
 
 \null\vfill
 \begin{center}
@@ -77,116 +23,29 @@
 \par\end{center}
 \vfill
 
-\newpage
+\cleardoublepage
 
-\noindent \textit{\Large Poděkování:}
+\input{acknowledgment.tex}
 
-\noindent Chtěl bych zde poděkovat především svému školiteli, doktoru Tomáši Pevnému,
-za pečlivost, ochotu, vstřícnost a odborné i lidské zázemí při vedení
-mé diplomové práce. Dále děkuji svému konzultantovi ................
-za ................ (???)
+\cleardoublepage
 
-\vfill
+\input{abstract.tex}
 
-\noindent \textit{\Large Čestné prohlášení:}
-
-\noindent Prohlašuji, že jsem tuto práci vypracoval samostatně a uvedl
-jsem všechnu použitou literaturu.
-
-\bigskip
-
-\noindent V Praze dne \documentdate\hfill Marek Dědič
-
-\vspace{2cm}
-
-\newpage
-
-\null\newpage
-
-\begin{onehalfspace}
-	\noindent \textit{Název práce:}
-
-	\noindent \textbf{Hierarchické modely síťového provozu}
-\end{onehalfspace}
-
-\bigskip
-
-\noindent \textit{Autor:} Marek Dědič
-
-\bigskip
-
-\noindent \textit{Obor:} Matematická informatika
-
-\bigskip
-
-\noindent \textit{Druh práce:} Bakalářská práce
-
-\bigskip
-
-\noindent \textit{Vedoucí práce:} Ing. Tomáš Pevný, Ph.D., Cisco systems, Inc.
-
-\bigskip
-
-\noindent \textit{Konzultant:} Mgr. Petr Somol, Ph.D., Cisco systems, Inc.
-
-\bigskip
-
-\noindent \textit{Abstrakt:} Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. 
-
-\bigskip
-
-\noindent \textit{Klíčová slova:} klíčová slova (nebo výrazy) seřazená
-podle abecedy a oddělená čárkou
-
-\vfill
-
-\begin{english}
-	\begin{onehalfspace}
-		\noindent \textit{Title:}
-
-		\noindent \textbf{Hierarchical models of network traffic}
-	\end{onehalfspace}
-
-	\bigskip
-
-	\noindent \textit{Author:} Marek Dědič
-
-	\bigskip
-
-	\noindent \textit{Abstract:} Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text. Max. 10 lines of English abstract text.
-
-	\bigskip
-
-	\noindent \textit{Keywords:} keywords in alphabetical order separated
-	by commas
-
-\end{english}
-
-\newpage
-
-\null\newpage
+\cleardoublepage
 
 \pagestyle{plain}
 
 \tableofcontents
 
-\newpage
-
-\chapter*{Úvod}
-\addcontentsline{toc}{chapter}{Úvod}
-
-Text úvodu....
-
-\chapter{Název první kapitoly}
+\input{introduction.tex}
 
 \pagestyle{headings}
 
-\chapter*{Závěr}
-\addcontentsline{toc}{chapter}{Závěr}
+\chapter{Název první kapitoly}
 
 \pagestyle{plain}
 
-Text závěru....
+\input{conclusion.tex}
 
 \nocite{*}
 \printbibliography[title=Literatura]
