@@ -1,0 +1,33 @@
+\chapter{Multi-instanční učení}
+Multi-instanční učení (anglicky \textenglish{\textit{multi-instance learning, MIL}}), poprvé takto popsané v \cite{dietterich_solving_1997}, je variací učení s učitelem (anglicky \textenglish{\textit{supervised learning}}), metody pro určení funkce z trénovacích dat. Předpokládáme vstupní objekty ze vstupního prostoru \( \BPspace X \), výstupní objekty z výstupního prostoru \( \BPspace Y \), kde každému \( x \in \BPspace X \) lze jednoznačně přiřadit \( y \in \BPspace Y \). Tyto výstupní objekty avšak neznáme ani pro trénovací data. Proto seskupujeme vstupní objekty do takzvaných tašek (anglicky \textenglish{\textit{bag}}), označujeme \( b \in \BPspace B \subset \mathcal P ( \BPspace X ) \), kde \( \BPspace B \) je množina všech tašek. Díky tomu můžeme každé tašce jednoznačně přiřadit jeden výstupní objekt dle vztahu
+\begin{equation}\label{baglabel}
+	y_b = \max_{x \in b} \left( y_x \right) \in \BPspace Y
+\end{equation}
+a předpokládáme znalost takovýchto výstupních objektů na úrovni tašek. 
+
+Popíšeme zde tři převládající přístupy k řešení Multi-instančních problémů, více viz \cite{pevny_using_2016}.
+
+\section{Paradigma prostoru instancí}
+Předpokládáme existenci výstupních objektů pro všechny vstupní objekty (odpovídají instancím), přestože tyto hodnoty neznáme. Pro každou tašku pak předpokládáme výstupní objekt \( y_b \) a snažíme se najít klasifikační funkci \( f : \BPspace X \to \BPspace Y \) a posléze určit
+\begin{equation}
+	y_b = \max_{x \in b} \left( f \left( x \right) \right)
+\end{equation}
+
+\section{Paradigma prostoru tašek}
+Předpokládáme pouze existenci výstupních objektů na úrovni tašek. Definujeme kernel funkci
+\begin{equation}
+	k : \BPspace B \times \BPspace B \to \mathbb R_0^+
+\end{equation}
+kterou použijeme jako metriku při klasifikaci algoritmem k--nejbližsích sousedů.
+
+\section{Paradigma vloženého prostoru}
+Předpokládáme pouze existenci výstupních objektů na úrovni tašek. Definujeme vkládající funkci \( \phi : \BPspace B \to \mathbb R^n \) a reprezentujeme kažkou tašku vektorem
+\begin{equation}
+	\left( \phi_1 \left( b \right), \phi_2 \left( b \right), \dots, \phi_n \left( b \right) \right) \in \mathbb R^n
+\end{equation}
+a nasledně můzeme použít jakýkoliv algoritmus používaný při klasickém učení s učitelem.
+
+\section{Použitý formalismus}
+Dále budeme použivat \( \BPspace X = \mathbb R^n \), \( \BPspace Y = \left\{ -1, +1 \right\} \) a \( \BPspace B = \cup_{k = 0}^{\infty} \left( \mathbb R^n \right) ^k \). Prvky \( \BPspace X \) budeme nazývat \textit{vektory příznaků}, prvky \( \BPspace Y \) budeme nazývat \textit{značky}. Instanci budeme považovat za \textit{pozitivní}, pokud je pozitivní její značka, a negativní jinak. Při použití definice \eqref{baglabel} budeme považovat tašku za pozitivní, pokud obsahuje alespoň jednu pozitivní instanci, a negativní, pokud obsahuje pouze negativní instance. Používáme paradigma vloženého prostoru a držíme se dále popsaného formalismu nastíněného v \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.
+
+
