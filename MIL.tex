@@ -18,16 +18,24 @@ Předpokládáme pouze existenci výstupních objektů na úrovni tašek. Definu
 \begin{equation}
 	k : \BPspace B \times \BPspace B \to \mathbb R_0^+
 \end{equation}
-kterou použijeme jako metriku při klasifikaci algoritmem k--nejbližsích sousedů.
+kterou použijeme jako metriku při klasifikaci například algoritmem k--nejbližsích sousedů.
 
 \section{Paradigma vloženého prostoru}
-Předpokládáme pouze existenci výstupních objektů na úrovni tašek. Definujeme vkládající funkci \( \phi : \BPspace B \to \mathbb R^n \) a reprezentujeme kažkou tašku vektorem
+Předpokládáme pouze existenci výstupních objektů na úrovni tašek. Definujeme vkládající funkci \( \phi : \BPspace B \to \BPspace X \) a reprezentujeme kažkou tašku vstupním objektem \( \phi \left( b \right) \in \BPspace X \) a nasledně můzeme použít jakýkoliv algoritmus používaný při klasickém učení s učitelem. Pokud \( \BPspace X = \mathbb R^n \), pak většinou klademe na \( \phi \) podmínku
 \begin{equation}
-	\left( \phi_1 \left( b \right), \phi_2 \left( b \right), \dots, \phi_n \left( b \right) \right) \in \mathbb R^n
+	\left( \exists \psi : \mathbb R^k \to \mathbb R \right) \left( \phi \left( x^{(1)}, \dots, x^{(n)} \right) = \left( \psi \left( x_1^{(1)}, \dots, x_1^{(n)} \right), \dots, \psi \left( x_k^{(1)}, \dots, x_k^{(n)} \right) \right) \right)
 \end{equation}
-a nasledně můzeme použít jakýkoliv algoritmus používaný při klasickém učení s učitelem.
 
 \section{Použitý formalismus}
-Dále budeme použivat \( \BPspace X = \mathbb R^n \), \( \BPspace Y = \left\{ -1, +1 \right\} \) a \( \BPspace B = \cup_{k = 0}^{\infty} \left( \mathbb R^n \right) ^k \). Prvky \( \BPspace X \) budeme nazývat \textit{vektory příznaků}, prvky \( \BPspace Y \) budeme nazývat \textit{značky}. Instanci budeme považovat za \textit{pozitivní}, pokud je pozitivní její značka, a negativní jinak. Při použití definice \eqref{baglabel} budeme považovat tašku za pozitivní, pokud obsahuje alespoň jednu pozitivní instanci, a negativní, pokud obsahuje pouze negativní instance. Používáme paradigma vloženého prostoru a držíme se dále popsaného formalismu nastíněného v \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.
+Dále budeme použivat \( \BPspace X = \mathbb R^n \), \( \BPspace Y = \left\{ -1, +1 \right\} \) a \( \BPspace B = \bigcup_{k = 1}^{\infty} \left( \mathbb R^n \right) ^k \). Prvky \( \BPspace X \) budeme nazývat \textit{vektory příznaků}, prvky \( \BPspace Y \) budeme nazývat \textit{značky}. Instanci budeme považovat za \textit{pozitivní}, pokud je pozitivní její značka, a negativní jinak. Při použití definice \eqref{baglabel} budeme považovat tašku za pozitivní, pokud obsahuje alespoň jednu pozitivní instanci, a negativní, pokud obsahuje pouze negativní instance. Používáme paradigma vloženého prostoru a držíme se dále popsaného formalismu nastíněného v \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.
 
+Předpokládáme existenci prostoru rozdělení pravděpodobnosti \( \BPspace P^{\BPspace X} \). Každé taška \( b \) je pak realizací nějaké pravděpodobnostní funkce \( P \left( p_b, y_b \right) \) kde \( p_b \in \BPspace P^{\BPspace X} \) je rozdělení pravděpodobnosti instancí v \( b \) a \( y_b \in \BPspace Y \) je značka této tašky. Tedy předpokládáme, že pravděpodobnostní funkce závisí i na značce, tj. \( p_+ \neq p_- \) kde \( p_+ \sim P(p, +1) \) a \( p_- \sim P(p, -1) \). Můžeme potom zapsat prostor všech tašek jako
+\begin{equation}
+	\BPspace B = \left\{ \left\{ x_1, x_2, \dots, x_n \right\} \in \BPspace P \left( \BPspace X \right) \middle| \left( \forall i \in \hat n \right) \left( x_i \sim p \in \BPspace P^{\BPspace X} \right) \right\}
+\end{equation}
 
+Zvolíme \( k : \BPspace X \to \BPspace X \) a \( g : \bigcup_{k = 1}^{\infty} \BPspace X^k \to \BPspace X \) a vkládající funkci definujeme jako
+\begin{equation}
+	\phi : \BPspace B \to \BPspace X : b \mapsto g \left( \left\{ k \left( x \right) \middle| x \in b \right\} \right)
+\end{equation}
+Za \( g \) volíme například funkce minimum, maximum, aritmetický průměr. Funkci \( k \) potom hledámealgoritmem pro učení s učitelem. FIGURE. Tedy trénujeme zároveň neuronovou síť určující funkci \( f \) a funkci \( k \).
