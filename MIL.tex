@@ -5,7 +5,7 @@ Multi-instanční učení (anglicky \textenglish{\textit{multi-instance learning
 \end{equation}
 a předpokládáme znalost takovýchto výstupních objektů na úrovni tašek. 
 
-Popíšeme zde tři převládající přístupy k řešení Multi-instančních problémů, více viz \cite{pevny_using_2016}.
+Popíšeme zde tři převládající přístupy k řešení Multi-instančních problémů, více srov. \cite{pevny_using_2016}.
 
 \section{Paradigma prostoru instancí}
 Předpokládáme existenci výstupních objektů pro všechny vstupní objekty (odpovídají instancím), přestože tyto hodnoty neznáme. Pro každou tašku pak předpokládáme výstupní objekt \( y_b \) a snažíme se najít klasifikační funkci \( f : \BPspace X \to \BPspace Y \) a posléze určit
@@ -26,7 +26,7 @@ Předpokládáme pouze existenci výstupních objektů na úrovni tašek. Definu
 	\left( \exists \psi : \mathbb R^k \to \mathbb R \right) \left( \phi \left( x^{(1)}, \dots, x^{(n)} \right) = \left( \psi \left( x_1^{(1)}, \dots, x_1^{(n)} \right), \dots, \psi \left( x_k^{(1)}, \dots, x_k^{(n)} \right) \right) \right)
 \end{equation}
 
-\section{Použitý formalismus}
+\section{Použitý formalismus}\label{used_formalism}
 Dále budeme použivat \( \BPspace X = \mathbb R^n \), \( \BPspace Y = \left\{ -1, +1 \right\} \) a \( \BPspace B = \bigcup_{k = 1}^{\infty} \left( \mathbb R^n \right) ^k \). Prvky \( \BPspace X \) budeme nazývat \textit{vektory příznaků}, prvky \( \BPspace Y \) budeme nazývat \textit{značky}. Instanci budeme považovat za \textit{pozitivní}, pokud je pozitivní její značka, a negativní jinak. Při použití definice \eqref{baglabel} budeme považovat tašku za pozitivní, pokud obsahuje alespoň jednu pozitivní instanci, a negativní, pokud obsahuje pouze negativní instance. Používáme paradigma vloženého prostoru a držíme se dále popsaného formalismu nastíněného v \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.
 
 Předpokládáme existenci prostoru rozdělení pravděpodobnosti \( \BPspace P^{\BPspace X} \). Každé taška \( b \) je pak realizací nějaké pravděpodobnostní funkce \( P \left( p_b, y_b \right) \) kde \( p_b \in \BPspace P^{\BPspace X} \) je rozdělení pravděpodobnosti instancí v \( b \) a \( y_b \in \BPspace Y \) je značka této tašky. Tedy předpokládáme, že pravděpodobnostní funkce závisí i na značce, tj. \( p_+ \neq p_- \) kde \( p_+ \sim P(p, +1) \) a \( p_- \sim P(p, -1) \). Můžeme potom zapsat prostor všech tašek jako

@@ -1,0 +1,12 @@
+\RequirePackage{luatex85}
+\documentclass[tikz]{standalone}
+
+\usetikzlibrary{decorations.pathreplacing}
+
+\begin{document}
+
+\begin{tikzpicture}
+	\draw (-1, 0.5) node[anchor=north,fill=white] {http://\textcolor{red}{some.domain.org}/\textcolor{violet}{path/to/file}?\textcolor{blue}{key=val\&other=val2\&fin=3141}};
+\end{tikzpicture}
+
+\end{document}
