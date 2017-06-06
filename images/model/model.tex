@@ -7,9 +7,9 @@
 
 \begin{tikzpicture}
 	\draw (-1, 0.5) node[anchor=north,fill=white] {http://\textcolor{red}{some}.\textcolor{red}{domain}.\textcolor{red}{org}/\textcolor{violet}{path}/\textcolor{violet}{to}/\textcolor{violet}{file}?\textcolor{blue}{key=val}\&\textcolor{blue}{other=val2}\&\textcolor{blue}{fin=3141}};
-	\draw (-3.0, -0.3) node[anchor=north,fill=white] {\textit{\tiny Per-instance feature vectors}};
-	\draw (0.0, -0.3) node[anchor=north,fill=white] {\textit{\tiny Per-url-part feature vectors}};
-	\draw (3.25, -0.3) node[anchor=north,fill=white] {\textit{\tiny Per-url feature vector}};
+	\draw (-3.0, -0.3) node[anchor=north,fill=white] {\textit{\tiny Vektory příznaků instancí}};
+	\draw (0.0, -0.3) node[anchor=north,fill=white] {\textit{\tiny Vektory příznaků částí URL}};
+	\draw (3.25, -0.3) node[anchor=north,fill=white] {\textit{\tiny Vektor příznaků celé URL}};
 	\draw (-4.7, -1.15) node[anchor=east, fill=white] {\textcolor{red}{some}};
 	\draw (-4.7, -1.15) node[anchor=east, fill=white] {\textcolor{red}{some}};
 	\draw (-4.7, -1.65) node[anchor=east, fill=white] {\textcolor{red}{domain}};
@@ -20,15 +20,15 @@
 	\draw (-4.7, -4.75) node[anchor=east, fill=white] {\textcolor{blue}{key=val}};
 	\draw (-4.7, -5.25) node[anchor=east, fill=white] {\textcolor{blue}{other=val2}};
 	\draw (-4.7, -5.75) node[anchor=east, fill=white] {\textcolor{blue}{fin=3141}};
-	\draw[->] (-4.6, -1.15) -- node[above] { \tiny \( \phi \)} ++ (0.4, 0) ;
-	\draw[->] (-4.6, -1.65) -- node[above] { \tiny \( \phi \)} ++ (0.4, 0);
-	\draw[->] (-4.6, -2.15) -- node[above] { \tiny \( \phi \)} ++ (0.4, 0);
-	\draw[->] (-4.6, -2.95) -- node[above] { \tiny \( \phi \)} ++ (0.4, 0);
-	\draw[->] (-4.6, -3.45) -- node[above] { \tiny \( \phi \)} ++ (0.4, 0);
-	\draw[->] (-4.6, -3.95) -- node[above] { \tiny \( \phi \)} ++ (0.4, 0);
-	\draw[->] (-4.6, -4.75) -- node[above] { \tiny \( \phi \)} ++ (0.4, 0);
-	\draw[->] (-4.6, -5.25) -- node[above] { \tiny \( \phi \)} ++ (0.4, 0);
-	\draw[->] (-4.6, -5.75) -- node[above] { \tiny \( \phi \)} ++ (0.4, 0);
+	\draw[->] (-4.6, -1.15) -- node[above] { \tiny \( \psi \)} ++ (0.4, 0) ;
+	\draw[->] (-4.6, -1.65) -- node[above] { \tiny \( \psi \)} ++ (0.4, 0);
+	\draw[->] (-4.6, -2.15) -- node[above] { \tiny \( \psi \)} ++ (0.4, 0);
+	\draw[->] (-4.6, -2.95) -- node[above] { \tiny \( \psi \)} ++ (0.4, 0);
+	\draw[->] (-4.6, -3.45) -- node[above] { \tiny \( \psi \)} ++ (0.4, 0);
+	\draw[->] (-4.6, -3.95) -- node[above] { \tiny \( \psi \)} ++ (0.4, 0);
+	\draw[->] (-4.6, -4.75) -- node[above] { \tiny \( \psi \)} ++ (0.4, 0);
+	\draw[->] (-4.6, -5.25) -- node[above] { \tiny \( \psi \)} ++ (0.4, 0);
+	\draw[->] (-4.6, -5.75) -- node[above] { \tiny \( \psi \)} ++ (0.4, 0);
 	\draw (-4, -1.0) rectangle ++(2, -0.35) node[pos=0.5] { \tiny \( d^{(1)}_1 \dots d^{(1)}_n \)};
 	\draw (-4, -1.5) rectangle ++(2, -0.35) node[pos=0.5] { \tiny \( d^{(2)}_1 \dots d^{(2)}_n \)};
 	\draw (-4, -2.0) rectangle ++(2, -0.35) node[pos=0.5] { \tiny \( d^{(3)}_1 \dots d^{(3)}_n \)};
