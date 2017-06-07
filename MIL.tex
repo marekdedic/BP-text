@@ -23,7 +23,7 @@ Předpoklady úlohy jsou omezeny pouze na existenci výstupních objektů na úr
 kterou je možno použít jako metriku při klasifikaci například algoritmem k-nejbližsích sousedů.
 
 \subsection{Paradigma vloženého prostoru}
-Předpoklady úlohy jsou (stejně jako u paradigmatu prostoru tašek) omezeny pouze na existenci výstupních objektů na úrovni tašek. Nechť existuje vkládající funkce \( \phi : \BPspace B \to \BPspace X \). Díky této funkci lze reprezentovat kažkou tašku vstupním objektem \( \phi \left( b \right) \in \BPspace X \) a nasledně lze použít jakýkoliv algoritmus používaný při klasickém učení s učitelem. Pokud \( \BPspace X = \BPfield R^n \), pak je většinou kladena na \( \phi \) podmínka
+Předpoklady úlohy jsou (stejně jako u paradigmatu prostoru tašek) omezeny pouze na existenci výstupních objektů na úrovni tašek. Nechť existuje vkládající funkce \( \phi : \BPspace B \to \bar{\BPspace X} \), kde \( \bar{\BPspace X} \) je nějaký vstupní prostor. Díky této funkci lze reprezentovat kažkou tašku vstupním objektem \( \phi \left( b \right) \in \bar{\BPspace X} \) a nasledně lze použít jakýkoliv algoritmus používaný při klasickém učení s učitelem. Pokud \( \bar{\BPspace X} = \BPfield R^n \), pak je většinou kladena na \( \phi \) podmínka
 \begin{equation}
 	\left( \exists \psi : \BPfield R^k \to \BPfield R \right) \left( \phi \left( x^{(1)}, \dots, x^{(n)} \right) = \left( \psi \left( x_1^{(1)}, \dots, x_1^{(n)} \right), \dots, \psi \left( x_k^{(1)}, \dots, x_k^{(n)} \right) \right) \right)
 \end{equation}
@@ -36,8 +36,8 @@ Nechť existuje prostor rozdělení pravděpodobnosti \( \BPspace P^{\BPspace X}
 	\BPspace B = \left\{ \left\{ x_1, x_2, \dots, x_n \right\} \in \BPspace P \left( \BPspace X \right) \middle| \left( \forall i \in \hat n \right) \left( x_i \sim p \in \BPspace P^{\BPspace X} \right) \right\}
 \end{equation}
 
-Pokud jsou zvoleny funkce \( k : \BPspace X \to \BPspace X \) a \( g : \bigcup_{k = 1}^{\infty} \BPspace X^k \to \BPspace X \), lze vkládající funkci definovat jako
+Pokud jsou zvoleny funkce \( k : \BPspace X \to \BPspace X \) a \( g : \bigcup_{k = 1}^{\infty} \BPspace X^k \to \bar{\BPspace X} \), lze vkládající funkci definovat jako
 \begin{equation}
-	\phi : \BPspace B \to \BPspace X : b \mapsto g \left( \left\{ k \left( x \right) \middle| x \in b \right\} \right)
+	\phi : \BPspace B \to \bar{\BPspace X} : b \mapsto g \left( \left\{ k \left( x \right) \middle| x \in b \right\} \right)
 \end{equation}
 Za \( g \) lze volit například funkce minimum, maximum, aritmetický průměr. Funkce \( k \) je potom určována algoritmem pro učení s učitelem. \todo{figure from \cite{pevny_using_2016}}\todo{Zapsat lépe}Tedy neuronové síťě určující funkce \( f \) a \( k \) jsou trénovány najednou.
