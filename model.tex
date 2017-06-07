@@ -21,10 +21,25 @@ V prostoru \( \BPspace X \) jsou tedy vektory příznaků všech částí adresy
 \begin{equation}
 	\left( \forall b \in \BPspace B_2 \right) \left( \left| b \right| \leq 3 \right)
 \end{equation}
-Znovupoužitím formalismu z \ref{used_formalism} lze definovat vkládající funkci \( \phi_2 : \BPspace B_2 \to \BPspace X_3 \).
+Znovupoužitím formalismu z \ref{used_formalism} lze definovat vkládající funkci \( \phi_2 : \BPspace B_2 \to \BPspace X_3 \). Celý tento postup je graficky znázorněn na obrázku \ref{url_model}
 
+\todo{Expandovat? Vynechat?}Alternativně by bylo možné definovat prostor \( \hat{\BPspace B} \) tak, že každá taška by odpovídala přímo všem příznakům jedné adresy URL. Tento přístup by produkoval jednodušsí jednovrstevý formalismus a tedy jednodušsí modely, avšak nezachycoval by inherentní rozdíl ve funkci jednotlivých částí adresy. Proto byl zvolen tento dvojvrstvý, hierarchický model.
 
 \section{Model}
+Při použití značení z \eqref{net_pooling} nechť
+\begin{equation}
+	\phi_1 : \BPspace B_1 \to \BPspace X_2 : b \mapsto g_1 \left( \left\{ k_1 \left( x \right) \middle| x \in b \right\} \right)
+\end{equation}
+kde \( g_1 : \bigcup_{k = 1}^{\infty} \left( \BPfield R^n \right)^k \to \BPfield R^n \) je předem definovaná funkce a \( k_1 : \BPfield R^n \to \BPfield R^n \) je funkce definovaná neuronovou síťí. Nechť
+\todo{Přepsat?}\begin{equation}
+	\phi_2 : \left( \BPfield R^n \right)^3 \to \BPfield R^{3n} : \left( x_1^{(1)}, \dots, x_n^{(1)} \right), \left( x_1^{(2)}, \dots, x_n^{(2)} \right), \left( x_1^{(3)}, \dots, x_n^{(3)} \right) \mapsto \left( x_1^{(1)}, \dots, x_n^{(1)}, x_1^{(2)}, \dots, x_n^{(2)}, x_1^{(3)}, \dots, x_n^{(3)} \right)
+\end{equation}
+Tedy \( \phi_2 \) je pouze konkatenací. Klasifikační funkce \( f : \BPspace X_3 \to \BPspace Y \) je definovaná neuronovou síťí, která je trénovaná společně se sítí definující funkci \( k_1 \).
+\todo{Kam tohle?}\begin{align}
+	\BPspace X_1 &= \BPfield R^n \\
+	\BPspace X_2 &= \BPfield R^n \\
+	\BPspace X_3 &= \BPfield R^{3n}
+\end{align}
 
 \section{Trénovací a testovací data}
 
