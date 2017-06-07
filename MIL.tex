@@ -18,18 +18,18 @@ Je předpokládána existence výstupních objektů pro všechny vstupní objekt
 \subsection{Paradigma prostoru tašek}
 Předpoklady úlohy jsou omezeny pouze na existenci výstupních objektů na úrovni tašek. Lze definovat kernel funkci
 \begin{equation}
-	k : \BPspace B \times \BPspace B \to \mathbb R_0^+
+	k : \BPspace B \times \BPspace B \to \BPfield R_0^+
 \end{equation}
 kterou je možno použít jako metriku při klasifikaci například algoritmem k-nejbližsích sousedů.
 
 \subsection{Paradigma vloženého prostoru}
-Předpoklady úlohy jsou (stejně jako u paradigmatu prostoru tašek) omezeny pouze na existenci výstupních objektů na úrovni tašek. Nechť existuje vkládající funkce \( \phi : \BPspace B \to \BPspace X \). Díky této funkci lze reprezentovat kažkou tašku vstupním objektem \( \phi \left( b \right) \in \BPspace X \) a nasledně lze použít jakýkoliv algoritmus používaný při klasickém učení s učitelem. Pokud \( \BPspace X = \mathbb R^n \), pak je většinou kladena na \( \phi \) podmínka
+Předpoklady úlohy jsou (stejně jako u paradigmatu prostoru tašek) omezeny pouze na existenci výstupních objektů na úrovni tašek. Nechť existuje vkládající funkce \( \phi : \BPspace B \to \BPspace X \). Díky této funkci lze reprezentovat kažkou tašku vstupním objektem \( \phi \left( b \right) \in \BPspace X \) a nasledně lze použít jakýkoliv algoritmus používaný při klasickém učení s učitelem. Pokud \( \BPspace X = \BPfield R^n \), pak je většinou kladena na \( \phi \) podmínka
 \begin{equation}
-	\left( \exists \psi : \mathbb R^k \to \mathbb R \right) \left( \phi \left( x^{(1)}, \dots, x^{(n)} \right) = \left( \psi \left( x_1^{(1)}, \dots, x_1^{(n)} \right), \dots, \psi \left( x_k^{(1)}, \dots, x_k^{(n)} \right) \right) \right)
+	\left( \exists \psi : \BPfield R^k \to \BPfield R \right) \left( \phi \left( x^{(1)}, \dots, x^{(n)} \right) = \left( \psi \left( x_1^{(1)}, \dots, x_1^{(n)} \right), \dots, \psi \left( x_k^{(1)}, \dots, x_k^{(n)} \right) \right) \right)
 \end{equation}
 
 \section{Použitý formalismus}\label{used_formalism}
-V následujících částech bude používáno \( \BPspace X = \mathbb R^n \), \( \BPspace Y = \left\{ -1, +1 \right\} \) a \( \BPspace B = \bigcup_{k = 1}^{\infty} \left( \mathbb R^n \right) ^k \). Prvky \( \BPspace X \) budou nazývány \textit{vektory příznaků}, prvky \( \BPspace Y \) budou nazývány \textit{značky}. Instance bude považována za \textit{pozitivní}, pokud je pozitivní její značka, a negativní jinak. Při použití definice \eqref{baglabel} bude taška považována za pozitivní, pokud obsahuje alespoň jednu pozitivní instanci, a negativní, pokud obsahuje pouze negativní instance. Je použito paradigma vloženého prostoru a dále popsaný formalismus, převzatý z \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.
+V následujících částech bude používáno \( \BPspace X = \BPfield R^n \), \( \BPspace Y = \left\{ -1, +1 \right\} \) a \( \BPspace B = \bigcup_{k = 1}^{\infty} \left( \BPfield R^n \right) ^k \). Prvky \( \BPspace X \) budou nazývány \textit{vektory příznaků}, prvky \( \BPspace Y \) budou nazývány \textit{značky}. Instance bude považována za \textit{pozitivní}, pokud je pozitivní její značka, a negativní jinak. Při použití definice \eqref{baglabel} bude taška považována za pozitivní, pokud obsahuje alespoň jednu pozitivní instanci, a negativní, pokud obsahuje pouze negativní instance. Je použito paradigma vloženého prostoru a dále popsaný formalismus, převzatý z \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.
 
 Nechť existuje prostor rozdělení pravděpodobnosti \( \BPspace P^{\BPspace X} \). Každá taška \( b \) je pak realizací nějaké pravděpodobnostní funkce \( P \left( p_b, y_b \right) \) kde \( p_b \in \BPspace P^{\BPspace X} \) je rozdělení pravděpodobnosti instancí v \( b \), a \( y_b \in \BPspace Y \) je značka této tašky. Je tedy předpokladem, že pravděpodobnostní funkce závisí i na značce, tj. \( p_+ \neq p_- \) kde \( p_+ \sim P(p, +1) \) a \( p_- \sim P(p, -1) \). Prostor všech tašek lze poté zapsat jako
 \begin{equation}
