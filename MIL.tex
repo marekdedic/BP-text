@@ -8,7 +8,7 @@ Multi-instanční učení (anglicky \textenglish{\textit{multi-instance learning
 	\end{enumerate}
 	Prvky prostoru tašek se nazývají taškami.
 \end{define}
-\begin{define}
+\begin{define}\label{baglabel}
 	Nechť \( \BPspace X \) je prostorem vstupních objektů, \( \BPspace Y \) je prostorem výstupních objektů, kde platí
 	\[ \left( \forall x \in \BPspace X \right) \left( \exists ! y_x \in \BPspace Y \right) \]
 	Nechť \( \BPspace B \) je prostorem tašek. Nechť je v prostoru \( \BPspace Y \) definována funkce maximum. Potom výstupním objektem příslušícím tašce \( b \in \BPspace B \) je
@@ -39,7 +39,7 @@ Předpoklady úlohy jsou (stejně jako u paradigmatu prostoru tašek) omezeny po
 \end{equation}
 
 \section{Použitý formalismus}\label{used_formalism}
-V následujících částech bude používáno \( \BPspace X = \BPfield R^n \), \( \BPspace Y = \left\{ -1, +1 \right\} \) a \( \BPspace B = \bigcup_{k = 1}^{\infty} \left( \BPfield R^n \right) ^k \). Prvky \( \BPspace X \) budou nazývány \textit{vektory příznaků}, prvky \( \BPspace Y \) budou nazývány \textit{značky}. Instance bude považována za \textit{pozitivní}, pokud je pozitivní její značka, a negativní jinak. Při použití definice \eqref{baglabel} bude taška považována za pozitivní, pokud obsahuje alespoň jednu pozitivní instanci, a negativní, pokud obsahuje pouze negativní instance. Je použito paradigma vloženého prostoru a dále popsaný formalismus, převzatý z \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.
+V následujících částech bude používáno \( \BPspace X = \BPfield R^n \), \( \BPspace Y = \left\{ -1, +1 \right\} \) a \( \BPspace B = \bigcup_{k = 1}^{\infty} \left( \BPfield R^n \right) ^k \). Prvky \( \BPspace X \) budou nazývány \textit{vektory příznaků}, prvky \( \BPspace Y \) budou nazývány \textit{značky}. Instance bude považována za \textit{pozitivní}, pokud je pozitivní její značka, a negativní jinak. Při použití definice \ref{baglabel} bude taška považována za pozitivní, pokud obsahuje alespoň jednu pozitivní instanci, a negativní, pokud obsahuje pouze negativní instance. Je použito paradigma vloženého prostoru a dále popsaný formalismus, převzatý z \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.
 
 Nechť existuje prostor rozdělení pravděpodobnosti \( \BPspace P^{\BPspace X} \). Každá taška \( b \) je pak realizací nějaké pravděpodobnostní funkce \( P \left( p_b, y_b \right) \) kde \( p_b \in \BPspace P^{\BPspace X} \) je rozdělení pravděpodobnosti instancí v \( b \), a \( y_b \in \BPspace Y \) je značka této tašky. Je tedy předpokladem, že pravděpodobnostní funkce závisí i na značce, tj. \( p_+ \neq p_- \) kde \( p_+ \sim P(p, +1) \) a \( p_- \sim P(p, -1) \). Prostor všech tašek lze poté zapsat jako
 \begin{equation}
