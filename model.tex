@@ -30,11 +30,21 @@ Při použití značení z \eqref{net_pooling} nechť
 \begin{equation}
 	\phi_1 : \BPspace B_1 \to \BPspace X_2 : b \mapsto g_1 \left( \left\{ k_1 \left( x \right) \middle| x \in b \right\} \right)
 \end{equation}
-kde \( g_1 : \bigcup_{k = 1}^{\infty} \left( \BPfield R^n \right)^k \to \BPfield R^n \) je předem definovaná funkce a \( k_1 : \BPfield R^n \to \BPfield R^n \) je funkce definovaná neuronovou síťí. Nechť
-\todo{Přepsat?}\begin{equation}
-	\phi_2 : \left( \BPfield R^n \right)^3 \to \BPfield R^{3n} : \left( x_1^{(1)}, \dots, x_n^{(1)} \right), \left( x_1^{(2)}, \dots, x_n^{(2)} \right), \left( x_1^{(3)}, \dots, x_n^{(3)} \right) \mapsto \left( x_1^{(1)}, \dots, x_n^{(1)}, x_1^{(2)}, \dots, x_n^{(2)}, x_1^{(3)}, \dots, x_n^{(3)} \right)
+kde \( g_1 : \bigcup_{k = 1}^{\infty} \left( \BPfield R^n \right)^k \to \BPfield R^n \) je předem definovaná funkce a \( k_1 : \BPfield R^n \to \BPfield R^n \) je funkce definovaná neuronovou síťí. Protože dobře definovaná adresa URL nemusí obsahovat všechny tři části (doména, cesta, dotaz), pokud některá z částí není přítomna, je považována za prázdný řeťězec. Díky tomu platí
+\begin{equation}
+	\left( \forall b \in \BPspace B_2 \right) \left( \left| b \right| = 3 \right)
 \end{equation}
-Tedy \( \phi_2 \) je pouze konkatenací. Klasifikační funkce \( f : \BPspace X_3 \to \BPspace Y \) je definovaná neuronovou síťí, která je trénovaná společně se sítí definující funkci \( k_1 \).
+Díky tomuto rozšíření lze definovat funkci \( \phi_2 : \left( \BPfield R^n \right)^3 \to \BPfield R^{3n} \) jako
+\begin{equation}
+	\phi_2 : \left( x_1^{(1)}, \dots, x_n^{(1)} \right), \left( x_1^{(2)}, \dots, x_n^{(2)} \right), \left( x_1^{(3)}, \dots, x_n^{(3)} \right) \mapsto \left( x_1^{(1)}, \dots, x_n^{(1)}, x_1^{(2)}, \dots, x_n^{(2)}, x_1^{(3)}, \dots, x_n^{(3)} \right)
+\end{equation}
+Tedy \( \phi_2 \) je pouze konkatenací.
+
+Protože dobře definovaná adresa url nemusí obsahovat všechny tři části (doména, cesta, dotaz), pokud některá z částí není přítomna, je považována za prázdný řeťězec. Díky tomu platí
+\begin{equation}
+	\left( \forall b \in \BPspace B_2 \right) \left( \left| b \right| = 3 \right)
+\end{equation}
+Klasifikační funkce \( f : \BPspace X_3 \to \BPspace Y \) je definovaná neuronovou síťí, která je trénovaná společně se sítí definující funkci \( k_1 \).
 \todo{Kam tohle?}\begin{align}
 	\BPspace X_1 &= \BPfield R^n \\
 	\BPspace X_2 &= \BPfield R^n \\
