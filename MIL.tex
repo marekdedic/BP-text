@@ -1,9 +1,19 @@
 \chapter{Multi-instanční učení}
-Multi-instanční učení (anglicky \textenglish{\textit{multi-instance learning, MIL}}), poprvé takto popsané v \cite{dietterich_solving_1997}, je variací metody učení s učitelem (anglicky \textenglish{\textit{supervised learning}}), metody pro určení klasifikační funkce z trénovacích dat. Nechť existují vstupní objekty ze vstupního prostoru \( \BPspace X \), výstupní objekty z výstupního prostoru \( \BPspace Y \), kde každému \( x \in \BPspace X \) lze jednoznačně přiřadit \( y \in \BPspace Y \). Tyto výstupní objekty avšak nejsou známé ani pro trénovací data. Proto jsou vstupní objekty seskupeny do takzvaných tašek (anglicky \textenglish{\textit{bag}}), označovaných \( b \in \BPspace B \subset \mathcal P ( \BPspace X ) \), kde \( \BPspace B \) je množina všech tašek. Díky tomu může být každé tašce jednoznačně přiřazen jeden výstupní objekt dle vztahu
-\begin{equation}\label{baglabel}
-	y_b = \max_{x \in b} \left( y_x \right) \in \BPspace Y
-\end{equation}
-a je předpokládána znalost takovýchto výstupních objektů na úrovni tašek.
+Multi-instanční učení (anglicky \textenglish{\textit{multi-instance learning, MIL}}), poprvé takto popsané v \cite{dietterich_solving_1997}, je variací metody učení s učitelem (anglicky \textenglish{\textit{supervised learning}}), metody pro určení klasifikační funkce z trénovacích dat. Nechť existují vstupní objekty ze vstupního prostoru \( \BPspace X \), výstupní objekty z výstupního prostoru \( \BPspace Y \), kde každému \( x \in \BPspace X \) lze jednoznačně přiřadit \( y \in \BPspace Y \). Tyto výstupní objekty avšak nejsou známé ani pro trénovací data. Proto jsou vstupní objekty seskupeny do takzvaných tašek (anglicky \textenglish{\textit{bag}}).
+\begin{define}
+	Nechť \( \BPspace X \) je prostorem vstupních objektů. Potom prostorem tašek je množina \( \BPspace B \) splňující podmínky
+	\begin{enumerate}
+		\item \( \BPspace B \subset \mathcal P \left( \BPspace X \right) \)
+		\item \( \left( \forall x \in \BPspace X \right) \left( \exists ! b \in \BPspace B \right) \left( x \in b \right) \)
+	\end{enumerate}
+	Prvky prostoru tašek se nazývají taškami.
+\end{define}
+\begin{define}
+	Nechť \( \BPspace X \) je prostorem vstupních objektů, \( \BPspace Y \) je prostorem výstupních objektů, kde platí
+	\[ \left( \forall x \in \BPspace X \right) \left( \exists ! y_x \in \BPspace Y \right) \]
+	Nechť \( \BPspace B \) je prostorem tašek. Nechť je v prostoru \( \BPspace Y \) definována funkce maximum. Potom výstupním objektem příslušícím tašce \( b \in \BPspace B \) je
+	\[ y_b = \max_{x \in b} \left( y_x \right) \in \BPspace Y \]
+\end{define}
 
 \section{Metody řešení multi-instančních úloh}
 
