@@ -1,4 +1,13 @@
 \chapter{Multi-instanční učení}
+
+Co to je, definice z \cite{dietterich_solving_1997}.
+
+Metody řešení - 3 paradigmata - IS, proč nevyhovuje, BS, ES. Co kdo kdy dělal.
+
+Formalismus z \cite{pevny_using_2016}.
+
+Proč embedded space? (výpočetně méně náročný než BS, neexistence instance-level labelů.)
+
 Multi-instanční učení (anglicky \textenglish{\textit{multi-instance learning, MIL}}), poprvé takto popsané v \cite{dietterich_solving_1997}, je variací metody učení s učitelem (anglicky \textenglish{\textit{supervised learning}}), metody pro určení klasifikační funkce z trénovacích dat. Nechť existují vstupní objekty ze vstupního prostoru \( \BPspace X \), výstupní objekty z výstupního prostoru \( \BPspace Y \), kde každému \( x \in \BPspace X \) lze jednoznačně přiřadit \( y \in \BPspace Y \). Tyto výstupní objekty avšak nejsou známé ani pro trénovací data. Proto jsou vstupní objekty seskupeny do takzvaných tašek (anglicky \textenglish{\textit{bag}}).
 \begin{define}
 	Nechť \( \BPspace X \) je prostorem vstupních objektů. Potom prostorem tašek je množina \( \BPspace B \) splňující podmínky
