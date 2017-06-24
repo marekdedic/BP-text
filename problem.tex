@@ -2,6 +2,47 @@
 
 O učení z url, dělení na části, jejich významu.
 
+Řešená úloha je problémem binární klasifikace, tedy problém, kdy je cílem zařadit objekty do jedné ze dvou tříd, jež nazýváme pozitivní a negativní. Tedy cílem je navrhnout vhodnou klasifikační fukci, který pro daný vstupní objekt určí příslušnou třídu. Vstupními objekty jsou v tomto případě adresy URL (srov. \cite{berners-lee_uniform_1994}). Příklad takovéto adresy je na obrázku \ref{url}. Negativní třídou se rozumí veškerý síťový provoz, který je součástí běžného provozu uživatele-klienta a jím spuštěných programů. Pozitivní třídou se rozumí síťový provoz který pochází z aktivit malware a nežádoucího software.
+
+\begin{figure}[h]
+	\caption{Adresa URL}\label{url}
+	\centering
+	\includegraphics{images/url/url.pdf}
+\end{figure}
+
+Adresa URL se skládá z několika částí, mezi běžné patří \textit{protokol} (\textenglish{protocol}), \textit{doména} (\textenglish{domain} nebo \textenglish{host}), \textit{port}, \textit{cesta} (\textenglish{path}), \textit{dotaz} (\textenglish{query} nebo \textenglish{searchpart}). Vzhledem k tomu, že protokolů je relativně málo a port se ve většině případů neudává, lze tyto dvě části pominout a zabývat se pouze doménou, cestou a dotazem.
+
+\section{Struktura adresy URL}
+
+\cite{berners-lee_uniform_1994} definuje abecedu (dále označovanou \( \Sigma \)) všech možných znaků v adrese URL jako malá a velká písmena anglické abecedy, čísla a znaky \$ - \_ . + ! * ' ( ) , \% ; / ? : @ \& =. Každá adresa URL je pak slovem abecedy \( \Sigma \) (ne však naopak). Vybrané tři části adresy URL jsou definovány následovně.
+\begin{define}
+	Doména je podslovem adresy URL konstruovaným následovně: Pokud adresa URL obsahuje podslovo "://", doména začíná za tímto podslovem. V opačném případě doména začíná na záčátku adresy URL. Doména končí před prvním výskytem znaku "/" po začátku domény, případně na konci adresy URL, pokud tato už žádný znak "/" neobsahuje.
+\end{define}
+\begin{define}
+	Pokud je doména sufixem adresy URL, je cesta definována jako prázdné slovo. V opačném případě je cesta definována jako podslovo adresy URL, začínající za znakem "/" ukončujícím doménu. Cesta končí před prvním výskytem znaku "?" po začátku cesty, případně na konci adresy URL, pokud tato už žádný znak "?" neobsahuje.
+\end{define}
+\begin{define}
+	Pokud je doména nebo cesta sufixem adresy URL, je dotaz defonován jako prázdné slovo. V opačném případě je dotaz definován jako sufix adresy URL, začínající za za znakem "?" ukončujícím cestu.
+\end{define}
+
+\begin{figure}[h]
+	\caption{Části adresy URL}\label{url_parts}
+	\centering
+	\includegraphics{images/url_parts/url_parts.pdf}
+\end{figure}
+
+Na obrázku \ref{url_parts} je příklad dělení adresy URL. Doména ja zvýrazněná červenou barvou, cesta fialovou a dotaz modrou.
+
+Každá z těchto tří částí adresy URL se sama skládá z několika podčástí. Doména se skládá z několika úrovní, lišících se obecností. Tyto části jsou odděleny znakem ".". Cesta se skládá z názvů složek a souborů, které jsou dotazovány. Tyto části jsou odděleny znakem "/". Dotaz je tvořen dvojicemi klíč--hodnota, oddělenými znakem "\&". Na obrázku \ref{url_subparts} je příklad těchto podčástí, v barvách korespondujících s obrázkem \ref{url_parts}, v různých odstínech pro různé podčásti.
+
+\begin{figure}[h]
+	\caption{Podčásti adresy URL}\label{url_subparts}
+	\centering
+	\includegraphics{images/url_subparts/url_subparts.pdf}
+\end{figure}
+
+Je zřejmé, že na pořadí podčástí domény záleží, definují "cestu" k cílovému serveru a jsou řazeny od nejkonkrétnější k nejobecnější (srov. \cite{mockapetris_domain_1987}).	Stejně tak u cesty závisí na pořádí, které definuje adresářové umístění požadovaného souboru na serveru.
+
 \section{Trénovací a testovací data}
 
 \section{Proč MIL?}
