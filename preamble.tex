@@ -6,6 +6,7 @@
 \usepackage{geometry}
 \usepackage[intlimits]{amsmath}
 \usepackage{amsfonts}
+\usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage{indentfirst}
 \usepackage{url}
@@ -32,10 +33,15 @@
 	urlcolor=blue
 }
 
-\newtheorem{define}{Definice}
+\theoremstyle{definition}
+\newtheorem{define}{Definice}[chapter]
+\newtheorem{example}[define]{Příklad}
+\theoremstyle{remark}
+\newtheorem{remark}[define]{Poznámka}
 
 \newcommand{\BPspace}{\mathcal}
 \newcommand{\BPfield}{\mathbb}
+\newcommand{\BPset}{\mathbb}
 \newcommand{\BPvec}{\vec}
 
 \usepackage{todonotes}
