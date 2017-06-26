@@ -8,7 +8,11 @@ Formalismus z \cite{pevny_using_2016}.
 
 Proč embedded space? (výpočetně méně náročný než BS, neexistence instance-level labelů.)
 
-Multi-instanční učení (anglicky \textenglish{\textit{multi-instance learning, MIL}}), poprvé takto popsané v \cite{dietterich_solving_1997}, je variací metody učení s učitelem (anglicky \textenglish{\textit{supervised learning}}), metody pro určení klasifikační funkce z trénovacích dat. Nechť existují vstupní objekty ze vstupního prostoru \( \BPspace X \), výstupní objekty z výstupního prostoru \( \BPspace Y \), kde každému \( x \in \BPspace X \) lze jednoznačně přiřadit \( y \in \BPspace Y \). Tyto výstupní objekty avšak nejsou známé ani pro trénovací data. Proto jsou vstupní objekty seskupeny do takzvaných tašek (anglicky \textenglish{\textit{bag}}).
+\null
+
+V současné době existují zhruba tři přístupy k učení z příkladů. Těmi jsou učení s učitelem (\textenglish{supervised learning}), učení bez učitele (\textenglish{unsupervised learning}) a zpětnovazební učení (\textenglish{reinforcement learning}). Učení s učitelem má za cíl naučit se správně zařadit neznámé příklady do tříd, které jsou pro trénovací příklady známé. Učení bez učitele má za cíl naučit se odvodit strukturu zdroje příkladů, kde třídy nejsou známé ani pro trénovací příklady. Zpětnovazební učení se pokouší nalézt zobrazení stavů na akce, kde pro trénovací příklady nejsou známé třídy, avšak existuje opožděná zpětná vazba, kterou lze chápat jako opožděné zařazení do třídy. V nedávné době\footnote{Od zveřejnění článku} \cite{dietterich_solving_1997} navrhli tzv. Multi-instanční učení, kde se trénovací data skládají z mnoha tzv. tašek(\textenglish{bags}), které obsahují mnoho instancí. (viz \cite{zhou_neural_2002})
+
+Multi-instanční učení (\textenglish{multi-instance learning, MIL}), poprvé takto popsané v \cite{dietterich_solving_1997}, je variací metody učení s učitelem, metody pro určení klasifikační funkce z trénovacích dat. Nechť existují vstupní objekty ze vstupního prostoru \( \BPspace X \), výstupní objekty z výstupního prostoru \( \BPspace Y \), kde každému \( x \in \BPspace X \) lze jednoznačně přiřadit \( y \in \BPspace Y \). Tyto výstupní objekty avšak nejsou známé ani pro trénovací data. Proto jsou vstupní objekty seskupeny do takzvaných tašek (\textenglish{bags}).
 \begin{define}
 	Nechť \( \BPspace X \) je prostorem vstupních objektů. Potom prostorem tašek je množina \( \BPspace B \) splňující podmínky
 	\begin{enumerate}
