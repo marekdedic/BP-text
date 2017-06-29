@@ -10,17 +10,17 @@ Proč embedded space? (výpočetně méně náročný než BS, neexistence insta
 
 \null
 
-V současné době existují zhruba tři přístupy k učení z příkladů. Těmi jsou učení s učitelem (\textenglish{supervised learning}), učení bez učitele (\textenglish{unsupervised learning}) a zpětnovazební učení (\textenglish{reinforcement learning}). Učení s učitelem má za cíl naučit se správně zařadit neznámé příklady do tříd, které jsou pro trénovací příklady známé. Učení bez učitele má za cíl naučit se odvodit strukturu zdroje příkladů, kde třídy nejsou známé ani pro trénovací příklady. Zpětnovazební učení se pokouší nalézt zobrazení stavů na akce, kde pro trénovací příklady nejsou známé třídy, avšak existuje opožděná zpětná vazba, kterou lze chápat jako opožděné zařazení do třídy. V nedávné době\footnote{Od zveřejnění článku} \cite{dietterich_solving_1997} navrhli tzv. Multi-instanční učení, kde se trénovací data skládají z mnoha tzv. tašek(\textenglish{bags}), které obsahují mnoho instancí. (viz \cite{zhou_neural_2002})
+V současné době existují zhruba tři přístupy k učení z příkladů. Těmi jsou \BPname{učení s učitelem} (\BPenname{supervised learning}), \BPname{učení bez učitele} (\BPenname{unsupervised learning}) a \BPname{zpětnovazební učení} (\BPenname{reinforcement learning}). Učení s učitelem má za cíl naučit se správně zařadit neznámé příklady do tříd, které jsou pro trénovací příklady známé. Učení bez učitele má za cíl naučit se odvodit strukturu zdroje příkladů, kde třídy nejsou známé ani pro trénovací příklady. Zpětnovazební učení se pokouší nalézt zobrazení stavů na akce, kde pro trénovací příklady nejsou známé třídy, avšak existuje opožděná zpětná vazba, kterou lze chápat jako opožděné zařazení do třídy. V nedávné době\footnote{Od zveřejnění článku} \cite{dietterich_solving_1997} navrhli tzv. \BPname{Multi-instanční učení}, kde se trénovací data skládají z mnoha tzv. \BPname{tašek} (\BPenname{bags}), které obsahují mnoho instancí. (viz \cite{zhou_neural_2002})
 
-Multi-instanční učení (\textenglish{multi-instance learning, MIL}), poprvé takto popsané v \cite{dietterich_solving_1997}, je variací metody učení s učitelem, metody pro určení klasifikační funkce z trénovacích dat. Nechť existují vstupní objekty ze vstupního prostoru \( \BPspace X \), výstupní objekty z výstupního prostoru \( \BPspace Y \), kde každému \( x \in \BPspace X \) lze jednoznačně přiřadit \( y \in \BPspace Y \). Tyto výstupní objekty avšak nejsou známé ani pro trénovací data. Proto jsou vstupní objekty seskupeny do takzvaných tašek (\textenglish{bags}).
+Multi-instanční učení (\BPenname{multi-instance learning, MIL}), poprvé takto popsané v \cite{dietterich_solving_1997}, je variací metody učení s učitelem, metody pro určení klasifikační funkce z trénovacích dat. Je předpokládána existence vstupních objektů ze vstupního prostoru \( \BPspace X \), výstupních objektů (tříd) z výstupního prostoru \( \BPspace Y \). Tyto třídy avšak nejsou známé ani pro trénovací data. Proto jsou vstupní objekty seskupeny do takzvaných tašek (\BPenname{bags}).
 
 \section{Multimnožiny}
 
-Aby byla možná korektní definice pojmu taška, je nejprve potřeba zavést několik pojmů z teorie množin. Prvním z nich je pojem multimnožiny (multiset), srov. \cite{knuth_art_1968}.
+Aby byla možná korektní definice pojmu taška, je nejprve potřeba zavést několik pojmů z teorie množin. Prvním z nich je pojem \BPname{multimnožiny} (\BPenname{multiset}), srov. \cite{knuth_art_1968}.
 
 \begin{define}
 	Nechť \( \BPset A \) je množina a \( m : \BPset A \to \BPfield N \).
-	Uspořádanou dvojici \( \left( \BPset A, m \right) \) nazýváme multimnožinou nad množinou \( \BPset A \). Pro \( a \in \BPset A \) se \( m \left( a \right) \) nazývá multiplicitou (počtem výskytů) prvku \( a \).
+	Uspořádanou dvojici \( \left( \BPset A, m \right) \) nazýváme \BPname{multimnožinou} nad množinou \( \BPset A \). Pro \( a \in \BPset A \) se \( m \left( a \right) \) nazývá \BPname{multiplicitou} (počtem výskytů) prvku \( a \).
 \end{define}
 
 Multimnožina je tedy zobecněním pojmu množiny, ve kterém se prvky mohou vyskytovat vícekrát. Z toho vychází i značení, kdy multimnožina může být definována výčtem prvků, ve kterém je prvek opakován tolikrát, jaká je jeho multiplicita.
@@ -34,11 +34,11 @@ Multimnožina je tedy zobecněním pojmu množiny, ve kterém se prvky mohou vys
 \end{remark}
 
 \begin{define}
-	Nechť \( \BPset A \) je množina. Multimnožina \( \left( \BPset B, m \right) \) je podmultimnožinou množiny \( \BPset A \), pokud platí \( \BPset B \subset \BPset A \). Značíme \( \left( \BPset B, m \right) \subset \BPset A \).
+	Nechť \( \BPset A \) je množina. Multimnožina \( \left( \BPset B, m \right) \) je \BPname{podmultimnožinou} množiny \( \BPset A \), pokud platí \( \BPset B \subset \BPset A \). Značíme \( \left( \BPset B, m \right) \subset \BPset A \).
 \end{define}
 
 \begin{define}
-	Nechť \( \BPset A \) je množina. Jako množinu všech podmultimnožin označujeme množinu
+	Nechť \( \BPset A \) je množina. Jako \BPname{množinu všech podmultimnožin \( \BPset A \)} označujeme množinu
 	\[ \mathcal P^M \left( \BPset A \right) = \left\{ \left( \BPset B, m \right) \middle| \left( \BPset B, m \right) \text{ je multimnožinou } \land \left( \BPset B, m \right) \subset \BPset A \right\} \]
 \end{define}
 
@@ -49,13 +49,16 @@ Množina všech podmultimnožin je tedy zobecněním potenční množiny, označ
 Nyní již lze korektně definovat pojem tašky.
 
 \begin{define}
-	Nechť \( \BPspace X \) je prostorem vstupních objektů. Potom prostorem tašek je množina \( \BPspace B \) splňující podmínky
+	Nechť \( \BPspace X \) je prostorem vstupních objektů. Potom \BPname{prostorem tašek} je multimnožina \( \BPspace B \) splňující podmínky
 	\begin{enumerate}
-		\item \( \BPspace B \subset \mathcal P \left( \BPspace X \right) \)
-		\item \( \left( \forall x \in \BPspace X \right) \left( \exists ! b \in \BPspace B \right) \left( x \in b \right) \)
+		\item \( \BPspace B \subset \mathcal P^M \left( \BPspace X \right) \)
+		\item \( \left( \forall x \in \BPspace X \right) \left( \exists b \in \BPspace B \right) \left( x \in b \right) \)
 	\end{enumerate}
-	Prvky prostoru tašek se nazývají taškami.
+	Prvky prostoru tašek se nazývají \BPname{taškami}.
 \end{define}
+
+
+
 \begin{define}\label{baglabel}
 	Nechť \( \BPspace X \) je prostorem vstupních objektů, \( \BPspace Y \) je prostorem výstupních objektů, kde platí
 	\[ \left( \forall x \in \BPspace X \right) \left( \exists ! y_x \in \BPspace Y \right) \]
