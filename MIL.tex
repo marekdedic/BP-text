@@ -57,14 +57,22 @@ Nyní již lze korektně definovat pojem tašky.
 	Prvky prostoru tašek se nazývají \BPname{taškami}.
 \end{define}
 
+Cílem mutli-instančního učení je řešit problémy, ve kterých není známá správná třída pro vstupní objety, avšak je známá třída právě pro tašky vstupních objektů. \cite{dietterich_solving_1997} dává za příklad multi-instančního problému následující úlohu:
 
+\begin{example}
+	Dveře od skladu v kanceláři mají zámek, od nějž mají klíče všichni zaměstnanci v kanceláři. Každý zaměstananec má svazek klíčů, ze kterých právě jeden je od tohoto sdíleného skladu. V kanceláři je avšak používán tzv. systém generálního klíče, tedy zatímco některým zaměstancům slouží klíč od skladu pouze k otevření skladu, jiní používají stejný klíč nejenom k přístupu ke skladu, ale i k odemčení jedněch, či dokonce vícero dalších dveří. Naší úlohou (například v roli zámečníka) je najít nejobecnější tvar, jaký klíč musí mít, aby odemknul dveře od skladu. To by nám umožnilo inspekcí libovolného klíče určit, zda tento klíč odemkne sklad či ne. Naše práce je ale ztížena tím, že zaměstnanci nejsou ochotní nám ukázat, který klíč z jejich svazku odemyká sklad, pouze nám předají celý svůj svazek klíču. Přístup ke skladu je omezen, tedy nemůžeme žádný z klíčů vyzkoušet. Tedy obecný tvar klíče můžeme odvodit pouze studiem získaných svazků klíčů.
+\end{example}
+
+V tomto příkladu mají jednotlivé klíče (resp. jejich popis nějakým vektorem příznaků, \todo{odkaz na vektory příznaků}) funkci vstupních objektů, svazky klíčů jsou pak taškami. Přestože má smysl se u každého klíče ptát, zda odemyká sklad, není tato informace k dispozici pro žádný z klíčů, pouze pro celé svazky. Má také smysl tvrdit o celých svazcích, že odemykají (respektive neodemykají) dveře od skladu, pokud obsahují alespoň jeden (respektive neobsahují žádný) klíč, kterým lze sklad odemknout. Tím je zaveden pojem \BPname{třídy tašky}, který \cite{dietterich_solving_1997} definuje následovně:
 
 \begin{define}\label{baglabel}
-	Nechť \( \BPspace X \) je prostorem vstupních objektů, \( \BPspace Y \) je prostorem výstupních objektů, kde platí
+	Nechť \( \BPspace X \) je prostorem vstupních objektů, \( \BPspace Y \) je prostorem tříd, kde platí
 	\[ \left( \forall x \in \BPspace X \right) \left( \exists ! y_x \in \BPspace Y \right) \]
-	Nechť \( \BPspace B \) je prostorem tašek. Nechť je v prostoru \( \BPspace Y \) definována funkce maximum. Potom výstupním objektem příslušícím tašce \( b \in \BPspace B \) je
+	Nechť \( \BPspace B \) je prostorem tašek. Nechť je v prostoru \( \BPspace Y \) definována funkce maximum. Potom třídou tašky \( b \in \BPspace B \) je
 	\[ y_b = \max_{x \in b} \left( y_x \right) \in \BPspace Y \]
 \end{define}
+
+Jak bude ale dále ukázáno, je tato definice ve většině případů přinejmenším problematická, neboť velké množství problémů (včetně problému popsaného v kapitole \ref{problem}) předpokládá, že třídy vstupních objektů nejenom nejsou známé, ale nejsou ani dobře definované.
 
 \section{Metody řešení multi-instančních úloh}
 
