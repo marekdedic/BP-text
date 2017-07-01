@@ -6,6 +6,15 @@ Jak souvisí s MIL, jak se liší.
 
 Hledání funkce \( \phi \) - neuronové sítě. Použité vrstvy. ADAM (možná i shrnutí jiných metod - SGD, ADAMax...)
 
+\section{Použitý formalismus}\label{used_formalism}
+V následujících částech bude používáno \( \BPspace X = \BPfield R^n \), \( \BPspace Y = \left\{ -1, +1 \right\} \) a \( \BPspace B \subset \bigcup_{k = 1}^{\infty} \left( \BPfield R^n \right) ^k \). Prvky \( \BPspace X \) budou nazývány \textit{vektory příznaků}, prvky \( \BPspace Y \) budou nazývány \textit{značky}. Instance bude považována za \textit{pozitivní}, pokud je pozitivní její značka, a negativní jinak. Při použití definice \ref{baglabel} bude taška považována za pozitivní, pokud obsahuje alespoň jednu pozitivní instanci, a negativní, pokud obsahuje pouze negativní instance. Je použito paradigma vloženého prostoru a dále popsaný formalismus, převzatý z \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.
+
+Pokud jsou zvoleny funkce \( k : \BPspace X \to \BPspace X \) a \( g : \bigcup_{k = 1}^{\infty} \BPspace X^k \to \bar{\BPspace X} \), lze vkládající funkci definovat jako
+\begin{equation}\label{net_pooling}
+	\phi : \BPspace B \to \bar{\BPspace X} : b \mapsto g \left( \left\{ k \left( x \right) \middle| x \in b \right\} \right)
+\end{equation}
+Za \( g \) lze volit například funkce minimum, maximum, aritmetický průměr. Funkce \( k \) je potom určována algoritmem pro učení s učitelem. \todo{Obrázek z \cite{pevny_using_2016}}\todo{Zapsat lépe}Tedy neuronové síťě určující funkce \( f \) a \( k \) jsou trénovány najednou.
+
 \begin{figure}
 	\caption{Model adresy URL}\label{url_model}
 	\centering
