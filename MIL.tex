@@ -54,7 +54,7 @@ Množina všech podmultimnožin je tedy zobecněním potenční množiny, označ
 Nyní již lze korektně definovat pojem tašky.
 
 \begin{define}
-	Nechť \( \BPspace X \) je prostorem vstupních objektů. Potom \BPname{prostorem tašek} je multimnožina \( \BPspace B \) splňující podmínky
+	Nechť \( \BPspace X \) je prostorem vstupních objektů. Potom \BPname{prostorem tašek} je multimnožina \( \BPspace B \) splňující podmínky \todo{Může instance být ve více taškách?}
 	\begin{enumerate}
 		\item \( \BPspace B \subset \mathcal P^M \left( \BPspace X \right) \)
 		\item \( \left( \forall x \in \BPspace X \right) \left( \exists b \in \BPspace B \right) \left( x \in b \right) \)
@@ -81,13 +81,27 @@ Jak bude ale dále ukázáno, je tato definice ve většině případů přinejm
 
 \section{Metody řešení multi-instančních úloh}
 
-V následující sekci jsou popsány tři převládající přístupy k řešení Multi-instančních problémů, více k problematice srov. \cite{pevny_using_2016}.
+V následující sekci jsou popsány tři převládající přístupy k řešení Multi-instančních problémů, srov. \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.
 
 \subsection{Paradigma prostoru instancí}
+\BPname{Paradigma prostoru instancí}(\BPenname{Instance-space paradigm}) je původní přístup k multi-instančnímu učení tak, jak jej popsal \cite{dietterich_solving_1997}. Předpokládá existenci (neznámých) tříd pro vstupní objekty a využívá definice \ref{baglabel}.
 Je předpokládána existence výstupních objektů pro všechny vstupní objekty (odpovídající instancím), přestože tyto hodnoty nejsou známé. Pro každou tašku je pak předpokládána exitence výstupního objektu \( y_b \). Cílem metody je najít klasifikační funkci \( f : \BPspace X \to \BPspace Y \) a posléze určit
-\begin{equation}
-	y_b = \max_{x \in b} \left( f \left( x \right) \right)
-\end{equation}
+\[ y_b = \max_{x \in b} \left( f \left( x \right) \right) \]
+
+\BPname{BP-MIP} (srov. \cite{zhou_neural_2002}) řeší problém binární klasifikace (tedy \( \BPspace Y = \left\{ -1, +1 \right\} \)) a předpokládá výstup nějaké vrstevnaté neuronové sítě (\BPenname{feedforward neural network}) \( o_{ij} \) pro \(j\)-tý vstupní objekt v \(i\)-té tašce. Symbolem \( y_{b_i} \) je označována třída tašky \( b_i \). Dále je pak definována chybová funkce pro vstupní objekty
+\[ E_{ij} = \begin{cases}
+	0 \quad \text{pro} \quad y_{b_i} = +1 \land o_{ij} \geq 0.5 \\
+	0 \quad \text{pro} \quad y_{b_i} = -1 \land o_{ij} < 0.5 \\
+	\frac{1}{2} \left( o_{ij} - 0.5 \right)^2 \quad \text{jinak}
+\end{cases} \]
+Pomocí této definice je definován chybová funkce pro celé tašky jako \footnote{Původní článek chybně v mezích uvádí \( \left| b_j \right| \)}
+\[ E_i = \begin{cases}
+	\min_{1 \leq j \leq \left| b_i \right|} E_{ij} \quad \text{pro} \quad y_{b_i} = +1 \\
+	\max_{1 \leq j \leq \left| b_i \right|} E_{ij} \quad \text{pro} \quad y_{b_i} = -1
+\end{cases} \]
+A dále globální chybová funkce jako
+\[ E = \sum_{i = 1}^{\left| \BPspace B \right|} E_i \]
+Díky takto dobře definované chybové funkci lze využít k trénování neuronové sítě \BPname{algoritmus zpětné propagace} (\BPenname{backpropagation}), modifikovaný pro multi-instanční učení (modifikace popsána v \cite{zhou_neural_2002}).
 
 \subsection{Paradigma prostoru tašek}
 Předpoklady úlohy jsou omezeny pouze na existenci výstupních objektů na úrovni tašek. Lze definovat kernel funkci
