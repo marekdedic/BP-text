@@ -20,7 +20,8 @@ Aby byla možná korektní definice pojmu taška, je nejprve potřeba zavést n�
 
 \begin{define}
 	Nechť \( \BPset A \) je množina a \( m : \BPset A \to \BPfield N \).
-	Uspořádanou dvojici \( \left( \BPset A, m \right) \) nazýváme \BPname{multimnožinou} nad množinou \( \BPset A \). Pro \( a \in \BPset A \) se \( m \left( a \right) \) nazývá \BPname{multiplicitou} (počtem výskytů) prvku \( a \).
+	Uspořádanou dvojici \( \left( \BPset A, m \right) \) nazýváme \BPname{multimnožinou} nad množinou \( \BPset A \). Pro \( a \in \BPset A \) se \( m \left( a \right) \) nazývá \BPname{multiplicitou} (počtem výskytů) prvku \( a \). Pokud \( a \in \BPset A \), říkáme, že \( a \) je prvkem multimnožiny \( \left( \BPset A, m \right) \) a značíme 
+	\[ a \in \left( \BPset A, m \right) \]
 \end{define}
 
 Multimnožina je tedy zobecněním pojmu množiny, ve kterém se prvky mohou vyskytovat vícekrát. Z toho vychází i značení, kdy multimnožina může být definována výčtem prvků, ve kterém je prvek opakován tolikrát, jaká je jeho multiplicita.
@@ -49,7 +50,7 @@ Množina všech podmultimnožin je tedy zobecněním potenční množiny, označ
 	\[ \left| \BPset B \right| = \sum_{a \in \BPset A} m \left( a \right) \]
 \end{define}
 
-\section{Multi-instanční učení - definice}
+\section{Multi-instanční učení}
 
 Nyní již lze korektně definovat pojem tašky.
 
@@ -108,11 +109,15 @@ Díky takto dobře definované chybové funkci lze využít k trénování neuro
 \todo{MILBoost, MI-SVM}
 
 \subsection{Paradigma prostoru tašek}
-Předpoklady úlohy jsou omezeny pouze na existenci výstupních objektů na úrovni tašek. Lze definovat kernel funkci
-\begin{equation}
-	k : \BPspace B \times \BPspace B \to \BPfield R_0^+
-\end{equation}
-kterou je možno použít jako metriku při klasifikaci například algoritmem k-nejbližsích sousedů.
+\BPname{Paradigma prostoru tašek} (\BPenname{Bag-space paradigm}) omezuje předpoklady úlohy  pouze na existenci tříd na úrovni tašek a zcela opouští představu existence tříd vstupních objektů a s ní i definici \ref{baglabel}. Přístup pomocí paradigmatu prostoru tašek často definuje nějakou vzdálenostní funkci (\BPenname{distance function}) nebo jádrovou funkci (\BPenname{kernel function}), mající podobu
+\[ k : \BPspace B \times \BPspace B \to \BPfield R_0^+ \]
+Vzhledem k tomu, že není zaveden pojem třídy vstupního objektu, má hledaná klasifikační funkce tvar \( f : \BPspace B \to \BPspace Y \) a je hledána přímo v této podobě.
+
+\BPname{Citation-kNN} (srov. \cite{wang_solving_2000}) definuje pro tašky \( b_1, b_2 \in \BPspace B \) pojem \BPname{minimální Hausdorffovy vzdálenosti} (\BPenname{minimal Hausdorff distance}) jako
+\[ H \left( b_1, b_2 \right) = \min_{x \in b_1} \min_{y \in b_2} \left\Vert x - y \right\Vert \]
+Je využit algoritmus k-nejbližších sousedů (srov. \cite{dasarathy_nearest_1991}), modifikovaný o systém tzv. \BPname{citací}, kde kromě k-nejbližších sousedů (zde nazývaných \BPname{reference}) je definováno i c-nejbližších citujících, kde za \( c \)-nejbližších citujících instance \( x \in b \) je považováno
+\[ Citers \left( x, c \right) = \left\{ x_i \middle| Rank \left( x_i, x \right) \leq c \land x_i \in b \right\} \]
+Obě tyto hodnoty jsou vypočteny právě podle minimální Hausdorffovy vzdálenosti. Tašky jsou pak klasifikovány podle součtu těchto hodnot.
 
 \subsection{Paradigma vloženého prostoru}
 Předpoklady úlohy jsou (stejně jako u paradigmatu prostoru tašek) omezeny pouze na existenci výstupních objektů na úrovni tašek. Nechť existuje vkládající funkce \( \phi : \BPspace B \to \bar{\BPspace X} \), kde \( \bar{\BPspace X} \) je nějaký vstupní prostor. Díky této funkci lze reprezentovat kažkou tašku vstupním objektem \( \phi \left( b \right) \in \bar{\BPspace X} \) a nasledně lze použít jakýkoliv algoritmus používaný při klasickém učení s učitelem. Pokud \( \BPspace X = \bar{\BPspace X} = \BPfield R^n \), pak je většinou kladena na \( \phi \) podmínka
