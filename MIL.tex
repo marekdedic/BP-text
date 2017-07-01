@@ -10,7 +10,7 @@ Proč embedded space? (výpočetně méně náročný než BS, neexistence insta
 
 \null
 
-V současné době existují zhruba tři přístupy k učení z příkladů. Těmi jsou \BPname{učení s učitelem} (\BPenname{supervised learning}), \BPname{učení bez učitele} (\BPenname{unsupervised learning}) a \BPname{zpětnovazební učení} (\BPenname{reinforcement learning}). Učení s učitelem má za cíl naučit se správně zařadit neznámé příklady do tříd, které jsou pro trénovací příklady známé. Učení bez učitele má za cíl naučit se odvodit strukturu zdroje příkladů, kde třídy nejsou známé ani pro trénovací příklady. Zpětnovazební učení se pokouší nalézt zobrazení stavů na akce, kde pro trénovací příklady nejsou známé třídy, avšak existuje opožděná zpětná vazba, kterou lze chápat jako opožděné zařazení do třídy. V nedávné době\footnote{Od zveřejnění článku} \cite{dietterich_solving_1997} navrhli tzv. \BPname{Multi-instanční učení}, kde se trénovací data skládají z mnoha tzv. \BPname{tašek} (\BPenname{bags}), které obsahují mnoho instancí. (viz \cite{zhou_neural_2002})
+V současné době existují zhruba tři přístupy k učení z příkladů. Těmi jsou \BPname{učení s učitelem} (\BPenname{supervised learning}), \BPname{učení bez učitele} (\BPenname{unsupervised learning}) a \BPname{zpětnovazební učení} (\BPenname{reinforcement learning}). Učení s učitelem má za cíl naučit se správně zařadit neznámé příklady do tříd, které jsou pro trénovací příklady známé. Učení bez učitele má za cíl naučit se odvodit strukturu zdroje příkladů, kde třídy nejsou známé ani pro trénovací příklady. Zpětnovazební učení se pokouší nalézt zobrazení stavů na akce, kde pro trénovací příklady nejsou známé třídy, avšak existuje opožděná zpětná vazba, kterou lze chápat jako opožděné zařazení do třídy. V nedávné době\footnote{Od zveřejnění článku.} \cite{dietterich_solving_1997} navrhli tzv. \BPname{Multi-instanční učení}, kde se trénovací data skládají z mnoha tzv. \BPname{tašek} (\BPenname{bags}), které obsahují mnoho instancí. (viz \cite{zhou_neural_2002})
 
 Multi-instanční učení (\BPenname{multi-instance learning, MIL}), poprvé takto popsané v \cite{dietterich_solving_1997}, je variací metody učení s učitelem, metody pro určení klasifikační funkce z trénovacích dat. Je předpokládána existence vstupních objektů ze vstupního prostoru \( \BPspace X \), výstupních objektů (tříd) z výstupního prostoru \( \BPspace Y \). Tyto třídy avšak nejsou známé ani pro trénovací data. Proto jsou vstupní objekty seskupeny do takzvaných tašek (\BPenname{bags}).
 
@@ -66,7 +66,7 @@ Nyní již lze korektně definovat pojem tašky.
 Cílem mutli-instančního učení je řešit problémy, ve kterých není známá správná třída pro vstupní objety, avšak je známá třída právě pro tašky vstupních objektů. \cite{dietterich_solving_1997} dává za příklad multi-instančního problému následující úlohu:
 
 \begin{example}
-	Dveře od skladu v kanceláři mají zámek, od nějž mají klíče všichni zaměstnanci v kanceláři. Každý zaměstananec má svazek klíčů, ze kterých právě jeden je od tohoto sdíleného skladu. V kanceláři je avšak používán tzv. systém generálního klíče, tedy zatímco některým zaměstancům slouží klíč od skladu pouze k otevření skladu, jiní používají stejný klíč nejenom k přístupu ke skladu, ale i k odemčení jedněch, či dokonce vícero dalších dveří. Naší úlohou (například v roli zámečníka) je najít nejobecnější tvar, jaký klíč musí mít, aby odemknul dveře od skladu. To by nám umožnilo inspekcí libovolného klíče určit, zda tento klíč odemkne sklad či ne. Naše práce je ale ztížena tím, že zaměstnanci nejsou ochotní nám ukázat, který klíč z jejich svazku odemyká sklad, pouze nám předají celý svůj svazek klíču. Přístup ke skladu je omezen, tedy nemůžeme žádný z klíčů vyzkoušet. Tedy obecný tvar klíče můžeme odvodit pouze studiem získaných svazků klíčů.
+	Dveře od skladu v kanceláři mají zámek, od nějž mají klíče všichni zaměstnanci v kanceláři. Každý zaměstananec má svazek klíčů, ze kterých právě jeden je od tohoto sdíleného skladu. V kanceláři je avšak používán tzv. systém generálního klíče, tedy zatímco některým zaměstancům slouží klíč od skladu pouze k otevření skladu, jiní používají stejný klíč nejenom k přístupu ke skladu, ale i k odemčení jedněch, či dokonce více dalších dveří. Naší úlohou (například v roli zámečníka) je najít nejobecnější tvar, jaký klíč musí mít, aby odemknul dveře od skladu. To by nám umožnilo inspekcí libovolného klíče určit, zda tento klíč odemkne sklad či ne. Naše práce je ale ztížena tím, že zaměstnanci nejsou ochotní nám ukázat, který klíč z jejich svazku odemyká sklad, pouze nám předají celý svůj svazek klíču. Přístup ke skladu je omezen, tedy nemůžeme žádný z klíčů vyzkoušet. Tedy obecný tvar klíče můžeme odvodit pouze studiem získaných svazků klíčů.
 \end{example}
 
 V tomto příkladu mají jednotlivé klíče (resp. jejich popis nějakým vektorem příznaků, \todo{odkaz na vektory příznaků}) funkci vstupních objektů, svazky klíčů jsou pak taškami. Přestože má smysl se u každého klíče ptát, zda odemyká sklad, není tato informace k dispozici pro žádný z klíčů, pouze pro celé svazky. Má také smysl tvrdit o celých svazcích, že odemykají (respektive neodemykají) dveře od skladu, pokud obsahují alespoň jeden (respektive neobsahují žádný) klíč, kterým lze sklad odemknout. Tím je zaveden pojem \BPname{třídy tašky}, který \cite{dietterich_solving_1997} definuje následovně:
@@ -78,14 +78,14 @@ V tomto příkladu mají jednotlivé klíče (resp. jejich popis nějakým vekto
 	\[ y_b = \max_{x \in b} \left( y_x \right) \in \BPspace Y \]
 \end{define}
 
-Jak bude ale dále ukázáno, je tato definice ve většině případů přinejmenším problematická, neboť velké množství problémů (včetně problému popsaného v kapitole \ref{problem}) předpokládá, že třídy vstupních objektů nejenom nejsou známé, ale nejsou ani dobře definované.
+Jak bude ale dále ukázáno, je tato definice ve většině případů přinejmenším problematická, neboť velké množství úloh (včetně úlohy popsané v kapitole \ref{problem}) předpokládá, že třídy vstupních objektů nejenom nejsou známé, ale nejsou ani dobře definované.
 
 \section{Metody řešení multi-instančních úloh}
 
-V následující sekci jsou popsány tři převládající přístupy k řešení Multi-instančních problémů, srov. \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.
+V následující podkapitole jsou popsány tři převládající přístupy k řešení Multi-instančních problémů. Celá tato sekce vychází z \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.
 
 \subsection{Paradigma prostoru instancí}
-\BPname{Paradigma prostoru instancí}(\BPenname{Instance-space paradigm}) je původní přístup k multi-instančnímu učení tak, jak jej popsal \cite{dietterich_solving_1997}. Předpokládá existenci (neznámých) tříd pro vstupní objekty a využívá definice \ref{baglabel}.
+\BPname{Paradigma prostoru instancí} (\BPenname{Instance-space paradigm}) je původní přístup k multi-instančnímu učení tak, jak jej popsal \cite{dietterich_solving_1997}. Předpokládá existenci (neznámých) tříd pro vstupní objekty a využívá definice \ref{baglabel}.
 Je předpokládána existence výstupních objektů pro všechny vstupní objekty (odpovídající instancím), přestože tyto hodnoty nejsou známé. Pro každou tašku je pak předpokládána exitence výstupního objektu \( y_b \). Cílem metody je najít klasifikační funkci \( f : \BPspace X \to \BPspace Y \) a posléze určit
 \[ y_b = \max_{x \in b} \left( f \left( x \right) \right) \]
 
@@ -95,7 +95,7 @@ Je předpokládána existence výstupních objektů pro všechny vstupní objekt
 	0 \quad \text{pro} \quad y_{b_i} = -1 \land o_{ij} < 0.5 \\
 	\frac{1}{2} \left( o_{ij} - 0.5 \right)^2 \quad \text{jinak}
 \end{cases} \]
-Pomocí této definice je definována chybová funkce pro celé tašky jako \footnote{Původní článek chybně v mezích uvádí \( \left| b_j \right| \)}
+Pomocí této definice je definována chybová funkce pro celé tašky jako \footnote{Původní článek chybně v mezích uvádí \( \left| b_j \right| \) .}
 \[ E_i = \begin{cases}
 	\min_{1 \leq j \leq \left| b_i \right|} E_{ij} \quad \text{pro} \quad y_{b_i} = +1 \\
 	\max_{1 \leq j \leq \left| b_i \right|} E_{ij} \quad \text{pro} \quad y_{b_i} = -1
@@ -120,10 +120,18 @@ Je využit algoritmus k-nejbližších sousedů (srov. \cite{dasarathy_nearest_1
 Obě tyto hodnoty jsou vypočteny právě podle minimální Hausdorffovy vzdálenosti. Tašky jsou pak klasifikovány podle součtu těchto hodnot.
 
 \subsection{Paradigma vloženého prostoru}
-Předpoklady úlohy jsou (stejně jako u paradigmatu prostoru tašek) omezeny pouze na existenci výstupních objektů na úrovni tašek. Nechť existuje vkládající funkce \( \phi : \BPspace B \to \bar{\BPspace X} \), kde \( \bar{\BPspace X} \) je nějaký vstupní prostor. Díky této funkci lze reprezentovat kažkou tašku vstupním objektem \( \phi \left( b \right) \in \bar{\BPspace X} \) a nasledně lze použít jakýkoliv algoritmus používaný při klasickém učení s učitelem. Pokud \( \BPspace X = \bar{\BPspace X} = \BPfield R^n \), pak je většinou kladena na \( \phi \) podmínka
-\begin{equation}
-	\left( \exists \psi : \BPfield R^k \to \BPfield R \right) \left( \phi \left( x^{(1)}, \dots, x^{(k)} \right) = \left( \psi \left( x_1^{(1)}, \dots, x_1^{(k)} \right), \dots, \psi \left( x_n^{(1)}, \dots, x_n^{(k)} \right) \right) \right)
-\end{equation}
+Při použítí \BPname{paradigmatu vloženého prostoru} (\BPenname{Embedded-space paradigm}) jsou, stejně jako v případě paradigmatu prostoru tašek, předpoklady omezeny pouze na existenci výstupních objektů na úrovni tašek. Je zde zavedena \BPname{vkládající funkce} (\BPenname{embedding function}) \( \phi : \BPspace B \to \bar{\BPspace X} \), kde \( \bar{\BPspace X} \) je nějaký vstupní prostor, který může, ale nemusí být totožný s prostorem \( \BPspace X \). Díky této funkci lze reprezentovat kažkou tašku vstupním objektem \( \phi \left( b \right) \in \bar{\BPspace X} \) a nasledně lze použít jakýkoliv algoritmus používaný při klasickém učení s učitelem. Nejjednodušší a často používané vkládající funkce jsou například funkce minimum, maximum či aritmetický průměr.
+
+\BPname{MILES} (srov. \todo{To moc nechápu, je to dost nečitelný} \cite{chen_miles:_2006}) předpokládá existenci nějakého slovníku vstupních objektů \( \BPspace D \) a pokouší se definovat vkládající funkci jako míru podobnosti tašky s objekty ve slovníku, tedy jako
+\[ \phi : \BPspace B \to \BPfield R^{\left| \BPspace D \right|} \]
+definovanou po složkách jako
+\[ \phi_i \left( b \right) = \sum_{x \in b} k \left( x, d_i \right) \quad \text{kde} \quad d_i \in \BPspace D \]
+kde
+\[ k \left( x, d \right) = \begin{cases}
+	e^{- \frac{1}{\sigma^2} \left\Vert x - d \right\Vert^2} \quad \text{pokud} \; d \; \text{je nejbližším sousedem} \; x \; \text{v} \; \BPspace D \\
+	0 \quad \text{jinak}
+\end{cases} \]
+Výběr vstupních objektů ve slovníku \( \BPspace D \) je prováděn pomocí algoritmu 1-norm SVM (srov. \cite{zhu_1-norm_2004}), který má ovšem nevýhodu v podobě velké výpočetní náročnosti.
 
 \section{Použitý formalismus}\label{used_formalism}
 V následujících částech bude používáno \( \BPspace X = \BPfield R^n \), \( \BPspace Y = \left\{ -1, +1 \right\} \) a \( \BPspace B \subset \bigcup_{k = 1}^{\infty} \left( \BPfield R^n \right) ^k \). Prvky \( \BPspace X \) budou nazývány \textit{vektory příznaků}, prvky \( \BPspace Y \) budou nazývány \textit{značky}. Instance bude považována za \textit{pozitivní}, pokud je pozitivní její značka, a negativní jinak. Při použití definice \ref{baglabel} bude taška považována za pozitivní, pokud obsahuje alespoň jednu pozitivní instanci, a negativní, pokud obsahuje pouze negativní instance. Je použito paradigma vloženého prostoru a dále popsaný formalismus, převzatý z \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.

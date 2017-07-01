@@ -41,6 +41,7 @@ Každá z těchto tří částí adresy URL se sama skládá z několika podčá
 
 Je zřejmé, že na pořadí podčástí domény záleží, definují "cestu" k cílovému serveru a jsou řazeny od nejkonkrétnější k nejobecnější (srov. \cite{mockapetris_domain_1987}).	Stejně tak u cesty závisí na pořádí, které definuje adresářové umístění požadovaného souboru na serveru.
 
+\todo{Důvod pro použití MIL nebo motivace k...}
 \section{Proč MIL?}
 
 Pro modelování klasifikační funkce byl využit přístup pomocí tzv. \BPname{Multi-instančního učení} (MIL)\footnote{resp. jeho speciální varianta, blíže popsaná v kapitole \ref{model}}, poprvé popsaného v \cite{dietterich_solving_1997}. Tento přítup, podrobněji popsaný v kapitole \ref{MIL}, vychází z předpokladu, že vstupem klasifikační funkce není jedna instance, ale sada (neznámého počtu) instancí, které všechny dohromady tvoří jeden vzorek, zvaný \BPname{taška}. Dále je pak předpokládáno, že každou tašku je možno zařadit do nějaké třídy, přestože ne všechny instance odpovídají této třídě. Adresu URL lze považovat za takovouto tašku za využití jejího hierarchického modelu, nastíněného v sekci \ref{URL_structure}. Proto lze přístup pomocí Multi-instančního učení aplikovat na tento problém.
