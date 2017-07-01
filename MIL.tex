@@ -133,13 +133,23 @@ kde
 \end{cases} \]
 Výběr vstupních objektů ve slovníku \( \BPspace D \) je prováděn pomocí algoritmu 1-norm SVM (srov. \cite{zhu_1-norm_2004}), který má ovšem nevýhodu v podobě velké výpočetní náročnosti.
 
+\section{Alternativní stochastický formalismus}
+V následující podkapitole je popsán alternativní formalismus pro mutli-instanční učení, převzatý z \cite{muandet_learning_2012} a \cite{pevny_using_2016}.
+
+Pro prostor vstupních objektů \( \BPspace X \) nechť existuje měřitelný prostor \( \left( \BPspace X, \BPspace A \right) \), kde \( \BPspace A \) je \( \sigma \)-algebrou prostoru \( \BPspace X \). Nechť \( \BPspace P^{\BPspace X} \) je množinou všech pravděpodobnostních měr prostoru \( \left( \BPspace X, \BPspace A \right) \). Na každou tašku pak lze pohlížet jako na realizaci nějaké pravděpodobnostní funkce \( P \left( p_b, y_b \right) \), kde \( p_b \in \BPspace P^{\BPspace X} \) je rozdělení pravděpodobnosti instancí v \( b \) a \( y_b \in \BPspace Y \) je třída této tašky. Prostor všech tašek lze zapsat jako
+\[ \BPspace B = \left\{ x_i \middle| \left( \forall i \in \hat n \right) \left( x_i \sim p \in \BPspace P^{\BPspace X} \right) \right\} \]
+Určovaná klasifikační funkci je v tomto formalismu tvaru \( f : \BPspace P^{\BPspace X} \to \BPspace Y \).
+
+Je tedy předpokladem, že pravděpodobnostní funkce závisí i na značce, tj. v případě binární klasifikace \( p_+ \neq p_- \) kde \( p_+ \sim P(p, +1) \) a \( p_- \sim P(p, -1) \). V souladu s \cite{dietterich_solving_1997} je dále předpokládáno, že existují vstupní objekty, které nikdy nejsou generovány pravděpodobnostními mírami negativní třídy, z čehož plyne
+\[ p_+ \setminus p_- \neq \emptyset \]
+
+V případě paradigmatu prostoru tašek je potřeba definovat jádrovou funkci na prostoru tašek, což je v tomto stochastickém formalismu o něco složitější. Nechť \( k \) je jádrovou funkcí prostoru \( \BPspace X \), tedy \( k : \BPspace X \times \BPspace X \to \BPfield R \). Nechť \( \BPspace H \) je Hilbertovým prostorem funkcí \( \BPspace X \to \BPfield R \). Tento prostor je Hilbertovým prostorem reprodukujícím jádro \( k \). Dále je pak definované zobrazení \( \mu \) jako
+\[ \mu : \BPspace P^{\BPspace X} \to \BPspace H : p \mapsto \int_{\BPspace X} k \left( x, \cdot \right) \mathrm{d}p \left( x \right) \]
+Pomocí tohoto zobrazení lze definovat jádrovou funkci \( K : \BPspace P^{\BPspace X} \times \BPspace P^{\BPspace X} \to \BPfield R \) jako
+\[ K \left( p, q \right) = \braket{\mu_p | \mu_q}_{\BPspace H} = \iint k \left( x, y \right) \mathrm{d} p \left( x \right) \mathrm{d} q \left( y \right) \]
+
 \section{Použitý formalismus}\label{used_formalism}
 V následujících částech bude používáno \( \BPspace X = \BPfield R^n \), \( \BPspace Y = \left\{ -1, +1 \right\} \) a \( \BPspace B \subset \bigcup_{k = 1}^{\infty} \left( \BPfield R^n \right) ^k \). Prvky \( \BPspace X \) budou nazývány \textit{vektory příznaků}, prvky \( \BPspace Y \) budou nazývány \textit{značky}. Instance bude považována za \textit{pozitivní}, pokud je pozitivní její značka, a negativní jinak. Při použití definice \ref{baglabel} bude taška považována za pozitivní, pokud obsahuje alespoň jednu pozitivní instanci, a negativní, pokud obsahuje pouze negativní instance. Je použito paradigma vloženého prostoru a dále popsaný formalismus, převzatý z \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.
-
-Nechť existuje prostor rozdělení pravděpodobnosti \( \BPspace P^{\BPspace X} \). Každá taška \( b \) je pak realizací nějaké pravděpodobnostní funkce \( P \left( p_b, y_b \right) \) kde \( p_b \in \BPspace P^{\BPspace X} \) je rozdělení pravděpodobnosti instancí v \( b \), a \( y_b \in \BPspace Y \) je značka této tašky. Je tedy předpokladem, že pravděpodobnostní funkce závisí i na značce, tj. \( p_+ \neq p_- \) kde \( p_+ \sim P(p, +1) \) a \( p_- \sim P(p, -1) \). Prostor všech tašek lze poté alternativně zapsat jako
-\todo{Vyhovuje definici?}\begin{equation}
-	\BPspace B = \left\{ \left\{ x_1, x_2, \dots, x_n \right\} \in \BPspace P \left( \BPspace X \right) \middle| \left( \forall i \in \hat n \right) \left( x_i \sim p \in \BPspace P^{\BPspace X} \right) \right\}
-\end{equation}
 
 Pokud jsou zvoleny funkce \( k : \BPspace X \to \BPspace X \) a \( g : \bigcup_{k = 1}^{\infty} \BPspace X^k \to \bar{\BPspace X} \), lze vkládající funkci definovat jako
 \begin{equation}\label{net_pooling}
