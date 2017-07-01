@@ -94,7 +94,7 @@ Je předpokládána existence výstupních objektů pro všechny vstupní objekt
 	0 \quad \text{pro} \quad y_{b_i} = -1 \land o_{ij} < 0.5 \\
 	\frac{1}{2} \left( o_{ij} - 0.5 \right)^2 \quad \text{jinak}
 \end{cases} \]
-Pomocí této definice je definován chybová funkce pro celé tašky jako \footnote{Původní článek chybně v mezích uvádí \( \left| b_j \right| \)}
+Pomocí této definice je definována chybová funkce pro celé tašky jako \footnote{Původní článek chybně v mezích uvádí \( \left| b_j \right| \)}
 \[ E_i = \begin{cases}
 	\min_{1 \leq j \leq \left| b_i \right|} E_{ij} \quad \text{pro} \quad y_{b_i} = +1 \\
 	\max_{1 \leq j \leq \left| b_i \right|} E_{ij} \quad \text{pro} \quad y_{b_i} = -1
@@ -102,6 +102,10 @@ Pomocí této definice je definován chybová funkce pro celé tašky jako \foot
 A dále globální chybová funkce jako
 \[ E = \sum_{i = 1}^{\left| \BPspace B \right|} E_i \]
 Díky takto dobře definované chybové funkci lze využít k trénování neuronové sítě \BPname{algoritmus zpětné propagace} (\BPenname{backpropagation}), modifikovaný pro multi-instanční učení (modifikace popsána v \cite{zhou_neural_2002}).
+
+\BPname{EM-DD} (srov. \cite{zhang_em-dd:_2002}) kombinuje EM (\BPenname{Expectation-maximization}) algoritmus (srov. \cite{dempster_maximum_1977}) a DD (\BPenname{Diverse density}) algoritmus (srov. \cite{maron_framework_1998}). EM-DD vychází z nějakého odhadu cílového bodu \( h \) v prostoru vstupních objektů, tuto hypotézu \( h \) poté vylepšuje EM algoritmem. V E-kroku je z každé tašky vybrán jeden vstupní objekt, o němž se předpokládá, že má největší vliv na třídu tašky. V M-kroku je využito algoritmu gradientního vzestupu (\BPenname{gradient ascent}) k nalezení nové hypotézy \( h' \), která maximalizuje \( DD \left( h \right) \) (odpovídající pravděpodobnosti, že \( h \) je skutečným cílovým bodem). Opakováním těchto kroků je hypotéza stále vylepšována.
+
+\todo{MILBoost, MI-SVM}
 
 \subsection{Paradigma prostoru tašek}
 Předpoklady úlohy jsou omezeny pouze na existenci výstupních objektů na úrovni tašek. Lze definovat kernel funkci
