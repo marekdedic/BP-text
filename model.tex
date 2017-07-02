@@ -1,13 +1,5 @@
 \chapter{Použitý model}\label{model}
 
-Jak vypadá.
-
-Jak souvisí s MIL, jak se liší.
-
-Hledání funkce \( \phi \) - neuronové sítě. Použité vrstvy. ADAM (možná i shrnutí jiných metod - SGD, ADAMax...)
-
-\null
-
 Jelikož úloha představená v kapitole \ref{problem} je úlohou v níž je adresa URL rozdělena na části a ty jsou posléze rozděleny na podčásti, je na model použitý k aproximaci klasifikační funkce kladen požadavek, aby reflektoval tuto hierarchickou strukturu vstupních dat. Použitý model využívá přístupu pomocí multi-instančního učení \footnote{resp. jeho speciální varianty, popsané v kapitole \ref{MIL-modification}.}, popsaného v kapitole \ref{MIL}, aplikovaného dvakrát na sebe sama. Tím je umožněno modelovat nejprve tři vybrané části adresy URL (doménu, cestu a dotaz) z jejich podčástí, a posléze z těchto tří částí modelovat samotnou adresu URL.
 
 \section{Reprezentace adresy URL pomocí tašek vektorů}

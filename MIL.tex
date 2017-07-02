@@ -1,15 +1,5 @@
 \chapter{Multi-instanční učení}\label{MIL}
 
-Co to je, definice z \cite{dietterich_solving_1997}.
-
-Metody řešení - 3 paradigmata - IS, proč nevyhovuje, BS, ES. Co kdo kdy dělal.
-
-Formalismus z \cite{pevny_using_2016}.
-
-Proč embedded space? (výpočetně méně náročný než BS, neexistence instance-level labelů.)
-
-\null
-
 V současné době existují zhruba tři přístupy k učení z příkladů. Těmi jsou \BPname{učení s učitelem} (\BPenname{supervised learning}), \BPname{učení bez učitele} (\BPenname{unsupervised learning}) a \BPname{zpětnovazební učení} (\BPenname{reinforcement learning}). Učení s učitelem má za cíl naučit se správně zařadit neznámé příklady do tříd, které jsou pro trénovací příklady známé. Učení bez učitele má za cíl naučit se odvodit strukturu zdroje příkladů, kde třídy nejsou známé ani pro trénovací příklady. Zpětnovazební učení se pokouší nalézt zobrazení stavů na akce, kde pro trénovací příklady nejsou známé třídy, avšak existuje opožděná zpětná vazba, kterou lze chápat jako opožděné zařazení do třídy. V nedávné době\footnote{Od zveřejnění článku.} \cite{dietterich_solving_1997} navrhli tzv. \BPname{Multi-instanční učení}, kde se trénovací data skládají z mnoha tzv. \BPname{tašek} (\BPenname{bags}), které obsahují mnoho instancí. (viz \cite{zhou_neural_2002})
 
 Multi-instanční učení (\BPenname{multi-instance learning, MIL}), poprvé takto popsané v \cite{dietterich_solving_1997}, je variací metody učení s učitelem, metody pro určení klasifikační funkce z trénovacích dat. Je předpokládána existence vstupních objektů ze vstupního prostoru \( \BPspace X \), výstupních objektů (tříd) z výstupního prostoru \( \BPspace Y \). Tyto třídy avšak nejsou známé ani pro trénovací data. Proto jsou vstupní objekty seskupeny do takzvaných tašek (\BPenname{bags}).
