@@ -119,8 +119,9 @@ Je využit algoritmus k-nejbližších sousedů (srov. \cite{dasarathy_nearest_1
 \[ Citers \left( x, c \right) = \left\{ x_i \middle| Rank \left( x_i, x \right) \leq c \land x_i \in b \right\} \]
 Obě tyto hodnoty jsou vypočteny právě podle minimální Hausdorffovy vzdálenosti. Tašky jsou pak klasifikovány podle součtu těchto hodnot.
 
-\subsection{Paradigma vloženého prostoru}
-Při použítí \BPname{paradigmatu vloženého prostoru} (\BPenname{Embedded-space paradigm}) jsou, stejně jako v případě paradigmatu prostoru tašek, předpoklady omezeny pouze na existenci výstupních objektů na úrovni tašek. Je zde zavedena \BPname{vkládající funkce} (\BPenname{embedding function}) \( \phi : \BPspace B \to \bar{\BPspace X} \), kde \( \bar{\BPspace X} \) je nějaký vstupní prostor, který může, ale nemusí být totožný s prostorem \( \BPspace X \). Díky této funkci lze reprezentovat kažkou tašku vstupním objektem \( \phi \left( b \right) \in \bar{\BPspace X} \) a nasledně lze použít jakýkoliv algoritmus používaný při klasickém učení s učitelem. Nejjednodušší a často používané vkládající funkce jsou například funkce minimum, maximum či aritmetický průměr.
+\subsection{Paradigma vloženého prostoru}\label{embedded-space-paradigm}
+
+Při použítí \BPname{paradigmatu vloženého prostoru} (\BPenname{Embedded-space paradigm}) jsou, stejně jako v případě paradigmatu prostoru tašek, předpoklady omezeny pouze na existenci výstupních objektů na úrovni tašek. Je zde zavedena \BPname{vkládající funkce} (\BPenname{embedding function}) \( \phi : \BPspace B \to \bar{\BPspace X} \), kde \( \bar{\BPspace X} \) je nějaký vstupní prostor, který může, ale nemusí být totožný s prostorem \( \BPspace X \). Díky této funkci lze reprezentovat kažkou tašku vstupním objektem \( \phi \left( b \right) \in \bar{\BPspace X} \) a nasledně lze použít jakýkoliv algoritmus používaný při klasickém učení s učitelem. Jedny z nejjednodušších vkládajících funkcí jsou například funkce minimum, maximum či aritmetický průměr. Lze ale vkládající funkci definovat například pomocí neuronové sítě, kterou poté lze trénovat společně s neuronovou sítí definující klasifikační funkci \( f \).
 
 \BPname{MILES} (srov. \todo{To moc nechápu, je to dost nečitelný} \cite{chen_miles:_2006}) předpokládá existenci nějakého slovníku vstupních objektů \( \BPspace D \) a pokouší se definovat vkládající funkci jako míru podobnosti tašky s objekty ve slovníku, tedy jako
 \[ \phi : \BPspace B \to \BPfield R^{\left| \BPspace D \right|} \]
@@ -140,7 +141,7 @@ Pro prostor vstupních objektů \( \BPspace X \) nechť existuje měřitelný pr
 \[ \BPspace B = \left\{ x_i \middle| \left( \forall i \in \hat n \right) \left( x_i \sim p \in \BPspace P^{\BPspace X} \right) \right\} \]
 Určovaná klasifikační funkci je v tomto formalismu tvaru \( f : \BPspace P^{\BPspace X} \to \BPspace Y \).
 
-Je tedy předpokladem, že pravděpodobnostní funkce závisí i na značce, tj. v případě binární klasifikace \( p_+ \neq p_- \) kde \( p_+ \sim P(p, +1) \) a \( p_- \sim P(p, -1) \). V souladu s \cite{dietterich_solving_1997} je dále předpokládáno, že existují vstupní objekty, které nikdy nejsou generovány pravděpodobnostními mírami negativní třídy, z čehož plyne
+Je tedy předpokladem, že pravděpodobnostní funkce závisí i na třídě, tj. v případě binární klasifikace \( p_+ \neq p_- \) kde \( p_+ \sim P(p, +1) \) a \( p_- \sim P(p, -1) \). V souladu s \cite{dietterich_solving_1997} je dále předpokládáno, že existují vstupní objekty, které nikdy nejsou generovány pravděpodobnostními mírami negativní třídy, z čehož plyne
 \[ p_+ \setminus p_- \neq \emptyset \]
 
 V případě paradigmatu prostoru tašek je potřeba definovat jádrovou funkci na prostoru tašek, což je v tomto stochastickém formalismu o něco složitější. Nechť \( k \) je jádrovou funkcí prostoru \( \BPspace X \), tedy \( k : \BPspace X \times \BPspace X \to \BPfield R \). Nechť \( \BPspace H \) je Hilbertovým prostorem funkcí \( \BPspace X \to \BPfield R \). Tento prostor je Hilbertovým prostorem reprodukujícím jádro \( k \). Dále nechť je definované zobrazení \( \mu \) jako

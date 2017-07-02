@@ -6,59 +6,76 @@ Jak souvisí s MIL, jak se liší.
 
 Hledání funkce \( \phi \) - neuronové sítě. Použité vrstvy. ADAM (možná i shrnutí jiných metod - SGD, ADAMax...)
 
-\section{Použitý formalismus}\label{used_formalism}
-V následujících částech bude používáno \( \BPspace X = \BPfield R^n \), \( \BPspace Y = \left\{ -1, +1 \right\} \) a \( \BPspace B \subset \bigcup_{k = 1}^{\infty} \left( \BPfield R^n \right) ^k \). Prvky \( \BPspace X \) budou nazývány \textit{vektory příznaků}, prvky \( \BPspace Y \) budou nazývány \textit{značky}. Instance bude považována za \textit{pozitivní}, pokud je pozitivní její značka, a negativní jinak. Při použití definice \ref{baglabel} bude taška považována za pozitivní, pokud obsahuje alespoň jednu pozitivní instanci, a negativní, pokud obsahuje pouze negativní instance. Je použito paradigma vloženého prostoru a dále popsaný formalismus, převzatý z \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.
+\null
 
-Pokud jsou zvoleny funkce \( k : \BPspace X \to \BPspace X \) a \( g : \bigcup_{k = 1}^{\infty} \BPspace X^k \to \bar{\BPspace X} \), lze vkládající funkci definovat jako
-\begin{equation}\label{net_pooling}
-	\phi : \BPspace B \to \bar{\BPspace X} : b \mapsto g \left( \left\{ k \left( x \right) \middle| x \in b \right\} \right)
-\end{equation}
-Za \( g \) lze volit například funkce minimum, maximum, aritmetický průměr. Funkce \( k \) je potom určována algoritmem pro učení s učitelem. \todo{Obrázek z \cite{pevny_using_2016}}\todo{Zapsat lépe}Tedy neuronové síťě určující funkce \( f \) a \( k \) jsou trénovány najednou.
+Jelikož úloha představená v kapitole \ref{problem} je úlohou v níž je adresa URL rozdělena na části a ty jsou posléze rozděleny na podčásti, je na model použitý k aproximaci klasifikační funkce kladen požadavek, aby reflektoval tuto hierarchickou strukturu vstupních dat. Použitý model využívá přístupu pomocí multi-instančního učení \footnote{resp. jeho speciální varianty, popsané v kapitole \ref{MIL-modification}.}, popsaného v kapitole \ref{MIL}, aplikovaného dvakrát na sebe sama. Tím je umožněno modelovat nejprve tři vybrané části adresy URL (doménu, cestu a dotaz) z jejich podčástí, a posléze z těchto tří částí modelovat samotnou adresu URL.
 
-\begin{figure}
-	\caption{Model adresy URL}\label{url_model}
+\section{Reprezentace adresy URL pomocí tašek vektorů}
+
+V kapitole \ref{problem} byla definována abeceda všech znaků přípustných v adrese URL \( \Sigma \) jako abeceda malých a velkých písmen anglické abecedy, čísel a znaků \$ - \_ . + ! * ' ( ) , \% ; / ? : @ \& = (srov. \cite{berners-lee_uniform_1994}). Každá adresa URL, každá její část i podčást je slovem v abecedě \( \Sigma \). Aby však bylo možné s těmito objekty dále pracovat, je zapotřebí je převést na vektory. Toho je dosáhnuto pomocí nějaké funkce \( \psi : \Sigma^* \to \BPfield R^n \) kde symbolem \( \Sigma^* \) je označována množina všech slov nad abecedou \( \Sigma \). Tím je definován prostor vstupních objektů, dále nazývaných \BPname{vektory příznaků} (\BPenname{feature vectors}), jako
+\[ \BPspace X_1 = \psi \left( \Sigma^* \right) \subset \BPfield R^n \]
+Tento prostor obsahuje všechny vektory příznaků odpovídající podčástem adresy URL. Prostor \( \BPspace B_1 \subset \BPspace P^M \left( \BPspace X_1 \right) \) je tedy konstruován tak, že každá taška v \( \BPspace B_1 \) odpovídá vektorům příznaků podčástí jedné části jedné adresy URL. Za použití paradigmatu vloženého prostoru, popsaného v kapitole \ref{embedded-space-paradigm} lze najít nějakou vkládající funkci
+\[ \phi_1 : \BPspace B_1 \to \BPspace X_2 \]
+kde \( \BPspace X_2 \) je opět nějaký vstupní prostor, který může, ale nemusí být totožný s \( \BPspace X_1 \). Nad tímto prostorem je konstruován prostor tašek \( \BPspace B_2 \subset \BPspace P^M \left( \BPspace X_2 \right) \) tak, že každá taška v prostoru \( \BPspace B_2 \) odpovídá vektorům příznaků tří částí jedné adresy URL. Znovupoužítím paradigmatu vloženého prostoru lze nalézt vkládající funkci
+\[ \phi_2 : \BPspace B_2 \to \BPspace X_3 \]
+kde \( \BPspace X_3 \) je opět nějaký vstupní prostor, který obecně nemusí být totožný s prostory \( \BPspace X_1 \) a \( \BPspace X_2 \). Tím je celá adresa URL vyjádřena jedním vektorem příznaků z prostoru \( \BPspace X_3 \). Celá tato abstrakce je graficky znázorněna na obrázku \ref{url_model_MIL}.
+
+\begin{figure}[h]
 	\centering
-	\includegraphics{images/model/model.pdf}
+	\includegraphics{images/model_MIL/model_MIL.pdf}
+	\caption{Model adresy URL}\label{url_model_MIL}
 \end{figure}
 
-\section{Řešená úloha}
-Řešená úloha, jejímž cílem je klasifikace síťových spojení, vyhovuje formalismu, popsaném v \ref{used_formalism}. Cílem je navrhnout klasifikační funkci, která pro danou vstupní URL adresu (\textit{\textenglish{uniform resource locator}}, srov. \cite{berners-lee_uniform_1994}) rozhodne, zda spojení mířící na takovouto adresu pochází z běžné aktivity uživatele-klienta, či zda se jedná o spojení, které vytvořil nějaký nežádoucí software. Pro tento účel je nejprve adresa URL rozdělena na tři části, a to sice doménu, (\textit{\textenglish{domain}}), cestu (\textit{\textenglish{path}}) a dotaz (\textit{\textenglish{query}}). Na obrázku \ref{url_parts} lze vidět toto rozdělení na příkladu, červeně je vyznačena doména, fialově cesta a modře dotaz. Dále je pak každá část adresy rozdělena na několik podčástí. Doména je rozdělena podle znaku "." (tečka), tedy podle jednotlivých úrovní domén. Cesta je rozdělena podle znaku "/" (lomítko), tedy na jednotlivé adresáře a soubory. Dotaz je rozdělen podle znaku "\&" (ampersand), tedy na páry klíč-hodnota. Na všechny takto vytvořené řeťezce je aplikována \todo{Jaká? - Odkaz na další kapitolu}nějaká funkce \( \psi : U^* \to \BPfield R^n \), kde \( U \) je abeceda všech znaků \todo{Odkaz na standard?}Unicode. Tím je definován prostor vstupních objektů jako
-\begin{equation}
-	\BPspace X_1 = \psi \left( U^* \right) \subset \BPfield R^n
-\end{equation}
-V prostoru \( \BPspace X \) jsou tedy vektory příznaků všech částí adresy. Prostor \( \BPspace B_1 \) je konstruován tak, že každá taška v \( \BPspace B_1 \) odpovídá příznakům jedné části (domény, cesty nebo dotazu) jedné adresy. Potom podle formalismu nastíněného v \ref{used_formalism} lze najít vkládající funkci \( \phi_1 : \BPspace B_1 \to \BPspace X_2 \). Dále je pak konstruován prostor \( \BPspace B_2 \) tak, že každá taška v \( \BPspace B_2 \) odpovídá příznakům jedné adresy, tedy platí
-\begin{equation}
-	\left( \forall b \in \BPspace B_2 \right) \left( \left| b \right| \leq 3 \right)
-\end{equation}
-Znovupoužitím formalismu z \ref{used_formalism} lze definovat vkládající funkci \( \phi_2 : \BPspace B_2 \to \BPspace X_3 \). Celý tento postup je graficky znázorněn na obrázku \ref{url_model}
+\section{Modifikace MIL pro tuto úlohu}\label{MIL-modification}
+Každá adresa URL musí obsahovat doménu, avšak i adresy, kterým chybí cesta nebo dotaz (nebo dokonce cesta i dotaz), mohou být validními adresami URL ve smyslu \cite{berners-lee_uniform_1994}. Vzhledem k tomu, jak byl prostor \( \BPspace B_2 \) konstruován, je tedy zřejmé, že platí
+\[ \left( \forall b \in \BPspace B_2 \right) \left( 1 \leq \left| b \right| \leq 3 \right) \]
+Je ovšem možné chybějící části adresy URL reprezentovat jednou podčástí odpovídající prázdnému slovu abecedy \( \Sigma \) \footnote{Což nutně nemusí znamenat, že jsou reprezentovány nulovým vektorem příznaků.}. Díky tomuto rozšíření lze předchozí odhad velikosti tašek v prostoru \( \BPspace B_2 \) zesílit na
+\[ \left( \forall b \in \BPspace B_2 \right) \left( \left| b \right| = 3 \right) \]
 
-\todo{Expandovat? Vynechat?}Alternativně by bylo možné definovat prostor \( \hat{\BPspace B} \) tak, že každá taška by odpovídala přímo všem příznakům jedné adresy URL. Tento přístup by produkoval jednodušsí jednovrstevý formalismus a tedy jednodušsí modely, avšak nezachycoval by inherentní rozdíl ve funkci jednotlivých částí adresy. Proto byl zvolen tento dvojvrstvý, hierarchický model.
+Protože doména, cesta a dotaz mají v adrese URL fundamentálně odlišný účel, nedává smysl, aby jim odpovídající vkládající funkce byly totožné. Rozšíření multi-instančního přístupu navržené v předchozím odstavci nám umožňuje nahradit funkci \( \phi_1 \) třemi různymi vkládajícími funkcemi \( \phi_D \), \( \phi_P \) a \( \phi_Q \), odpovídajícími doméně, cestě a dotazu respektive. Rovněž předpis pro vkládající funkci \( \phi_2 \) se díky konstantní velikosti tašek z prostoru \( \BPspace B_2 \) zjednoduší na
+\[ \phi_2 : \BPspace X_2^3 \to \BPspace X_3 \]
+Takto modifikovaná abstrakce je graficky znázorněna na obrázku \ref{url_model_modified_MIL}.
 
-\section{Model}
-Při použití značení z \eqref{net_pooling} nechť
-\begin{equation}
-	\phi_1 : \BPspace B_1 \to \BPspace X_2 : b \mapsto g_1 \left( \left\{ k_1 \left( x \right) \middle| x \in b \right\} \right)
-\end{equation}
-kde \( g_1 : \bigcup_{k = 1}^{\infty} \left( \BPfield R^n \right)^k \to \BPfield R^n \) je předem definovaná funkce a \( k_1 : \BPfield R^n \to \BPfield R^n \) je funkce definovaná neuronovou síťí. Protože dobře definovaná adresa URL nemusí obsahovat všechny tři části (doména, cesta, dotaz), pokud některá z částí není přítomna, je považována za prázdný řeťězec. Díky tomu platí
-\begin{equation}
-	\left( \forall b \in \BPspace B_2 \right) \left( \left| b \right| = 3 \right)
-\end{equation}
-Díky tomuto rozšíření lze definovat funkci \( \phi_2 : \left( \BPfield R^n \right)^3 \to \BPfield R^{3n} \) jako
-\begin{equation}
-	\phi_2 : \left( x_1^{(1)}, \dots, x_n^{(1)} \right), \left( x_1^{(2)}, \dots, x_n^{(2)} \right), \left( x_1^{(3)}, \dots, x_n^{(3)} \right) \mapsto \left( x_1^{(1)}, \dots, x_n^{(1)}, x_1^{(2)}, \dots, x_n^{(2)}, x_1^{(3)}, \dots, x_n^{(3)} \right)
-\end{equation}
-Tedy \( \phi_2 \) je pouze konkatenací.
+\begin{figure}[h]
+	\centering
+	\includegraphics{images/model_modified_MIL/model_modified_MIL.pdf}
+	\caption{Modifikovaný model adresy URL}\label{url_model_modified_MIL}
+\end{figure}
 
-Protože dobře definovaná adresa url nemusí obsahovat všechny tři části (doména, cesta, dotaz), pokud některá z částí není přítomna, je považována za prázdný řeťězec. Díky tomu platí
-\begin{equation}
-	\left( \forall b \in \BPspace B_2 \right) \left( \left| b \right| = 3 \right)
+\section{Metody hledání vkládající a klasifikační funkce}
+Obecně lze v klasickém multi-instančním učení definovat vkládající funkci \( \phi \) jako
+\begin{equation}\label{netpooling}
+	\phi : \BPspace B \to \bar{\BPspace X} : b \mapsto g \left( \left\{ k \left( x \right) \middle| x \in b \right\} \right)
 \end{equation}
-Klasifikační funkce \( f : \BPspace X_3 \to \BPspace Y \) je definovaná neuronovou síťí, která je trénovaná společně se sítí definující funkci \( k_1 \).
-\todo{Kam tohle?}\begin{align}
+kde 
+\begin{align*}
+	k &: \BPspace X \to \BPspace X \\
+	g &: \bigcup_{m = 1}^{+ \infty} \BPspace X^m \to \bar{\BPspace X}
+\end{align*}
+Za \( g \) lze volit napříkald funkce minimum, maximum, aritmetický průměr. Funkce \( k \) je definována neuronovou sítí, která je trénována libovolným algoritmem pro učení s učítelem. Pokud jsou funkce \( k \) a \( f \) obě definovány neuronovou sítí, jsou tyto neuronové sítě trénovány společně.
+
+V dalším textu budou předpokládány již konkrétní prostory, a to sice
+\begin{align*}
 	\BPspace X_1 &= \BPfield R^n \\
 	\BPspace X_2 &= \BPfield R^n \\
-	\BPspace X_3 &= \BPfield R^{3n}
-\end{align}
+	\BPspace X_3 &= \BPfield R^{3n} \\
+	\BPspace Y &= \left\{ -1, +1 \right\}
+\end{align*}
+pro nějaké \( n \in \BPfield N \).
 
-\section{Trénovací a testovací data}
+Přístup pomocí \eqref{netpooling} byl využit pro vkládající funkce první úrovně, tedy
+\begin{align*}
+	\phi_D &: \BPspace B_1 \to \BPfield R^n : b \mapsto g_D \left( \left\{ k_D \left( x \right) \middle| x \in b \right\} \right) \\
+	\phi_P &: \BPspace B_1 \to \BPfield R^n : b \mapsto g_P \left( \left\{ k_P \left( x \right) \middle| x \in b \right\} \right) \\
+	\phi_Q &: \BPspace B_1 \to \BPfield R^n : b \mapsto g_Q \left( \left\{ k_Q \left( x \right) \middle| x \in b \right\} \right)
+\end{align*}
+Za vkládající funkci druhé úrovně byla volena funkce konkatenace vektorů, tedy funkce \( \phi_2 : \left( \BPfield R^n \right)^3  \to \BPfield R^{3n} \) s funkčním předpisem
+\begin{multline}
+	\phi_2 \left( \left( x_1^{(1)}, \dots, x_n^{(1)} \right), \left( x_1^{(2)}, \dots, x_n^{(2)} \right), \left( x_1^{(3)}, \dots, x_n^{(3)} \right) \right) = \\
+	= \left( x_1^{(1)}, \dots, x_n^{(1)}, x_1^{(2)}, \dots, x_n^{(2)}, x_1^{(3)}, \dots, x_n^{(3)} \right)
+\end{multline}
+Takto lze vkládající funkci \( \phi_2 \) volit pouze díky modifikaci navržené v kapitole \ref{MIL-modification}.
+
+Klasifikační funkce \( f : \BPfield R^{3n} \to \left\{ -1, +1 \right\} \) je definovaná neuronovou síťí, která je trénovaná společně s neuronovými sítěmi definujícími funkce \( k_D \), \( k_P \) a \( k_Q \).
+
 
