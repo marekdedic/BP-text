@@ -23,6 +23,8 @@ Zvolený přístup k výpočtu.
 	Falešně pozitivní odhad je také nazýván \BPname{chybou prvního druhu}, falešně negativní odhad je také nazýván \BPname{chybou druhého druhu}.
 \end{define}
 
+\section{Indikátory kvality binárního klasifikátoru}
+
 Cílem jakéhokoliv odhadu v úloze binární klasifikace je minimalizovat počet falešně pozitivních a falešně negativních odhadů. Ne vždy je ale možné minimalizovat obě tyto hodnoty a je třeba o nich uvažovat vždy najednou -- aproximace, která označí všechny vzorky jako pozitiva nebude mít žádné falešně negativní odhady, ale v praxi nemá takováto aproximace žádnou hodnotu \todo{Jak jinak říct, že je na nic?}. Obdobně aproximace označující všechny objekty za negativa nebude produkovat žádné falešně pozitivní odhady, ale opět to není vhodná aproximace. -- Aby tedy bylo možno uvažovat o kvalitě nějakého binárního klasifikátoru, jsou dále zavedeny některé indikátory kvality.
 
 \begin{define}
@@ -50,3 +52,24 @@ Cílem jakéhokoliv odhadu v úloze binární klasifikace je minimalizovat poče
 	Nechť \( precision \) je přesnost nějakékého binárního klasifikátoru a \( recall \) je jeho odezva. Jako \BPname{F-skóre} či také \BPname{F\textsubscript{1} skóre} tohoto klasifikátoru je označován harmonický průměr jeho přesnosti a odezvy, tedy
 	\[ F_1 = 2 \, \frac{precision \cdot recall}{precision + recall} \]
 \end{define}
+
+\todo{Název?}\section{Spojitá aproximace binárního klasifikátoru}
+
+Přestože v případě binární klasifikace jsou objekty zařazované do jedné ze dvou tříd, může nastat případ, kdy aproximace klasifikační funkce má jiný obor hodnot než množinu \( \left\{ -1, +1 \right\} \). V obecném případě může být oborem hodnot této aproximace celý obor \( \BPfield R \). Je tedy třeba rozhodnout, které hodnoty binárního klasifikátoru budou považovány za pozitivní a které za negativní. Zřejmě se nabízí přístup kdy je stanoven nějaký práh a všechny hodnoty vyšší než tento práh jsou považovány za pozitivní odhad, všechny hodnoty nižší než tento práh jsou považovány za negativní odhad. Indikátory kvality lze poté chápat jako funkce takovéhoto prahu. Volba správného prahu ovšem není triviálním úkolem.
+
+Jedním z možných přístupů k řešení problému volby prahu je určovat hodnoty indikátorů kvality binárního klasifikátoru pro všechny možné prahy. Vzhledem k předpokladu konečnosti klasifikovaného datasetu jsou tyto indikátory (brané jako funkce prahu) po částech konstantní a tedy postačuje je vyhodnotit v konečně mnoha bodech. Pro velké datasety (jako například dataset popsaný v kapitole \ref{dataset}) avšak ani toto není výpočetně možné. Zvoleným řešením je nalézt kvantily všech možných hodnot prahu a vyhodnotit indikátory kvality v těchto bodech.
+
+\section{Křivky zobrazující vlastnosti binárního klasifikátoru}
+V následující podkapitole jsou popsány 4 křivky pomocí kterých lze vizualizovat vlastnosti binárních klasifikátoru. V celé kapitole jsou indikátory kvality považovány za funkce prahu.
+
+\subsection{PR křivka}
+\BPname{PR křivka} (\BPenname{Precision-Recall curve}) je křivkou zobrazující vztah mezit přesností a odezvou klasifikátoru pro různé prahy. PR křivka grafem množiny
+\[ \left\{ \left( recall \left( x \right), precision \left( x \right) \right) \middle| x \in \BPfield R \right\} \]
+tedy oborem hodnot funkce přiřazující každému prahu jeho odezvu a přesnost. Jde tedy o obor hodnot funkce \( \BPfield R \to \BPfield R^2 \), ne o graf funkce \( \BPfield R \to \BPfield R \).
+
+\subsection{ROC křivka}
+\BPname{ROC křivka} (\BPenname{Receiver operating characteristic curve}) je křivkou zobrazující vztah mezit falešně pozitivní mírou a pravdivě pozitivní mírou klasifikátoru pro různé prahy. ROC křivka grafem množiny
+\[ \left\{ \left( fpr \left( x \right), tpr \left( x \right) \right) \middle| x \in \BPfield R \right\} \]
+tedy oborem hodnot funkce přiřazující každému prahu jeho falešně pozitivní míru a pravdivě pozitivní míru. V grafu ROC křivky je vyznačena i množina všech bodů \( \left( x, x \right) \) neboť náhodně volená klasifikační funkce by měla ROC křivku blízkou takovéto množině. Osa X grafu ROC křivky je v logaritmickém měřítku.
+
+\subsection{DET křivka}
