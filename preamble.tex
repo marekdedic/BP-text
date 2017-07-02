@@ -35,11 +35,13 @@
 	urlcolor=blue
 }
 
+\theoremstyle{plain}
+\newtheorem{theorem}{Věta}[chapter]
 \theoremstyle{definition}
-\newtheorem{define}{Definice}[chapter]
-\newtheorem{example}[define]{Příklad}
+\newtheorem{define}[theorem]{Definice}
+\newtheorem{example}[theorem]{Příklad}
 \theoremstyle{remark}
-\newtheorem{remark}[define]{Poznámka}
+\newtheorem{remark}[theorem]{Poznámka}
 
 \newcommand{\BPname}[1]{\textbf{#1}}
 \newcommand{\BPenname}[1]{\textit{\textenglish{#1}}}
