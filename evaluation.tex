@@ -5,3 +5,48 @@ Jaké indikátory (PR křivka, ROC křivka) byly použity. Co to je za křivky.
 Proč nevyhovují předchozí implementace těchto křivek (CPU a paměťová náročnost, sériová povaha).
 
 Zvolený přístup k výpočtu.
+
+Úloha popsaná v kapitole \ref{problem} je úlohou \BPname{binární klasifikace}. Tím se rozumí, že jejím cílem je zařadit vstupní objekty do jedné ze dvou tříd, označovaných jako pozitivní a negativní. Předpokládá se existence nějaké klasifikační funkce \( f : \BPspace X \to \left\{ -1, +1 \right\} \), která pro každý vstupní objekt najde příslušnou třídu, symbolizovanou hodnotou \( -1 \) nebo \( +1 \).Model popsaný v kapitole \ref{model} se snaží tuto neznámou klasifikační funkci aproximovat. Za účelem zhodnocení kvality této aproximace je v této kapitole nejprve zavedeno několik pojmů vztahujících se k binární klasifikaci a následně popsáno několik metod vizualizace kvality binárních klasifikátorů. \todo{Zkontrolovat po napsání}
+
+\section{Základní pojmy binární klasifikace}
+
+\begin{define}
+	Nechť \( r \in \left\{ -1, +1 \right\} \) je správným výsledkem pro nějaký vstupní objekt v úloze binární klasifikace. Nechť \( p \in \left\{ -1, +1 \right\} \) je aproximací \( r \). Odhad \( p \) nazýváme
+	\begin{enumerate}[i.]
+		\item \BPname{Pozitivní} (\BPenname{Positive}) pokud \( p = +1 \).
+		\item \BPname{Negativní} (\BPenname{Negative}) pokud \( p = -1 \).
+		\item \BPname{Pravdivě pozitivní} (\BPenname{True positive}) pokud \( r = +1 \land p = +1 \).
+		\item \BPname{Pravdivě negativní} (\BPenname{True negative}) pokud \( r = -1 \land p = -1 \).
+		\item \BPname{Falešně pozitivní} (\BPenname{False positive}) pokud \( r = -1 \land p = +1 \).
+		\item \BPname{Falešně negativní} (\BPenname{False negative}) pokud \( r = +1 \land p = -1 \).
+	\end{enumerate}
+	Falešně pozitivní odhad je také nazýván \BPname{chybou prvního druhu}, falešně negativní odhad je také nazýván \BPname{chybou druhého druhu}.
+\end{define}
+
+Cílem jakéhokoliv odhadu v úloze binární klasifikace je minimalizovat počet falešně pozitivních a falešně negativních odhadů. Ne vždy je ale možné minimalizovat obě tyto hodnoty a je třeba o nich uvažovat vždy najednou -- aproximace, která označí všechny vzorky jako pozitiva nebude mít žádné falešně negativní odhady, ale v praxi nemá takováto aproximace žádnou hodnotu \todo{Jak jinak říct, že je na nic?}. Obdobně aproximace označující všechny objekty za negativa nebude produkovat žádné falešně pozitivní odhady, ale opět to není vhodná aproximace. -- Aby tedy bylo možno uvažovat o kvalitě nějakého binárního klasifikátoru, jsou dále zavedeny některé indikátory kvality.
+
+\begin{define}
+	Nechť \( tp \) je počet pravdivě pozitivnćh odhadů nějakého binárního klasifikátoru na daném datasetu. Nechť \( pp \) je celkový počet pozitivních odhadů tohoto binárního klasifikátoru (tedy počet pravdivě pozitivních a falešně pozitivních). Jako \BPname{přesnost} (\BPenname{precision}) tohoto klasifikátoru je označována hodnota
+	\[ precision = \frac{tp}{pp} \]
+\end{define}
+
+\begin{define}
+	Nechť \( tp \) je počet pravdivě pozitivnćh odhadů nějakého binárního klasifikátoru na daném datasetu. Nechť \( rp \) je celkový počet pozitivních vzorků v datasetu (tedy počet pravdivě pozitivních a falešně negativních). Jako \BPname{odezvu} (\BPenname{recall}) tohoto klasifikátoru je označována hodnota
+	\[ recall = tpr = \frac{tp}{rp} \]
+	Odezva je také nazývána \BPname{pravdivě pozitivní mírou} (\BPenname{true positive rate}).
+\end{define}
+
+\begin{define}
+	Nechť \( fp \) je počet falešně pozitivnćh odhadů nějakého binárního klasifikátoru na daném datasetu. Nechť \( rn \) je celkový počet negativních vzorků v datasetu (tedy počet pravdivě negativních a falešně pozitivních). Jako \BPname{falešně pozitivní míru} (\BPenname{false positive rate}) tohoto klasifikátoru je označována hodnota
+	\[ fpr = \frac{fp}{rn} \]
+\end{define}
+
+\begin{define}
+	Nechť \( fn \) je počet falešně negativních odhadů nějakého binárního klasifikátoru na daném datasetu. Nechť \( rp \) je celkový počet pozitivních vzorků v datasetu (tedy počet pravdivě pozitivních a falešně negativních). Jako \BPname{falešně negativní míru} (\BPenname{false negative rate}) tohoto klasifikátoru je označována hodnota
+	\[ fnr = \frac{fn}{rp} \]
+\end{define}
+
+\begin{define}
+	Nechť \( precision \) je přesnost nějakékého binárního klasifikátoru a \( recall \) je jeho odezva. Jako \BPname{F-skóre} či také \BPname{F\textsubscript{1} skóre} tohoto klasifikátoru je označován harmonický průměr jeho přesnosti a odezvy, tedy
+	\[ F_1 = 2 \, \frac{precision \cdot recall}{precision + recall} \]
+\end{define}
