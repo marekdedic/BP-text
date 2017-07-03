@@ -63,4 +63,12 @@
 \algnewcommand\algorithmicbreak{\State\textbf{break}}
 \algnewcommand\Break{\algorithmicbreak{}}
 
+\newcommand{\result}[2]{%
+	\begin{figure}[h]%
+		\centering%
+		\includegraphics[width=0.96\textwidth]{images/results/#1}%
+		\caption{#2}%
+	\end{figure}%
+}
+
 \usepackage{todonotes}
