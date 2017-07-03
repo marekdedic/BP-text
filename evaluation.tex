@@ -15,9 +15,12 @@
 	Falešně pozitivní odhad je také nazýván \BPname{chybou prvního druhu}, falešně negativní odhad je také nazýván \BPname{chybou druhého druhu}.
 \end{define}
 
-\section{Indikátory kvality binárního klasifikátoru}\label{quality_indicators}
+\todo{Nechcete sem dat takovou tu obvyklou tabulku }
 
+\section{Indikátory kvality binárního klasifikátoru}\label{quality_indicators}
 Cílem jakéhokoliv odhadu v úloze binární klasifikace je minimalizovat počet falešně pozitivních a falešně negativních odhadů. Ne vždy je ale možné minimalizovat obě tyto hodnoty a je třeba o nich uvažovat vždy najednou -- aproximace, která označí všechny objekty jako pozitivní nebude mít žádné falešně negativní odhady, ale v praxi nemá takováto aproximace žádnou hodnotu \todo{Jak jinak říct, že je na nic?}. Obdobně aproximace označující všechny objekty za negativní nebude produkovat žádné falešně pozitivní odhady, ale opět to není vhodná aproximace. -- Aby tedy bylo možno uvažovat o kvalitě nějakého binárního klasifikátoru, jsou dále zavedeny některé \BPname{indikátory kvality} \todo{To jsem si vymyslel, není pro to nějaký termín?}.
+
+\todo{Ja bych se tady rozepsal, cim jsou ty jednotlive miry inspirovane a proc byli zavedene.}
 
 \begin{define}
 	Nechť \( tp \) je počet pravdivě pozitivních odhadů nějakého binárního klasifikátoru na daném souboru dat. Nechť \( pp \) je celkový počet pozitivních odhadů tohoto binárního klasifikátoru (tedy počet pravdivě pozitivních a falešně pozitivních). Jako \BPname{přesnost} (\BPenname{precision}) tohoto klasifikátoru je označována hodnota
