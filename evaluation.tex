@@ -15,7 +15,7 @@
 	Falešně pozitivní odhad je také nazýván \BPname{chybou prvního druhu}, falešně negativní odhad je také nazýván \BPname{chybou druhého druhu}.
 \end{define}
 
-\section{Indikátory kvality binárního klasifikátoru}
+\section{Indikátory kvality binárního klasifikátoru}\label{quality_indicators}
 
 Cílem jakéhokoliv odhadu v úloze binární klasifikace je minimalizovat počet falešně pozitivních a falešně negativních odhadů. Ne vždy je ale možné minimalizovat obě tyto hodnoty a je třeba o nich uvažovat vždy najednou -- aproximace, která označí všechny objekty jako pozitivní nebude mít žádné falešně negativní odhady, ale v praxi nemá takováto aproximace žádnou hodnotu \todo{Jak jinak říct, že je na nic?}. Obdobně aproximace označující všechny objekty za negativní nebude produkovat žádné falešně pozitivní odhady, ale opět to není vhodná aproximace. -- Aby tedy bylo možno uvažovat o kvalitě nějakého binárního klasifikátoru, jsou dále zavedeny některé \BPname{indikátory kvality} \todo{To jsem si vymyslel, není pro to nějaký termín?}.
 
@@ -50,13 +50,13 @@ Cílem jakéhokoliv odhadu v úloze binární klasifikace je minimalizovat poče
 	\[ tpr + fnr = 1 \]
 \end{theorem}
 
-\todo{Název?}\section{Spojitá aproximace binárního klasifikátoru}
+\todo{Název?}\section{Spojitá aproximace binárního klasifikátoru}\label{continuous_aprox}
 
 Přestože v úloze binární klasifikace jsou objekty zařazované do jedné ze dvou tříd, může nastat případ, kdy aproximace klasifikační funkce má jiný obor hodnot než množinu \( \left\{ -1, +1 \right\} \). V obecném případě může být oborem hodnot této aproximace celý obor \( \BPfield R \). Je tedy třeba rozhodnout, které hodnoty binárního klasifikátoru budou považovány za pozitivní a které za negativní. Zřejmě se nabízí přístup, kdy je stanoven nějaký práh a všechny hodnoty vyšší než tento práh jsou považovány za pozitivní odhad, všechny hodnoty nižší než tento práh jsou považovány za negativní odhad. Indikátory kvality lze poté chápat jako funkce takovéhoto prahu. Volba správného prahu ovšem není triviálním úkolem.
 
-Jedním z možných přístupů k řešení problému volby prahu je určováním hodnoty indikátorů kvality binárního klasifikátoru pro všechny možné prahy. Vzhledem k předpokladu konečnosti klasifikovaného souboru dat jsou tyto indikátory (považované za funkce prahu) po částech konstantní a tedy postačuje je vyhodnotit v konečně mnoha bodech. Pro velké datasety (například dataset popsaný v kapitole \ref{dataset}) avšak ani toto není výpočetně možné. Zvoleným řešením je nalézt kvantily všech možných hodnot prahu a vyhodnotit indikátory kvality v těchto bodech.
+Jedním z možných řešení problému volby prahu je přístup pomocí určování hodnoty indikátorů kvality binárního klasifikátoru pro všechny možné prahy. Vzhledem k předpokladu konečnosti klasifikovaného souboru dat jsou tyto indikátory (považované za funkce prahu) po částech konstantní a tedy postačuje je vyhodnotit v konečně mnoha bodech. Pro velké datasety (například dataset popsaný v kapitole \ref{dataset}) avšak ani toto není výpočetně možné. Zvoleným řešením je nalézt kvantily všech možných hodnot prahu a vyhodnotit indikátory kvality v těchto bodech.
 
-\section{Křivky zobrazující vlastnosti binárního klasifikátoru}
+\section{Křivky zobrazující vlastnosti binárního klasifikátoru}\label{evaluation_curves}
 V následující podkapitole jsou popsány 4 křivky, pomocí kterých lze vizualizovat vlastnosti binárních klasifikátorů. V celé podkapitole jsou indikátory kvality považovány za funkce prahu.
 
 \subsection{PR křivka}
@@ -80,7 +80,91 @@ kde
 \subsection{Křivka F-skóre}
 Křivka F-skóre je grafem funkce \( x \mapsto F_1 \left( x \right) \).
 
-\section{Implementace}
-Proč nevyhovují předchozí implementace těchto křivek (CPU a paměťová náročnost, sériová povaha).
+\section{Proč vlastní implementace?}
+K výpočtu křivek popsaných v kapitole \ref{evaluation_curves} bylo vyzkoušeno několik softwarových balíčků dostupných pro jazyk Julia (\cite{zea_roc.jl:_2015}, \cite{leeuwen_rocanalysis.jl:_2016} a \cite{lin_mlbase.jl:_2017}). Všechny tyto balíčky avšak neumožňovaly výpočet indikátorů kvality z důvodů příliš vysoké výpočetní náročnosti či paměťové náročnosti. Všechny tyto balíčky rovněž neumožňují paralelní výpočet indikátorů kvality. Proto byl navržen vlastní balíček s názvem EduNetsEvaluate.jl, který umožňuje výpočet indikátorů kvality popsaných v kapitole \ref{quality_indicators} i pro soubory dat tak velké jako ten, popsaný v kapitole \ref{dataset}. Výpočet všech indikátorů kvality je z velké části paralelizovaný, což umožňuje plně využít výpočetní kapacity moderních vícejádrových procesorů a procesorů využívajících technologii Hyper-threading.
 
-Zvolený přístup k výpočtu.
+\section{Implementace}
+Následující podkapitola obsahuje přehled metod použitých k implementaci paralelního výpočtu PR křivky a ROC křivky.
+
+Vzhledem k tomu, že použitý dataset je rozdělen do mnoha souborů, je možné každý takovýto soubor zpracovat zvlášť a následně agregovat výsledky. O velké části souborů je známo, že obsahují pouze objekty negativní třídy. Pokud je předpokládáno, že všechny objekty jsou seřazené podle hodnoty jejich předpovědi, při postupném procházení se při přechodu od negativního objektu k následujícímu negativnímu objektu nezmění hodnota odezvy. Tedy pokud bude PR křivka počítána pouze z pozitivních objektů, na její tvar to nebude mít žádný vliv. Pro ROC křivku platí stejné pozorování. Tím je umožněn výpočet vhodných hodnot prahů (ve smyslu kapitoly \ref{continuous_aprox}) pouze ze souborů, v nichž jsou nějaké pozitivní objekty. Tento výpočet je popsán v algoritmu \ref{thresholds}.
+
+\begin{algorithm}
+	\caption{Výpočet prahů}
+	\label{thresholds}
+	\begin{algorithmic}
+		\Require $ mixed\_files $ \Comment Soubory obsahující pozitivní i negativní objekty
+		\Statex
+		\State $ thresholds \gets \Call{array}{} \left[ \, \right] \left[ \Call{size}{mixed\_files} \right] $ \Comment Pole polí
+		\ParallelFor{$ file \in mixed\_files $}
+			\State $ thresholds \left[ \, \right] \gets \Call{get\_predicted}{file} $
+		\EndFor
+		\State $ thresholds \gets \Call{concatenate}{thresholds} $
+		\State $ thresholds \gets \Call{quantiles}{thresholds} $
+	\end{algorithmic}
+\end{algorithm}
+
+Následně lze spočítat odezvu binárního klasifikátoru, k jejímuž vyýpočtu opět postačují pouze soubory, obsahující nějaké pozitivní objekty. Paralelizace tohoto výpočtu je umožněná	přístupem, kdy pro každý soubor je spočítán pro každý práh počet pravdivě pozitivních odhadů a celkový počet pozitivních objektů v souboru. Tyto hodnoty jsou poté sečteny a na jejich základě je spočítána odezva. Tento výpočet je popsán v algoritmu \ref{recall}. Pro výpočet přesnosti je již potřeba zohlednit všechny soubory včetně těch, které obsahují pouze negativní objekty. Pro každý soubor je zvlášť spočítán počet pravdivě pozitivních odhadů a celkový počet pozitibních odhadů. Tyto hodnoty jsou poté sečteny a na jejich základě je spočítána přesnost. Tento výpočet je analogický s výpočtem odezvy.
+
+\begin{algorithm}
+	\caption{Výpočet odezvy}
+	\label{recall}
+	\begin{algorithmic}
+		\Require $ mixed\_files $ \Comment Soubory obsahující pozitivní i negativní objekty
+		\Require $ thresholds $
+		\Statex
+		\State $ RP \gets \Call{array}{} \left[ \Call{size}{mixed\_files} \right] $ \Comment Pole čísel
+		\State $ TP \gets \Call{array}{} \left[ \Call{size}{thresholds} \right] \left[ \Call{size}{mixed\_files} \right] $ \Comment Pole polí
+		\ParallelFor{$ file \in mixed\_files $}
+			\State $ RP \left[ \, \right] \gets \Call{get\_real\_positives}{file} $
+			\State $ TP \left[ \, \right] \gets \Call{get\_true\_positives}{file, thresholds} $
+		\EndFor
+		\State $ RP \gets \sum RP $
+		\State $ TP \gets element-wise \sum TP $
+		\State $ recall = \frac{TP}{RP} $
+	\end{algorithmic}
+\end{algorithm}
+
+Pokud jsou objekty nejprve seřazeny podle hodnoty jejich předpovědi, lze poté počet pravdivě pozitivních i počet pozitivních odhadů počítat s asymptotickou složitostí \( \mathcal O \left( n \right) \), což spolu se složitostí řazení dává celkovou asymptotickou složitost \( \mathcal O \left( n \log n \right) \). Tento způsob efektivního výpočtu počtu pravdivě pozitivních odhadů je popsán v algoritmu \ref{TP}.
+
+\begin{algorithm}
+	\caption{Výpočet počtu pravdivě pozitivních odhadů se složitostí \( \mathcal O \left( n \right) \)}
+	\label{TP}
+	\begin{algorithmic}
+		\Require $ predicted $ \Comment Odhady pro nějaký soubor objektů, seřazené vzestupně
+		\Require $ real $ \Comment Skutečné třídy pro tento soubor ve stejném pořadí
+		\Require $ thresholds $
+		\Statex
+		\State $ TP \gets \Call{array}{} \left[ \Call{size}{thresholds} \right] $
+		\State $ TPcounter \gets \Call{count\_positives}{real} $
+		\State $ THcounter \gets 1 $
+		\For{$ i \gets 1 \; \text{to} \; \Call{size}{thresholds} $} \Comment Odhady menší než nejmenší z prahů
+			\If{$ predicted \left[ 1 \right] < thresholds \left[ THcounter \right] $}
+				\Break
+			\EndIf
+			\State $ TP \left[ THcounter \right] \gets TPcounter $
+				\State $ THcounter \gets THcounter + 1 $
+		\EndFor
+		\If{$ real \left[ 1 \right] = +1 $}
+			\State $ TPcounter \gets TPcounter - 1 $
+		\EndIf
+		\State $ j \gets 1 $
+		\While{$ j < \Call{size}{predicted} - 1 $} \Comment Odhady mezi nejmenším a největším prahem
+			\If{$ predicted \left[ j \right] < thresholds \left[ THcounter \right] \land predicted \left[ j + 1 \right] \geq thresholds \left[ THcounter \right] $}
+				\State $ TP \left[ THcounter \right] \gets TPcounter $
+				\State $ THcounter \gets THcounter + 1 $
+			\Else
+				\If{$ real \left[ j + 1 \right] = +1 $}
+					\State $ TPcounter \gets TPcounter - 1 $
+				\EndIf
+				\State $ j \gets j + 1 $
+			\EndIf
+		\EndWhile
+		\For{$ i \gets THcounter \; \text{to} \; \Call{size}{TP} $} \Comment Odhady větší než největší z prahů
+			\State $ TP \left[ i \right] = 0 $
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+
+Výpočet celkového počtu pozitivních odhadů je obdobný. Ve skutečné implementaci jsou tyto hodnoty počítány kvůli vyšší efektivitě najednou. Ze stejného důvodu je najednou počítána i přesnost s odezvou. Výpočet ROC křivky je obdobný jako výpočet PR křivky.
+
+K výpočtu křivky F-skóre jsou využity hodnoty vypočítané pro PR křivku. K výpočtu DET křivky jsou využity hodnoty vypočítané pro ROC křivku a věta \ref{tpr+fnr}.

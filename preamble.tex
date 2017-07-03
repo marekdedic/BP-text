@@ -16,6 +16,9 @@
 \usepackage[ocgcolorlinks]{ocgx2}
 \usepackage{braket}
 \usepackage{enumerate}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
 
 \geometry{tmargin=4cm,bmargin=3cm,lmargin=3cm,rmargin=2cm,headheight=0.8cm,headsep=1cm,footskip=0.5cm,marginparwidth=1.6cm}
 \setdefaultlanguage{czech}
@@ -50,5 +53,14 @@
 \newcommand{\BPfield}{\ensuremath{\mathbb}}
 \newcommand{\BPset}{\ensuremath{\mathbb}}
 \newcommand{\BPmat}{\ensuremath{\mathbb}}
+
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmus}
+\makeatother
+\MakeRobust{\Call}
+\algnewcommand\algorithmicparallelfor{\textbf{parallel for}}
+\algdef{S}[FOR]{ParallelFor}[1]{\algorithmicparallelfor\ #1\ \algorithmicdo}
+\algnewcommand\algorithmicbreak{\State\textbf{break}}
+\algnewcommand\Break{\algorithmicbreak{}}
 
 \usepackage{todonotes}
