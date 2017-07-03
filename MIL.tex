@@ -1,11 +1,12 @@
 \chapter{Multi-instanční učení}\label{MIL}
 
+\todo{Za slovo zhruba tak, jak ho pouzivate v nasledujicim odstavci jsem dostal na gymplu petku z fyziky}
 V současné době existují zhruba tři přístupy k učení z příkladů. Těmi jsou \BPname{učení s učitelem} (\BPenname{supervised learning}), \BPname{učení bez učitele} (\BPenname{unsupervised learning}) a \BPname{zpětnovazební učení} (\BPenname{reinforcement learning}). Učení s učitelem má za cíl naučit se správně zařadit neznámé příklady do tříd, které jsou pro trénovací příklady známé. Učení bez učitele má za cíl naučit se odvodit strukturu zdroje příkladů, kde třídy nejsou známé ani pro trénovací příklady. Zpětnovazební učení se pokouší nalézt zobrazení stavů na akce, kde pro trénovací příklady nejsou známé třídy, avšak existuje opožděná zpětná vazba, kterou lze chápat jako opožděné zařazení do třídy. V nedávné době\footnote{Od zveřejnění článku.} \cite{dietterich_solving_1997} navrhli tzv. \BPname{Multi-instanční učení}, kde se trénovací data skládají z mnoha tzv. \BPname{tašek} (\BPenname{bags}), které obsahují mnoho instancí. (viz \cite{zhou_neural_2002})
 
 Multi-instanční učení (\BPenname{multi-instance learning, MIL}), poprvé takto popsané v \cite{dietterich_solving_1997}, je variací metody učení s učitelem, metody pro určení klasifikační funkce z trénovacích dat. Je předpokládána existence vstupních objektů ze vstupního prostoru \( \BPspace X \), výstupních objektů (tříd) z výstupního prostoru \( \BPspace Y \). Tyto třídy avšak nejsou známé ani pro trénovací data. Proto jsou vstupní objekty seskupeny do takzvaných tašek (\BPenname{bags}).
 
 \section{Multimnožiny}
-
+\todo{This is so nice definition, I really like it.}
 Aby byla možná korektní definice pojmu taška, je nejprve potřeba zavést několik pojmů z teorie množin. Prvním z nich je pojem \BPname{multimnožiny} (\BPenname{multiset}), srov. \cite{knuth_art_1968}.
 
 \begin{define}
@@ -108,6 +109,7 @@ Vzhledem k tomu, že není zaveden pojem třídy vstupního objektu, má hledan�
 Je využit algoritmus k-nejbližších sousedů (srov. \cite{dasarathy_nearest_1991}), modifikovaný o systém tzv. \BPname{citací}, kde kromě k-nejbližších sousedů (zde nazývaných \BPname{reference}) je definováno i c-nejbližších citujících, kde za \( c \)-nejbližších citujících instance \( x \in b \) je považováno
 \[ Citers \left( x, c \right) = \left\{ x_i \middle| Rank \left( x_i, x \right) \leq c \land x_i \in b \right\} \]
 Obě tyto hodnoty jsou vypočteny právě podle minimální Hausdorffovy vzdálenosti. Tašky jsou pak klasifikovány podle součtu těchto hodnot.
+\todo{Tady chybi, jak se ty citations vyuziji}
 
 \subsection{Paradigma vloženého prostoru}\label{embedded-space-paradigm}
 
@@ -125,7 +127,7 @@ kde
 Výběr vstupních objektů ve slovníku \( \BPspace D \) je prováděn pomocí algoritmu 1-norm SVM (srov. \cite{zhu_1-norm_2004}), který má ovšem nevýhodu v podobě velké výpočetní náročnosti.
 
 \section{Alternativní stochastický formalismus}
-V následující podkapitole je popsán alternativní formalismus pro mutli-instanční učení, převzatý z \cite{muandet_learning_2012} a \cite{pevny_using_2016}.
+V následující podkapitole je popsán alternativní formalismus pro mutli-instanční učení, převzatý z \cite{muandet_learning_2012}.
 
 Pro prostor vstupních objektů \( \BPspace X \) nechť existuje měřitelný prostor \( \left( \BPspace X, \BPspace A \right) \), kde \( \BPspace A \) je \( \sigma \)-algebrou prostoru \( \BPspace X \). Nechť \( \BPspace P^{\BPspace X} \) je množinou všech pravděpodobnostních měr prostoru \( \left( \BPspace X, \BPspace A \right) \). Na každou tašku pak lze pohlížet jako na realizaci nějaké pravděpodobnostní funkce \( P \left( p_b, y_b \right) \), kde \( p_b \in \BPspace P^{\BPspace X} \) je rozdělení pravděpodobnosti instancí v \( b \) a \( y_b \in \BPspace Y \) je třída této tašky. Prostor všech tašek lze zapsat jako
 \[ \BPspace B = \left\{ x_i \middle| \left( \forall i \in \hat n \right) \left( x_i \sim p \in \BPspace P^{\BPspace X} \right) \right\} \]
