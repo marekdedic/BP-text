@@ -15,10 +15,25 @@
 	Falešně pozitivní odhad je také nazýván \BPname{chybou prvního druhu}, falešně negativní odhad je také nazýván \BPname{chybou druhého druhu}.
 \end{define}
 
-\todo{Nechcete sem dat takovou tu obvyklou tabulku }
+Standardním způsobem, jak jsou tyto hodnoty zapisovány, je pomocí takzvané \BPname{kontingenční tabulky}. Podoba takovéto kontingenční tabulky je znázorněna v tabulce \ref{contingency_table}.
+
+\begin{table}[h]
+	\caption{Kontingenční tabulka}\label{contingency_table}
+	\centering
+	\begin{tabular}{llcc}
+		\toprule
+		&& \multicolumn{2}{c}{Reálný výsledek} \\
+		\cmidrule(l){3-4}
+		&& Pozitivní & Negativní \\
+		\cmidrule{3-4}
+		\multirow{2}{*}{Předpověď} & \multicolumn{1}{l|}{Pozitivní} & Počet pravdivě pozitivních odhadů & Počet falešně negativních odhadů \\
+		& \multicolumn{1}{l|}{Negativní} & Počet falešně pozitivních odhadů & Počet pravdivě negativních odhadů \\
+		\bottomrule
+	\end{tabular}
+\end{table}
 
 \section{Indikátory kvality binárního klasifikátoru}\label{quality_indicators}
-Cílem jakéhokoliv odhadu v úloze binární klasifikace je minimalizovat počet falešně pozitivních a falešně negativních odhadů. Ne vždy je ale možné minimalizovat obě tyto hodnoty a je třeba o nich uvažovat vždy najednou -- aproximace, která označí všechny objekty jako pozitivní nebude mít žádné falešně negativní odhady, ale v praxi nemá takováto aproximace žádnou hodnotu \todo{Jak jinak říct, že je na nic?}. Obdobně aproximace označující všechny objekty za negativní nebude produkovat žádné falešně pozitivní odhady, ale opět to není vhodná aproximace. -- Aby tedy bylo možno uvažovat o kvalitě nějakého binárního klasifikátoru, jsou dále zavedeny některé \BPname{indikátory kvality} \todo{To jsem si vymyslel, není pro to nějaký termín?}.
+Cílem jakéhokoliv odhadu v úloze binární klasifikace je minimalizovat počet falešně pozitivních a falešně negativních odhadů. Ne vždy je ale možné minimalizovat obě tyto hodnoty a je třeba o nich uvažovat vždy najednou -- aproximace, která označí všechny objekty jako pozitivní nebude mít žádné falešně negativní odhady, ale v praxi nemá takováto aproximace žádnou hodnotu. Obdobně aproximace označující všechny objekty za negativní nebude produkovat žádné falešně pozitivní odhady, ale opět to není vhodná aproximace. -- Aby tedy bylo možno uvažovat o kvalitě nějakého binárního klasifikátoru, jsou dále zavedeny některé \BPname{indikátory kvality}.
 
 \todo{Ja bych se tady rozepsal, cim jsou ty jednotlive miry inspirovane a proc byli zavedene.}
 
