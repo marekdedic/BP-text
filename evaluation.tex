@@ -35,44 +35,50 @@ Standardním způsobem, jak jsou tyto hodnoty zapisovány, je pomocí takzvané 
 \section{Indikátory kvality binárního klasifikátoru}\label{quality_indicators}
 Cílem jakéhokoliv odhadu v úloze binární klasifikace je minimalizovat počet falešně pozitivních a falešně negativních odhadů. Ne vždy je ale možné minimalizovat obě tyto hodnoty a je třeba o nich uvažovat vždy najednou -- aproximace, která označí všechny objekty jako pozitivní nebude mít žádné falešně negativní odhady, ale v praxi nemá takováto aproximace žádnou hodnotu. Obdobně aproximace označující všechny objekty za negativní nebude produkovat žádné falešně pozitivní odhady, ale opět to není vhodná aproximace. -- Aby tedy bylo možno uvažovat o kvalitě nějakého binárního klasifikátoru, jsou dále zavedeny některé \BPname{indikátory kvality}.
 
-\todo{Ja bych se tady rozepsal, cim jsou ty jednotlive miry inspirovane a proc byli zavedene.}
-
 \begin{define}
-	Nechť \( tp \) je počet pravdivě pozitivních odhadů nějakého binárního klasifikátoru na daném souboru dat. Nechť \( pp \) je celkový počet pozitivních odhadů tohoto binárního klasifikátoru (tedy počet pravdivě pozitivních a falešně pozitivních). Jako \BPname{přesnost} (\BPenname{precision}) tohoto klasifikátoru je označována hodnota
-	\[ precision = \frac{tp}{pp} \]
+	Nechť \( \operatorname{tp} \) je počet pravdivě pozitivních odhadů nějakého binárního klasifikátoru na daném souboru dat. Nechť \( \operatorname{pp} \) je celkový počet pozitivních odhadů tohoto binárního klasifikátoru (tedy počet pravdivě pozitivních a falešně pozitivních). Jako \BPname{přesnost} (\BPenname{precision}) tohoto klasifikátoru je označována hodnota
+	\[ \operatorname{precision} = \frac{\operatorname{tp}}{\operatorname{pp}} \]
 \end{define}
 
+Přesnost je jednou z nejdůležitějšich vlastností zvláště v oboru počítačové bezpečnosti. Nízká přesnost například antivirového software by znamenala velké množství programů chybně označených za malware, což může mít za následek, že uživatel antivirovému programu přestane věřit, či ho dokonce vypne úplně.
+
 \begin{define}
-	Nechť \( tp \) je počet pravdivě pozitivních odhadů nějakého binárního klasifikátoru na daném souboru dat. Nechť \( rp \) je celkový počet pozitivních vzorků v datovém souboru (tedy počet pravdivě pozitivních a falešně negativních). Jako \BPname{odezva} (\BPenname{recall}) tohoto klasifikátoru je označována hodnota
-	\[ recall = tpr = \frac{tp}{rp} \]
+	Nechť \( \operatorname{tp} \) je počet pravdivě pozitivních odhadů nějakého binárního klasifikátoru na daném souboru dat. Nechť \( \operatorname{rp} \) je celkový počet pozitivních vzorků v datovém souboru (tedy počet pravdivě pozitivních a falešně negativních). Jako \BPname{odezva} (\BPenname{recall}) tohoto klasifikátoru je označována hodnota
+	\[ \operatorname{recall} = \operatorname{tpr} = \frac{\operatorname{tp}}{\operatorname{rp}} \]
 	Odezva je také nazývána \BPname{pravdivě pozitivní mírou} (\BPenname{true positive rate}).
 \end{define}
 
-\begin{define}
-	Nechť \( fp \) je počet falešně pozitivních odhadů nějakého binárního klasifikátoru na daném souboru dat. Nechť \( rn \) je celkový počet negativních vzorků v datovém souboru (tedy počet pravdivě negativních a falešně pozitivních). Jako \BPname{falešně pozitivní míra} (\BPenname{false positive rate}) tohoto klasifikátoru je označována hodnota
-	\[ fpr = \frac{fp}{rn} \]
-\end{define}
+Opět na příkladu počítačové bezpečnosti se odezva jeví jako velice důležitá, zachytit nežádoucí software je totiž většinou původní motivací pro tvorbu klasifikátorů. Je tedy cílem dosáhnout co největší odevzvy při co nejmenším snížení přesnosti.
 
 \begin{define}
-	Nechť \( fn \) je počet falešně negativních odhadů nějakého binárního klasifikátoru na daném souboru dat. Nechť \( rp \) je celkový počet pozitivních vzorků v datovém souboru (tedy počet pravdivě pozitivních a falešně negativních). Jako \BPname{falešně negativní míra} (\BPenname{false negative rate}) tohoto klasifikátoru je označována hodnota
-	\[ fnr = \frac{fn}{rp} \]
+	Nechť \( \operatorname{fp} \) je počet falešně pozitivních odhadů nějakého binárního klasifikátoru na daném souboru dat. Nechť \( \operatorname{rn} \) je celkový počet negativních vzorků v datovém souboru (tedy počet pravdivě negativních a falešně pozitivních). Jako \BPname{falešně pozitivní míra} (\BPenname{false positive rate}) tohoto klasifikátoru je označována hodnota
+	\[ \operatorname{fpr} = \frac{\operatorname{fp}}{\operatorname{rn}} \]
 \end{define}
 
+Falešně pozitivní míra koresponduje s pravděpodobností, že objekt klasifikátorem označený jako pozitivní je ve skutečnosti negativní, je to tedy opět indikátor důležitý hlavně při problémech, kdy je falešně pozitivní odhad vysoce nežádoucí, například v medicíně. \todo{Citation needed}
+
 \begin{define}
-	Nechť \( precision \) je přesnost nějakékého binárního klasifikátoru a \( recall \) je jeho odezva. Jako \BPname{F-skóre} či také \BPname{F\textsubscript{1} skóre} tohoto klasifikátoru je označován harmonický průměr jeho přesnosti a odezvy, tedy
-	\[ F_1 = 2 \, \frac{precision \cdot recall}{precision + recall} \]
+	Nechť \( \operatorname{fn} \) je počet falešně negativních odhadů nějakého binárního klasifikátoru na daném souboru dat. Nechť \( \operatorname{rp} \) je celkový počet pozitivních vzorků v datovém souboru (tedy počet pravdivě pozitivních a falešně negativních). Jako \BPname{falešně negativní míra} (\BPenname{false negative rate}) tohoto klasifikátoru je označována hodnota
+	\[ \operatorname{fnr} = \frac{\operatorname{fn}}{\operatorname{rp}} \]
 \end{define}
 
 \begin{theorem}\label{tpr+fnr}
 	Platí
-	\[ tpr + fnr = 1 \]
+	\[ \operatorname{tpr} + \operatorname{fnr} = 1 \]
 \end{theorem}
 
-\todo{Název?}\section{Spojitá aproximace binárního klasifikátoru}\label{continuous_aprox}
+\begin{define}
+	Nechť \( \operatorname{precision} \) je přesnost nějakékého binárního klasifikátoru a \( \operatorname{recall} \) je jeho odezva. Jako \BPname{F-skóre} či také \BPname{F\textsubscript{1} skóre} tohoto klasifikátoru je označován harmonický průměr jeho přesnosti a odezvy, tedy
+	\[ F_1 = 2 \, \frac{\operatorname{precision} \cdot \operatorname{recall}}{\operatorname{precision} + \operatorname{recall}} \]
+\end{define}
 
-Přestože v úloze binární klasifikace jsou objekty zařazované do jedné ze dvou tříd, může nastat případ, kdy aproximace klasifikační funkce má jiný obor hodnot než množinu \( \left\{ -1, +1 \right\} \). V obecném případě může být oborem hodnot této aproximace celý obor \( \BPfield R \). Je tedy třeba rozhodnout, které hodnoty binárního klasifikátoru budou považovány za pozitivní a které za negativní. Zřejmě se nabízí přístup, kdy je stanoven nějaký práh a všechny hodnoty vyšší než tento práh jsou považovány za pozitivní odhad, všechny hodnoty nižší než tento práh jsou považovány za negativní odhad. Indikátory kvality lze poté chápat jako funkce takovéhoto prahu. Volba správného prahu ovšem není triviálním úkolem.
+F-skóre je jedinou zde zavedenou hodnotou, která dává do spojitosti jak falešně pozitivní, tak falešně negativní odhady. Proto může být použito jako primární indikátor použitý při volbě pracovního bodu, popsaného v kapitole \ref{continuous_aprox}.
 
-Jedním z možných řešení problému volby prahu je přístup pomocí určování hodnoty indikátorů kvality binárního klasifikátoru pro všechny možné prahy. Vzhledem k předpokladu konečnosti klasifikovaného souboru dat jsou tyto indikátory (považované za funkce prahu) po částech konstantní a tedy postačuje je vyhodnotit v konečně mnoha bodech. Pro velké datasety (například dataset popsaný v kapitole \ref{dataset}) avšak ani toto není výpočetně možné. Zvoleným řešením je nalézt kvantily všech možných hodnot prahu a vyhodnotit indikátory kvality v těchto bodech.
+\section{Volba pracovního bodu}\label{continuous_aprox}
+
+Přestože v úloze binární klasifikace jsou objekty zařazované do jedné ze dvou tříd, může nastat případ, kdy aproximace klasifikační funkce má jiný obor hodnot než množinu \( \left\{ -1, +1 \right\} \). V obecném případě může být oborem hodnot této aproximace celý obor \( \BPfield R \). Je tedy třeba rozhodnout, které hodnoty binárního klasifikátoru budou považovány za pozitivní a které za negativní. Zřejmě se nabízí přístup, kdy je stanoven nějaký práh (taktéž zvaný \BPname{pracovní bod}) a všechny hodnoty vyšší než tento práh jsou považovány za pozitivní odhad, všechny hodnoty nižší než tento práh jsou považovány za negativní odhad. Indikátory kvality lze poté chápat jako funkce takovéhoto prahu. Volba pracovního bodu ovšem není triviálním úkolem.
+
+Jedním z možných řešení problému volby pracovního bodu je přístup pomocí určování hodnoty indikátorů kvality binárního klasifikátoru pro všechny možné prahy. Vzhledem k předpokladu konečnosti klasifikovaného souboru dat jsou tyto indikátory (považované za funkce prahu) po částech konstantní a tedy postačuje je vyhodnotit v konečně mnoha bodech. Pro velké datasety (například dataset popsaný v kapitole \ref{dataset}) avšak ani toto není výpočetně možné. Zvoleným řešením je nalézt kvantily všech možných hodnot pracovního bodu a vyhodnotit indikátory kvality v těchto bodech.
 
 \section{Křivky zobrazující vlastnosti binárního klasifikátoru}\label{evaluation_curves}
 V následující podkapitole jsou popsány 4 křivky, pomocí kterých lze vizualizovat vlastnosti binárních klasifikátorů. V celé podkapitole jsou indikátory kvality považovány za funkce prahu.
@@ -82,23 +88,29 @@ V následující podkapitole jsou popsány 4 křivky, pomocí kterých lze vizua
 \[ \left\{ \left( recall \left( x \right), precision \left( x \right) \right) \middle| x \in \BPfield R \right\} \]
 Jde tedy o obor hodnot funkce \( \BPfield R \to \BPfield R^2 \), nikoliv o graf funkce \( \BPfield R \to \BPfield R \).
 
+PR křivka má vasokou důležitost právě pro problémy z oblasti počítačové bezpečnosti, kde je často kladena jiná důležitost na přesnost a odezvu. V takovémto případě PR křivka umožňuje vybrat pracovní bod, který je nejlepší pro konkrétní úlohu.
+
 \subsection{ROC křivka}
 \BPname{ROC křivka} (\BPenname{Receiver operating characteristic curve}) je křivkou zobrazující vztah mezi falešně pozitivní mírou a pravdivě pozitivní mírou klasifikátoru pro různé prahy. ROC křivka grafem množiny
 \[ \left\{ \left( fpr \left( x \right), tpr \left( x \right) \right) \middle| x \in \BPfield R \right\} \]
 V grafu ROC křivky je vyznačena i množina všech bodů \( \left( x, x \right) \), neboť náhodně volená klasifikační funkce by měla ROC křivku blízkou takovéto množině. Osa X grafu ROC křivky je v logaritmickém měřítku.
 
+ROC křivka je standardním způsobem vyhodnocování kvality binárních klasifikátorů a jako taková je používána napříč obory, ve kterých se vyskytují problémy binární klasifikace
+
 \subsection{DET křivka}
 \BPname{DET křivka} (\BPenname{Detection error tradeoff curve}, srov. \cite{martin_det_1997}) je modifikací ROC křivky. DET křivka je grafem množiny
 \[ \left\{ \left( fpr \left( x \right), fnr \left( x \right) \right) \middle| x \in \BPfield R \right\} \]
-Z věty \ref{tpr+fnr} je zřejmé, že DET křivka je ROC křivkou otočenou podle osy Y \todo{Zdůraznit, že v bodě 0.5?}. Rozdílem ovšem je měřítko, v jakém je tato křivka vykreslována. Na obě osy grafu je aplikována funkce
+Z věty \ref{tpr+fnr} je zřejmé, že DET křivka je ROC křivkou otočenou podle osy Y. Rozdílem ovšem je měřítko, v jakém je tato křivka vykreslována. Na obě osy grafu je aplikována funkce
 \[ q \left( x \right) = \sqrt{2} \cdot erf^{-1} \left( 2x - 1 \right) \]
 kde
 \[ erf \left( x \right) = \frac{1}{\sqrt{\pi}} \int_{-x}^{x} e^{-t^2} \mathrm{d} t \]
 
+DET křivka je nejméně častou ze zde popisovaných křivek. Jde o modifikaci ROC křivky, mezi jejíž výhody patří nelineární měřítko, umožňující porovnávat i velice podobné klasifikátory. DET křivka je (narozdíl od ROC křivky) relativně přímá a její tvar je indikátorem preference mezi falešně pozitivn=imi a falešně negativními odhady.
+
 \subsection{Křivka F-skóre}
 Křivka F-skóre je grafem funkce \( x \mapsto F_1 \left( x \right) \).
 
-\section{Proč vlastní implementace?}
+\section{Důvody vedoucí k vlastní implementaci}
 K výpočtu křivek popsaných v kapitole \ref{evaluation_curves} bylo vyzkoušeno několik softwarových balíčků dostupných pro jazyk Julia (\cite{zea_roc.jl:_2015}, \cite{leeuwen_rocanalysis.jl:_2016} a \cite{lin_mlbase.jl:_2017}). Všechny tyto balíčky avšak neumožňovaly výpočet indikátorů kvality z důvodů příliš vysoké výpočetní náročnosti či paměťové náročnosti. Všechny tyto balíčky rovněž neumožňují paralelní výpočet indikátorů kvality. Proto byl navržen vlastní balíček s názvem EduNetsEvaluate.jl, který umožňuje výpočet indikátorů kvality popsaných v kapitole \ref{quality_indicators} i pro soubory dat tak velké jako ten, popsaný v kapitole \ref{dataset}. Výpočet všech indikátorů kvality je z velké části paralelizovaný, což umožňuje plně využít výpočetní kapacity moderních vícejádrových procesorů a procesorů využívajících technologii Hyper-threading.
 
 \section{Implementace}
