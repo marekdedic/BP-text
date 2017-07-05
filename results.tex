@@ -3,13 +3,13 @@
 \section{Srovnání s nejlepším předchozím modelem}
 Obrázek \ref{prior_art} srovnává PR křivky nejlepšího modelu (srovnání parametrů v následujících podkapitolách) s nejlepším předchozím modelem pro soubor dat popsaný v kapitole \ref{dataset} (srov. \cite{machlica_learning_2017}). \todo{Předpokládám uvedení prior art v úvodu, tohle je všech 500 feature}
 
-\result{{prior_art_PR}.pdf}{prior_art}{Srovnání PR křivek s nejlepším předchozím modelem}
+\result{prior_art_PR.pdf}{prior_art}{Srovnání PR křivek s nejlepším předchozím modelem}
 
 \section{Srovnání různých topologií}
 
 Bylo vyzkoušeno 5 různých topologií neuronových sítí, odpovídajících modelu popsanému v kapitole \ref{model}. Všechny tyto topologie používají tři identické neuronové sítě definující funkce \( k_D \), \( k_P \) a \( k_Q \) (popsané v kapitole \ref{model}) Topologie označované jako \BPname{relumean}, \BPname{relurelumean}, \BPname{maxout3mean} a \BPname{maxout3maxout3mean} shodně modelují klasifikační funkci \( f \) jednou vrstvou neuronů s lineární přenosovou funkcí a jednou vrstvou s přenosovou funkcí softmax. Topologie relumean používá pro vkládající funkce \( \phi_D \), \( \phi_P \) a \( \phi_Q \) jednu vrstvu typu ReLU, následovanou funkcí aritmetického průměru. Topologie relurelumean používá dvě vrstvy typu ReLU následované funkcí aritmetického průměru. Topologie maxout3mean používá jednu vrstvu typu maxout3 (tj, maxout s parametrem \( k = 3 \)) následovanou funkcí aritmetického průměru. Topologie maxout3maxout3mean využívá 2 vrstvy typu maxout3 následované funkcí aritmetického průměru. Topologie \BPname{relurelumeanrelu} má funkce \( \phi_D \), \( \phi_Q \) a \( \phi_P  \) shodné s topologií relurelumean, avšak funkci \( f \) definuje jako jednu vrstvu typu ReLU následovanou jednou vrstvou s lineární přenosovou funkcí následovanou jednou vrstvou typu softmax. PR křivky všech těchto topologií jsou zobrazeny na obrázku \ref{topologies}. Všechny křivky v této kapitole byly počítány s kvantilizací pomocí percentilů (ve smyslu kapitoly \ref{continuous_aprox}).
 
-\result{{topology_PR}.pdf}{topologies}{Srovnání PR křivek různých topologií}
+\result{topology_PR.pdf}{topologies}{Srovnání PR křivek různých topologií}
 
 \section{Srovnání různých velikosti příznaků}
 
@@ -32,14 +32,14 @@ Bylo vyzkoušeno 5 různých topologií neuronových sítí, odpovídajících m
 
 Jako funkce \( \psi \) (ve smyslu kapitoly \ref{model}) byla použita funkce popsaná algoritmem \ref{feature_generator}. Tato funkce generuje vektor příznaků pomocí \( n \)\BPname{-gramů}, tedy podslov délky \( n \). Byly vyzkoušeny unigramy (\( n = 1 \)), bigramy \todo{Když se stihnou evaluovat} (\( n = 2 \)) a trigramy (\( n = 3 \)), všechny s topologií relumean. PR křivky pro tyto tři rozdílné velikosti příznaků jsou na obrázku \ref{ngrams}.\todo{Obrázek}
 
-\result{{by_settings/basic_PR}.pdf}{ngrams}{Srovnání PR křivek pro různé velikosti příznaků}
+\result{by_settings/basic_PR.pdf}{ngrams}{Srovnání PR křivek pro různé velikosti příznaků}
 
 \section{Srovnání různého počtu příznaků}
 V algoritmu \ref{feature_generator} lze měnit i velikost generovaného vektoru příznaků. Byly vyzkoušeny velikosti \( 509 \), \( 1021 \), \( 2053 \), \( 4099 \) a \( 8191 \) \todo{Když se stihnou evaluovat}. Všechny tyto velikosti byly zkoušeny s topologií relumean a trigramy. Srovnání PR křivek je na obrázku \ref{feature_count}.\todo{Obrázek}
 
-\result{{by_settings/basic_PR}.pdf}{feature_count}{Srovnání PR křivek pro různé počty příznaků}
+\result{by_settings/basic_PR.pdf}{feature_count}{Srovnání PR křivek pro různé počty příznaků}
 
 \section{Srovnání různých vah na pozitivních taškách}
 Při trénování umělé neuronové sítě lze pozitivním a negativním taškám přiřadit různé váhy, podle kterých se algoritmus bude jinak agresivně snažit odstranit falešně pozitivní a falešně negativní odhady \todo{Víc detailu?}. Byly vyzkoušeny váhy na pozitivních taškách \( 0.5 \), \( 0.1 \) a \( 0.01 \). Všechny váhy byly testovány s topologií relumean, trigramy a vektorem příznaků o velikosti \( 2053 \). Jejich PR křivky jsou srovnané na obrázku \ref{weights}.
 
-\result{{weights_PR}.pdf}{weights}{Srovnání PR křivek pro různé váhy na pozitivních taškách}
+\result{weights_PR.pdf}{weights}{Srovnání PR křivek pro různé váhy na pozitivních taškách}
