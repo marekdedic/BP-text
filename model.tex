@@ -90,6 +90,10 @@ kde
 \[ \BPmat W \in \BPfield R^{n, m, k} \qquad b \in \BPfield R^{m, k} \]
 Lze tedy vrstvu maxout chápat jako \( k \) lineárních vrstev, z nichž je vybráno maximum výstupu.
 
+\subsection{Softmax}
+Přenosová funkce pro neurony typu \BPname{softmax} je taktéž definována pro celou prstvu po složkách \( h_i : \BPfield R^n \to \BPfield R \) jako funkce (bez váhy a vychýlení)
+\[ h_i \left( x \right) = \frac{e^{x_i}}{\sum_{j = 1}^n e^{x_j}} \]
+
 \section{Metody trénování neuronových sítí}
 Jednou ze základních metod trénování neuronových sítí je metoda \BPname{gradientního sestupu} (srov. \cite{cauchy_methode_1847}). Předpokládá se existence nějaké objektivní funkce \( J \left( \theta \right) \), jejíž minimum je hledáno. \( \theta \in \BPfield R^d \) jsou učené parametry modelu. Tyto parametry se opakovaně mění, dokud není nalezeno požadované minimum funkce \( J \). Metoda gradientního sestupu počítá nové parametry \( \hat \theta \) jako
 \[ \hat \theta = \theta - \eta \nabla_{\theta} J \left( \theta \right) \]
