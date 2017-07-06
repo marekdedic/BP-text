@@ -71,7 +71,7 @@ Jak bude ale dále ukázáno, je tato definice ve většině případů přinejm
 
 \section{Metody řešení multi-instančních úloh}
 
-V následující podkapitole jsou popsány tři převládající přístupy k řešení Multi-instančních problémů. Celá tato sekce vychází z \cite{pevny_using_2016} a \cite{pevny_discriminative_2016}.
+V následující podkapitole jsou popsány tři převládající přístupy k řešení Multi-instančních problémů. Celá tato podkapitola vychází z \cite{pevny_using_2016}, \cite{pevny_discriminative_2016} a \cite{amores_multiple_2013}.
 
 \subsection{Paradigma prostoru instancí}
 \BPname{Paradigma prostoru instancí} (\BPenname{Instance-space paradigm}) je původní přístup k multi-instančnímu učení tak, jak jej popsal \cite{dietterich_solving_1997}. Předpokládá existenci (neznámých) tříd pro vstupní objekty a využívá definice \ref{baglabel}.
@@ -108,7 +108,7 @@ Je využit algoritmus k-nejbližších sousedů (srov. \cite{dasarathy_nearest_1
 \[ \operatorname{Citers} \left( x, c \right) = \left\{ x_i \middle| \operatorname{Rank} \left( x_i, x \right) \leq c \land x_i \in b \right\} \]
 Pro každou tašku je pak pomocí Haudorffovy vzdálenosti nalezeno \( r \)-nejbližšich referencí a \( c \)-nejbližších citujících. Pokud je mezi těmito referencemi a citujícími dohromady více pozitivních tašek než negativních, je taška označena za pozitivní. V opačném případě je taška označena za negativn.
 
-Citation-kNN je pouze jedním z přístupů pomocí paradigmatu prostoru tašek. Mezi další patří \cite{wang_solving_2000}, \cite{kwok_marginalized_2007}, \cite{gartner_multi-instance_2002}, \cite{haussler_convolution_1999} a \cite{muandet_learning_2012}.
+Citation-kNN je pouze jedním z přístupů pomocí paradigmatu prostoru tašek. Mezi další patří \cite{wang_solving_2000}, \cite{kwok_marginalized_2007}, \cite{gartner_multi-instance_2002}, \cite{haussler_convolution_1999}, \cite{zhou_multi-instance_2009} a \cite{muandet_learning_2012}.
 
 \subsection{Paradigma vloženého prostoru}\label{embedded-space-paradigm}
 
@@ -125,7 +125,7 @@ kde
 \end{cases} \]
 Výběr vstupních objektů ve slovníku \( \BPspace D \) je prováděn pomocí algoritmu 1-norm SVM (srov. \cite{zhu_1-norm_2004}), který má ovšem nevýhodu v podobě velké výpočetní náročnosti.
 
-Mezi další přístupy pomocí paradigmatu vloženého prostoru patří například \cite{cheplygina_multiple_2015}.
+Mezi další přístupy pomocí paradigmatu vloženého prostoru patří například \cite{cheplygina_multiple_2015}, \cite{chen_image_2004}, \cite{foulds_learning_2008} a \cite{zhang_multi-instance_2009}.
 
 \section{Alternativní stochastický formalismus}
 V následující podkapitole je popsán alternativní formalismus pro mutli-instanční učení, převzatý z \cite{muandet_learning_2012}.
