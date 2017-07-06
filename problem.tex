@@ -31,15 +31,15 @@ Adresa URL se skládá z několika částí, mezi běžné patří \BPname{proto
 
 Na obrázku \ref{url_parts} je příklad dělení adresy URL. Doména ja zvýrazněná červenou barvou, cesta fialovou a dotaz modrou.
 
-Každá z těchto tří částí adresy URL se sama skládá z několika podčástí. Doména se skládá z několika úrovní, lišících se obecností. Tyto části jsou odděleny znakem ".". Cesta se skládá z názvů složek a souborů, které jsou dotazovány. Tyto části jsou odděleny znakem "/". Dotaz je tvořen dvojicemi klíč--hodnota, oddělenými znakem "\&". Na obrázku \ref{url_subparts} je příklad těchto podčástí, v barvách korespondujících s obrázkem \ref{url_parts}, v různých odstínech pro různé podčásti.
+Každá z těchto tří částí adresy URL se sama skládá z několika částí, zvaných \BPname{tokeny}. Doména se skládá z několika úrovní, lišících se obecností. Tyto tokeny jsou odděleny znakem ".". Cesta se skládá z názvů složek a souborů, které jsou dotazovány. Tyto tokeny jsou odděleny znakem "/". Dotaz je tvořen dvojicemi klíč--hodnota, oddělenými znakem "\&". Na obrázku \ref{url_subparts} je příklad tohoto rozdělení, v barvách korespondujících s obrázkem \ref{url_parts}, v různých odstínech pro různé tokeny.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics{images/url_subparts/url_subparts.pdf}
-	\caption{Podčásti adresy URL}\label{url_subparts}
+	\caption{Části a tokeny adresy URL}\label{url_subparts}
 \end{figure}
 
-Je zřejmé, že na pořadí podčástí domény záleží, definují "cestu" k cílovému serveru a jsou řazeny od nejkonkrétnější k nejobecnější (srov. \cite{mockapetris_domain_1987}).	Stejně tak u cesty závisí na pořádí, které definuje adresářové umístění požadovaného souboru na serveru.
+Je zřejmé, že na pořadí tokenů domény záleží, definují "cestu" k cílovému serveru a jsou řazeny od nejkonkrétnější k nejobecnější (srov. \cite{mockapetris_domain_1987}). Stejně tak u cesty závisí na pořádí, které definuje adresářové umístění požadovaného souboru na serveru.
 
 \section{Výhody přístupu pomocí MIL}
 
