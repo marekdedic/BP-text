@@ -3,8 +3,7 @@
 Jelikož úloha představená v kapitole \ref{problem} je úlohou v níž je adresa URL rozdělena na části a ty jsou posléze rozděleny na tokeny, je na model použitý k aproximaci klasifikační funkce kladen požadavek, aby reflektoval tuto hierarchickou strukturu vstupních dat. Použitý model využívá přístupu pomocí multi-instančního učení \footnote{resp. jeho speciální varianty, popsané v kapitole \ref{MIL-modification}.}, popsaného v kapitole \ref{MIL}, aplikovaného dvakrát na sebe sama. Tím je umožněno modelovat nejprve tři vybrané části adresy URL (doménu, cestu a dotaz) z jejich tokenů, a posléze z těchto tří částí modelovat samotnou adresu URL. V následující kapitole je předpokládáná základní znalost fungování umělých neuronových sítí v rozsahu prvních dvou částí \cite{goodfellow_deep_2016}.
 
 \section{Reprezentace adresy URL pomocí tašek vektorů}\label{URL_MIL_representation}
-
-V kapitole \ref{problem} byla definována abeceda všech znaků přípustných v adrese URL \( \Sigma \) jako abeceda malých a velkých písmen anglické abecedy, čísel a znaků \$ - \_ . + ! * ' ( ) , \% ; / ? : @ \& = (srov. \cite{berners-lee_uniform_1994}). Každá adresa URL, každá její část i každý token je slovem v abecedě \( \Sigma \). Aby však bylo možné s těmito objekty dále pracovat, je zapotřebí tato slova převést na vektory. Toho je dosáhnuto pomocí nějaké funkce \( \psi : \Sigma^* \to \BPfield R^n \) kde symbolem \( \Sigma^* \) je označována množina všech slov nad abecedou \( \Sigma \). Tím je definován prostor vstupních objektů, dále nazývaných \BPname{vektory příznaků} (\BPenname{feature vectors}), jako
+\todo{Přepsat bottom-up k čitelnosti.}V kapitole \ref{problem} byla definována abeceda všech znaků přípustných v adrese URL \( \Sigma \) jako abeceda malých a velkých písmen anglické abecedy, čísel a znaků \$ - \_ . + ! * ' ( ) , \% ; / ? : @ \& = (srov. \cite{berners-lee_uniform_1994}). Každá adresa URL, každá její část i každý token je slovem v abecedě \( \Sigma \). Aby však bylo možné s těmito objekty dále pracovat, je zapotřebí tato slova převést na vektory. Toho je dosáhnuto pomocí nějaké funkce \( \psi : \Sigma^* \to \BPfield R^n \) kde symbolem \( \Sigma^* \) je označována množina všech slov nad abecedou \( \Sigma \). Tím je definován prostor vstupních objektů, dále nazývaných \BPname{vektory příznaků} (\BPenname{feature vectors}), jako
 \[ \BPspace X_1 = \psi \left( \Sigma^* \right) \subset \BPfield R^n \]
 Tento prostor obsahuje všechny vektory příznaků odpovídající tokenům adresy URL. Prostor \( \BPspace B_1 \subset \BPspace P^M \left( \BPspace X_1 \right) \) je tedy konstruován tak, že každá taška v \( \BPspace B_1 \) odpovídá vektorům příznaků tokenů jedné části jedné adresy URL. Za použití paradigmatu vloženého prostoru, popsaného v kapitole \ref{embedded-space-paradigm} lze najít nějakou vkládající funkci
 \[ \phi_1 : \BPspace B_1 \to \BPspace X_2 \]
@@ -73,7 +72,7 @@ Klasifikační funkce \( f : \BPfield R^{3n} \to \left\{ -1, +1 \right\} \) je d
 Takto navržené vkládající funkce zanedbávají pořadí objektů v jednotlivých taškách. Tento přístup byl pro svou jednoduchost zvolen, přestože pořadí objektů v taškách má vliv na výsledný klasifikátor (srov. \cite{vinyals_order_2015}).
 
 \section{Použité přenosové funkce}
-V modelech požitých k řešení úlohy popsané v kapitole \ref{problem} byly použity tři typy neuronů s různými \BPname{přenosovými funkcemi} (\BPenname{activation function}).
+\todo{Zavést písmenka v textu - x, W, b}V modelech požitých k řešení úlohy popsané v kapitole \ref{problem} byly použity tři typy neuronů s různými \BPname{přenosovými funkcemi} (\BPenname{activation function}).
 
 \subsection{Lineární přenosová funkce}
 Jedním z nejjednoduších typů neuronů je neuron s lineární přenosovou funkcí, mající tvar (bez váhy a vychýlení)
@@ -96,12 +95,16 @@ Lze tedy vrstvu maxout chápat jako \( k \) lineárních vrstev, z nichž je vyb
 Přenosová funkce pro neurony typu \BPname{softmax} je taktéž definována pro celou prstvu po složkách \( h_i : \BPfield R^n \to \BPfield R \) jako funkce (bez váhy a vychýlení)
 \[ h_i \left( x \right) = \frac{e^{x_i}}{\sum_{j = 1}^n e^{x_j}} \]
 
+\todo{Loss funkce}
+
 \section{Metody trénování neuronových sítí}
 Jednou ze základních metod trénování neuronových sítí je metoda \BPname{gradientního sestupu} (srov. \cite{cauchy_methode_1847}). Předpokládá se existence nějaké objektivní funkce \( J \left( \theta \right) \), jejíž minimum je hledáno. \( \theta \in \BPfield R^d \) jsou učené parametry modelu. Tyto parametry se opakovaně mění, dokud není nalezeno požadované minimum funkce \( J \). Metoda gradientního sestupu počítá nové parametry \( \hat \theta \) jako
 \[ \hat \theta = \theta - \eta \nabla_{\theta} J \left( \theta \right) \]
 kde \( \eta \) je krok učení. Metoda \BPname{stochastického gradientního sestupu} provádí tuto korekci pro každou dvojici vstupního objektu \( x \) a výstupního objektu \( y \), tedy jde o metodu tvaru
 \[ \hat \theta = \theta - \eta \nabla_{\theta} J \left( \theta; x, y \right) \]
 Výhodou této metody je efektivita učení při velkém množství trénovacích dat, avšak její nevýhodou je velká fluktuace hodnot objektivní funkce.
+
+\todo{Mini-batch SGD}
 
 Metoda stochastického gradientního sestupu je základem pro mnoho moderních metod trénování neuronových sítí (srov. \cite{duchi_adaptive_2011}, \cite{zeiler_adadelta:_2012}, \cite{tieleman_lecture_2012} a \cite{kingma_adam:_2014}). Použitá metoda je další metodou založenou na gradientním sestupu, ADAM.
 
