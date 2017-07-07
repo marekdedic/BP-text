@@ -102,7 +102,7 @@ Díky takto dobře definované chybové funkci lze využít k trénování neuro
 \[ k : \BPspace B \times \BPspace B \to \BPfield R_0^+ \]
 Vzhledem k tomu, že není zaveden pojem třídy vstupního objektu, má hledaná klasifikační funkce tvar \( f : \BPspace B \to \BPspace Y \) a je hledána přímo v této podobě.
 
-\BPname{Citation-kNN} (srov. \cite{wang_solving_2000}) definuje pro tašky \( b_1, b_2 \in \BPspace B \) pojem \BPname{minimální Hausdorffovy vzdálenosti} (\BPenname{minimal Hausdorff distance}) jako
+\BPname{Citation-kNN} (srov. \cite{wang_solving_2000}) definuje pro tašky \( b_1, b_2 \in \BPspace B \) pojem \BPname{modifikované Hausdorffovy vzdálenosti} jako
 \[ H \left( b_1, b_2 \right) = \min_{x \in b_1} \min_{y \in b_2} \left\Vert x - y \right\Vert \]
 Je využit algoritmus k-nejbližších sousedů (srov. \cite{dasarathy_nearest_1991}), modifikovaný o systém tzv. \BPname{citací}, kde kromě k-nejbližších sousedů (zde nazývaných \BPname{reference}) je definováno i c-nejbližších citujících, kde za \( c \)-nejbližších citujících instance \( x \in b \) je považováno
 \[ \operatorname{Citers} \left( x, c \right) = \left\{ x_i \middle| \operatorname{Rank} \left( x_i, x \right) \leq c \land x_i \in b \right\} \]
@@ -123,7 +123,7 @@ kde
 	e^{- \frac{1}{\sigma^2} \left\Vert x - d \right\Vert^2} \quad \text{pokud} \; d \; \text{je nejbližším sousedem} \; x \; \text{v} \; \BPspace D \\
 	0 \quad \text{jinak}
 \end{cases} \]
-Výběr vstupních objektů ve slovníku \( \BPspace D \) je prováděn pomocí algoritmu 1-norm SVM (srov. \cite{zhu_1-norm_2004}), který má ovšem nevýhodu v podobě velké výpočetní náročnosti.
+Výběr vstupních objektů ve slovníku \( \BPspace D \) je prováděn pomocí algoritmu 1-class SVM (srov. \cite{zhu_1-norm_2004}), který má ovšem nevýhodu v podobě velké výpočetní náročnosti.
 
 Mezi další přístupy pomocí paradigmatu vloženého prostoru patří například \cite{cheplygina_multiple_2015}, \cite{chen_image_2004}, \cite{foulds_learning_2008} a \cite{zhang_multi-instance_2009}.
 
@@ -134,13 +134,12 @@ Pro prostor vstupních objektů \( \BPspace X \) nechť existuje měřitelný pr
 \[ \BPspace B = \left\{ x_i \middle| \left( \forall i \in \hat n \right) \left( x_i \sim p \in \BPspace P^{\BPspace X} \right) \right\} \]
 Hledaná klasifikační funkci je v tomto formalismu tvaru \( f : \BPspace P^{\BPspace X} \to \BPspace Y \).
 
-Je tedy předpokladem, že pravděpodobnostní distribuce jsou odlišné v závislosti na třídě, tj. v případě binární klasifikace \( p_+ \neq p_- \) kde \( p_+ \sim P(p, +1) \) a \( p_- \sim P(p, -1) \). V souladu s \cite{dietterich_solving_1997} je dále předpokládáno, že existují vstupní objekty, které nikdy nejsou generovány pravděpodobnostními mírami negativní třídy, z čehož plyne
-\[ p_+ \setminus p_- \neq \emptyset \]
+Je tedy předpokladem, že pravděpodobnostní distribuce jsou odlišné v závislosti na třídě, tj. v případě binární klasifikace \( p_+ \neq p_- \) kde \( p_+ \sim P(p, +1) \) a \( p_- \sim P(p, -1) \).
 
 \cite{muandet_learning_2012} definuje jádrovou funkci na prostoru tašek, což je v tomto stochastickém formalismu o něco složitější. Nechť \( k \) je jádrovou funkcí prostoru \( \BPspace X \), tedy \( k : \BPspace X \times \BPspace X \to \BPfield R \). Nechť \( \BPspace H \) je Hilbertovým prostorem funkcí \( \BPspace X \to \BPfield R \). Tento prostor je Hilbertovým prostorem reprodukujícím jádro \( k \). Dále nechť je definované zobrazení \( \mu \) jako
 \[ \mu : \BPspace P^{\BPspace X} \to \BPspace H : p \mapsto \int_{\BPspace X} k \left( x, \cdot \right) \mathrm{d}p \left( x \right) \]
 Pomocí tohoto zobrazení lze definovat jádrovou funkci \( K : \BPspace P^{\BPspace X} \times \BPspace P^{\BPspace X} \to \BPfield R \) jako
-\[ K \left( p, q \right) = \braket{\mu \left( p \right) | \mu \left( q \right)}_{\BPspace H} = \iint k \left( x, y \right) \mathrm{d} p \left( x \right) \mathrm{d} q \left( y \right) \]
+\[ K \left( p, q \right) = \braket{\mu \left( p \right) , \mu \left( q \right)}_{\BPspace H} = \iint k \left( x, y \right) \mathrm{d} p \left( x \right) \mathrm{d} q \left( y \right) \]
 
 \section{Výhody paradigmatu vloženého prostoru}
 Pro modelování klasifikační funkce úlohy popsané v kapitole \ref{problem} bylo použito paradigma vloženého prostoru. Dle autorova názoru nemá smysl definovat pro jednotlivé části adresy URL, zda spadají do pozitivní či negativní třídy, třída je v této úloze dobře definována pouze na úrovni celých adres URL. To je důvodem, proč nebylo zvoleno paradigma prostoru instancí. Důvody pro upřednostnění paradigmatu vloženého prostoru před paradigmatem prostoru tašek jsou 2. Prvním z nich je vyšší výpočetní náročnost algoritmů využívajících paradigma prostoru tašek. Vzhledem ke složitosti úlohy a množství dostupných dat je výpočetní složitost natolik důležitá, že ovlivňuje i výběr algoritmu. Druhým důvodem je možnost použití standardních algoritmů pro učení s učitelem při použítí paradigmatu vloženého prostoru.
