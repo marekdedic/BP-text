@@ -40,7 +40,7 @@ Cílem jakéhokoliv odhadu v úloze binární klasifikace je minimalizovat poče
 	\[ \operatorname{precision} = \frac{\operatorname{tp}}{\operatorname{pp}} \]
 \end{define}
 
-Přesnost je jednou z nejdůležitějšich vlastností zvláště v oboru počítačové bezpečnosti. Nízká přesnost například antivirového software by znamenala velké množství programů chybně označených za malware, což může mít za následek, že uživatel antivirovému programu přestane věřit, či ho dokonce vypne úplně. \todo{Citace Vejmělka AVAST o zavirované hře}
+Přesnost je jednou z nejdůležitějšich vlastností zvláště v oboru počítačové bezpečnosti. Nízká přesnost například antivirového software by znamenala velké množství programů chybně označených za malware, což může mít za následek, že uživatel antivirovému programu přestane věřit, či ho dokonce vypne úplně (srov. \cite{vejmelka_fighting_2017}).
 
 \begin{define}
 	Nechť \( \operatorname{tp} \) je počet pravdivě pozitivních odhadů nějakého binárního klasifikátoru na daném souboru dat. Nechť \( \operatorname{rp} \) je celkový počet pozitivních vzorků v datovém souboru (tedy počet pravdivě pozitivních a falešně negativních). Jako \BPname{odezva} (\BPenname{recall}) tohoto klasifikátoru je označována hodnota
@@ -55,7 +55,7 @@ Opět na příkladu počítačové bezpečnosti se odezva jeví jako velice důl
 	\[ \operatorname{fpr} = \frac{\operatorname{fp}}{\operatorname{rn}} \]
 \end{define}
 
-Falešně pozitivní míra koresponduje s pravděpodobností, že objekt klasifikátorem označený jako pozitivní je ve skutečnosti negativní, je to tedy opět indikátor důležitý hlavně při problémech, kdy je falešně pozitivní odhad vysoce nežádoucí, například v medicíně. \todo{Citation needed - mail}
+Falešně pozitivní míra koresponduje s pravděpodobností, že objekt klasifikátorem označený jako pozitivní je ve skutečnosti negativní, je to tedy opět indikátor důležitý hlavně při problémech, kdy je falešně pozitivní odhad vysoce nežádoucí, například v medicíně (srov. \cite{mac_namee_problem_2002}).
 
 \begin{define}
 	Nechť \( \operatorname{fn} \) je počet falešně negativních odhadů nějakého binárního klasifikátoru na daném souboru dat. Nechť \( \operatorname{rp} \) je celkový počet pozitivních vzorků v datovém souboru (tedy počet pravdivě pozitivních a falešně negativních). Jako \BPname{falešně negativní míra} (\BPenname{false negative rate}) tohoto klasifikátoru je označována hodnota
@@ -88,7 +88,7 @@ V následující podkapitole jsou popsány 4 křivky, pomocí kterých lze vizua
 \[ \left\{ \left( recall \left( x \right), precision \left( x \right) \right) \middle| x \in \BPfield R \right\} \]
 Jde tedy o obor hodnot funkce \( \BPfield R \to \BPfield R^2 \), nikoliv o graf funkce \( \BPfield R \to \BPfield R \).
 
-PR křivka má vysokou důležitost právě pro problémy z oblasti počítačové bezpečnosti \todo{Vyhodnocování vyhledávačů, information retrieval, recommendation systems}, kde je často kladena jiná důležitost na přesnost a odezvu. V takovémto případě PR křivka umožňuje vybrat pracovní bod, který je nejlepší pro konkrétní úlohu.
+PR křivka má vysokou důležitost právě pro problémy z oblasti počítačové bezpečnosti, dále pak vyhodnocování vyhledávačů, sběru dat, systémů navrhujících doporučení zákazníkům, tedy obecně problémů, kde je kladena jiná důležitost na přesnost a odezvu. V takovémto případě PR křivka umožňuje vybrat pracovní bod, který je nejlepší pro konkrétní úlohu.
 
 \subsection{ROC křivka}
 \BPname{ROC křivka} (\BPenname{Receiver operating characteristic curve}) je křivkou zobrazující vztah mezi falešně pozitivní mírou a pravdivě pozitivní mírou klasifikátoru pro různé prahy. ROC křivka grafem množiny

@@ -38,10 +38,10 @@ Obecně lze v klasickém multi-instančním učení definovat vkládající funk
 \begin{equation}\label{netpooling}
 	\phi : \BPspace B \to \bar{\BPspace X} : b \mapsto g \left( \left\{ k \left( x \right) \middle| x \in b \right\} \right)
 \end{equation}
-kde \todo{obor hodnot k}
+kde
 \begin{align*}
-	k &: \BPspace X \to \BPspace X \\
-	g &: \bigcup_{m = 1}^{+ \infty} \BPspace X^m \to \bar{\BPspace X}
+	k &: \BPspace X \to \BPfield R^l \\
+	g &: \bigcup_{m = 1}^{+ \infty} \left( \BPfield R^l \right)^m \to \bar{\BPspace X}
 \end{align*}
 Za \( g \) lze volit napříkald funkce minimum, maximum, aritmetický průměr. Funkce \( k \) je definována neuronovou sítí, která je trénována libovolným algoritmem pro učení s učítelem. Pokud jsou funkce \( k \) a \( f \) obě definovány neuronovou sítí, jsou tyto neuronové sítě trénovány společně.
 
@@ -72,18 +72,18 @@ Klasifikační funkce \( f : \BPfield R^{3n} \to \left\{ -1, +1 \right\} \) je d
 Takto navržené vkládající funkce zanedbávají pořadí objektů v jednotlivých taškách. Tento přístup byl pro svou jednoduchost zvolen, přestože pořadí objektů v taškách má vliv na výsledný klasifikátor (srov. \cite{vinyals_order_2015}).
 
 \section{Použité přenosové funkce}
-\todo{Zavést písmenka v textu - x, W, b}V modelech požitých k řešení úlohy popsané v kapitole \ref{problem} byly použity tři typy neuronů s různými \BPname{přenosovými funkcemi} (\BPenname{activation function}).
+V modelech požitých k řešení úlohy popsané v kapitole \ref{problem} byly použity tři typy neuronů s různými \BPname{přenosovými funkcemi} (\BPenname{activation function}).
 
 \subsection{Lineární přenosová funkce}
-Jedním z nejjednoduších typů neuronů je neuron s lineární přenosovou funkcí, mající tvar (bez váhy a vychýlení)
+Jedním z nejjednoduších typů neuronů je neuron s lineární přenosovou funkcí, mající pro vstup neuronu \( x \) tvar (bez váhy a vychýlení)
 \[ f : \BPfield R \to \BPfield R : x \mapsto x \]
 
 \subsection{ReLU}
-Neurony typu \BPname{ReLU} (\BPenname{Rectified linear unit}) používají přenosovou funkci (bez váhy a vychýlení)
+Neurony typu \BPname{ReLU} (\BPenname{Rectified linear unit}) používají přenosovou funkci (bez váhy a vychýlení), která pro vstup neuronu \( x \) dává výstup
 \[ f : \BPfield R \to \BPfield R : x \mapsto \max \left\{ 0, x \right\} \]
 
 \subsection{Maxout}
-Pro neurony typu \BPname{maxout} (srov. \cite{goodfellow_maxout_2013}) nelze přenosovou funkci definovat stejně jednoduše jako v případě neuronů typu ReLU. Přenosová funkce \( h \) v tomto případě nebývá definována pro jednotlivé neurony, ale pro celou vrstvu neuronů po složkách \( h_i : \BPfield R^n \to \BPfield R \) jako funkce (včetně váhy a vychýlení)
+Pro neurony typu \BPname{maxout} (srov. \cite{goodfellow_maxout_2013}) nelze přenosovou funkci definovat stejně jednoduše jako v případě neuronů typu ReLU. Přenosová funkce \( h \) v tomto případě nebývá definována pro jednotlivé neurony, ale pro celou vrstvu neuronů po složkách \( h_i : \BPfield R^n \to \BPfield R \) jako funkce (včetně váhy \( \BPmat W \) a vychýlení \( b \))
 \[ h_i \left( x \right) = \max_{j \in \left[ 1, k \right]} z_{ij} \]
 kde
 \[ z_{ij} = x^T \BPmat W_{\cdot ij} + b_{ij} \]
@@ -92,9 +92,10 @@ kde
 Lze tedy vrstvu maxout chápat jako \( k \) lineárních vrstev, z nichž je vybráno maximum výstupu.
 
 \subsection{Softmax}
-Přenosová funkce pro neurony typu \BPname{softmax} je taktéž definována pro celou prstvu po složkách \( h_i : \BPfield R^n \to \BPfield R \) jako funkce (bez váhy a vychýlení)
+Přenosová funkce pro neurony typu \BPname{softmax} je taktéž definována pro celou vrstvu po složkách \( h_i : \BPfield R^n \to \BPfield R \) jako funkce (bez váhy a vychýlení)
 \[ h_i \left( x \right) = \frac{e^{x_i}}{\sum_{j = 1}^n e^{x_j}} \]
 
+\section{Použitá objektivní funkce}
 \todo{Loss funkce}
 
 \section{Metody trénování neuronových sítí}
