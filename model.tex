@@ -101,13 +101,16 @@ Přenosová funkce pro neurony typu \BPname{softmax} je taktéž definována pro
 \section{Metody trénování neuronových sítí}
 Jednou ze základních metod trénování neuronových sítí je metoda \BPname{gradientního sestupu} (srov. \cite{cauchy_methode_1847}). Předpokládá se existence nějaké objektivní funkce \( J \left( \theta \right) \), jejíž minimum je hledáno. \( \theta \in \BPfield R^d \) jsou učené parametry modelu. Tyto parametry se opakovaně mění, dokud není nalezeno požadované minimum funkce \( J \). Metoda gradientního sestupu počítá nové parametry \( \hat \theta \) jako
 \[ \hat \theta = \theta - \eta \nabla_{\theta} J \left( \theta \right) \]
-kde \( \eta \) je krok učení. Metoda \BPname{stochastického gradientního sestupu} provádí tuto korekci pro každou dvojici vstupního objektu \( x \) a výstupního objektu \( y \), tedy jde o metodu tvaru
+kde \( \eta \) je krok učení.
+
+Metoda \BPname{stochastického gradientního sestupu} provádí tuto korekci pro každou dvojici vstupního objektu \( x \) a výstupního objektu \( y \), tedy jde o metodu tvaru
 \[ \hat \theta = \theta - \eta \nabla_{\theta} J \left( \theta; x, y \right) \]
 Výhodou této metody je efektivita učení při velkém množství trénovacích dat, avšak její nevýhodou je velká fluktuace hodnot objektivní funkce.
 
-\todo{Mini-batch SGD}
+Kompromisem mezi základním gradientním sestupem a stochastickým gradientním sestupem je metoda \BPname{mini-batch gradientního sestupu}. Tato metoda je srovnatelně efektivní jako stochastický gradientní sestup při vyšší stabilitě hodnot objektivní funkce. Metoda mini-batch gradientního sestupu vybírá z dostupných vstupních a výstupních objektů podmonožinu, zvanou \BPname{mini-batch}, a určuje nové parametry jako
+\[ \hat \theta = \theta - \eta \nabla_{\theta} J \left( \theta; x^{\left( i, \dots, i + n \right)}, y^{\left( i, \dots, i + n \right)} \right) \]
 
-Metoda stochastického gradientního sestupu je základem pro mnoho moderních metod trénování neuronových sítí (srov. \cite{duchi_adaptive_2011}, \cite{zeiler_adadelta:_2012}, \cite{tieleman_lecture_2012} a \cite{kingma_adam:_2014}). Použitá metoda je další metodou založenou na gradientním sestupu, ADAM.
+Metoda gradientního sestupu je základem pro mnoho moderních metod trénování neuronových sítí (srov. \cite{duchi_adaptive_2011}, \cite{zeiler_adadelta:_2012}, \cite{tieleman_lecture_2012} a \cite{kingma_adam:_2014}). Použitá metoda je další metodou založenou na gradientním sestupu, ADAM.
 
 \BPname{ADAM} (srov. \cite{kingma_adam:_2014}) je variantou stochastického gradientního sestupu s proměnlivým krokem učení. K správnému nastavení tohoto kroku je v této metodě přenášena hodnota gradientu a jeho čtverce mezi jednotlivými kroky. Metoda ADAM je parametrizována třemi parametry \( \beta_1 \), \( \beta_2 \) a \( \varepsilon \). V každém kroku \( t \) jsou počítány momenty
 \[ m_t = \beta_1 m_{t - 1} + \left( 1 - \beta_1 \right) \nabla_{\theta} J \left( \theta \right) \]
