@@ -85,26 +85,25 @@ V následující podkapitole jsou popsány čtyři křivky, pomocí kterých lze
 
 \subsection{PR křivka}
 \BPname{PR křivka} (\BPenname{Precision-Recall curve}) je křivkou zobrazující vztah mezi přesností a odezvou klasifikátoru pro různé prahy. PR křivka grafem množiny
-\[ \left\{ \left( recall \left( x \right), precision \left( x \right) \right) \middle| x \in \BPfield R \right\} \]
+\[ \left\{ \left( \operatorname{recall} \left( x \right), \operatorname{precision} \left( x \right) \right) \middle| x \in \BPfield R \right\} \]
 Jde tedy o obor hodnot funkce \( \BPfield R \to \BPfield R^2 \), nikoliv o graf funkce \( \BPfield R \to \BPfield R \).
 
-\todo{mathop}
 PR křivka má vysokou důležitost právě pro problémy z oblasti počítačové bezpečnosti, dále pro vyhodnocování vyhledávačů, sběru dat, systémů navrhujících doporučení zákazníkům, tedy obecně problémů, kde je kladena jiná důležitost na přesnost a odezvu. V takovém případě PR křivka umožňuje vybrat pracovní bod, který je nejlepší pro konkrétní úlohu.
 
 \subsection{ROC křivka}
 \BPname{ROC křivka} (\BPenname{Receiver operating characteristic curve}) je křivkou zobrazující vztah mezi falešně pozitivní mírou a pravdivě pozitivní mírou klasifikátoru pro různé prahy. ROC křivka je grafem množiny
-\[ \left\{ \left( fpr \left( x \right), tpr \left( x \right) \right) \middle| x \in \BPfield R \right\} \]
+\[ \left\{ \left( \operatorname{fpr} \left( x \right), \operatorname{tpr} \left( x \right) \right) \middle| x \in \BPfield R \right\} \]
 V grafu ROC křivky je vyznačena i množina všech bodů \( \left( x, x \right) \), neboť náhodně volená klasifikační funkce by měla ROC křivku blízkou této množině. Osa X grafu ROC křivky je v logaritmickém měřítku.
 
 ROC křivka je standardním způsobem vyhodnocování kvality binárních klasifikátorů a je používána napříč obory, ve kterých se vyskytují problémy binární klasifikace
 
 \subsection{DET křivka}
 \BPname{DET křivka} (\BPenname{Detection error tradeoff curve}, srov. \cite{martin_det_1997}) je modifikací ROC křivky. DET křivka je grafem množiny
-\[ \left\{ \left( fpr \left( x \right), fnr \left( x \right) \right) \middle| x \in \BPfield R \right\} \]
-Z věty \ref{tpr+fnr} je zřejmé, že DET křivka je ROC křivkou překlopenou podle osy Y. Rozdílem je měřítko, v jakém je tato křivka vykreslována. Na obě osy grafu je aplikována funkce \todo{mathop}
-\[ q \left( x \right) = \sqrt{2} \cdot erf^{-1} \left( 2x - 1 \right) \]
+\[ \left\{ \left( \operatorname{fpr} \left( x \right), \operatorname{fnr} \left( x \right) \right) \middle| x \in \BPfield R \right\} \]
+Z věty \ref{tpr+fnr} je zřejmé, že DET křivka je ROC křivkou překlopenou podle osy Y. Rozdílem je měřítko, v jakém je tato křivka vykreslována. Na obě osy grafu je aplikována funkce
+\[ q \left( x \right) = \sqrt{2} \cdot \operatorname{erf}^{-1} \left( 2x - 1 \right) \]
 kde
-\[ erf \left( x \right) = \frac{1}{\sqrt{\pi}} \int_{-x}^{x} e^{-t^2} \mathrm{d} t \]
+\[ \operatorname{erf} \left( x \right) = \frac{1}{\sqrt{\pi}} \int_{-x}^{x} e^{-t^2} \mathrm{d} t \]
 
 DET křivka je nejméně častou ze zde popisovaných křivek. Jde o modifikaci ROC křivky, mezi jejíž výhody patří nelineární měřítko, umožňující porovnávat i velice podobné klasifikátory. DET křivka je (na rozdíl od ROC křivky) relativně přímá a její tvar je indikátorem preference mezi falešně pozitivními a falešně negativními odhady.
 
