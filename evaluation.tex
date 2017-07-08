@@ -1,9 +1,9 @@
 \chapter{Metody vyhodnocení}\label{evaluation}
 
-Úloha popsaná v kapitole \ref{problem} je úlohou \BPname{binární klasifikace}. To znamená, že jejím cílem je zařadit vstupní objekty do jedné ze dvou tříd, označovaných jako pozitivní a negativní. Předpokládá se existence nějaké klasifikační funkce \( f : \BPspace X \to \left\{ -1, +1 \right\} \), která pro každý vstupní objekt určí příslušnou třídu, symbolizovanou hodnotou \( -1 \) nebo \( +1 \). Model popsaný v kapitole \ref{model} se snaží tuto neznámou klasifikační funkci aproximovat. Za účelem zhodnocení kvality této aproximace je v této kapitole nejprve zavedeno několik pojmů vztahujících se k binární klasifikaci a následně popsáno několik metod vizualizace kvality binárních klasifikátorů.
+Úloha popsaná v kapitole \ref{problem} je úlohou \BPname{binární klasifikace}. To znamená, že jejím cílem je zařadit vstupní objekty do jedné ze dvou tříd, označovaných jako pozitivní a negativní. Předpokládá se existence nějaké klasifikační funkce \( f : \BPspace X \to \left\{ -1, +1 \right\} \), která pro každý vstupní objekt určí příslušnou třídu, symbolizovanou hodnotou \( -1 \) nebo \( +1 \). Model popsaný v kapitole \ref{model} se snaží tuto neznámou klasifikační funkci aproximovat. Za účelem zhodnocení kvality uvedené aproximace je v této kapitole nejprve zavedeno několik pojmů vztahujících se k binární klasifikaci a následně popsáno několik metod vizualizace kvality binárních klasifikátorů.
 
 \begin{define}
-	Nechť \( r \in \left\{ -1, +1 \right\} \) je správným výsledkem pro nějaký vstupní objekt v úloze binární klasifikace. Nechť \( p \in \left\{ -1, +1 \right\} \) je aproximací \( r \). Odhad \( p \) nazýváme
+	Nechť \( r \in \left\{ -1, +1 \right\} \) je správným výsledkem pro nějaký vstupní objekt v úloze binární klasifikace. Nechť \( p \in \left\{ -1, +1 \right\} \) je aproximací \( r \). Odhad \( p \) je nazýván
 	\begin{enumerate}[i.]
 		\item \BPname{Pozitivní} (\BPenname{Prediction positive}) pokud \( p = +1 \).
 		\item \BPname{Negativní} (\BPenname{Prediction negative}) pokud \( p = -1 \).
@@ -12,10 +12,10 @@
 		\item \BPname{Falešně pozitivní} (\BPenname{False positive}) pokud \( r = -1 \land p = +1 \).
 		\item \BPname{Falešně negativní} (\BPenname{False negative}) pokud \( r = +1 \land p = -1 \).
 	\end{enumerate}
-	Falešně pozitivní odhad je také nazýván \BPname{chybou prvního druhu}, falešně negativní odhad je také nazýván \BPname{chybou druhého druhu}.
+	Falešně pozitivní odhad je také nazýván \BPname{chybou prvního druhu}, falešně negativní odhad \BPname{chybou druhého druhu}.
 \end{define}
 
-Standardním způsobem, jak jsou tyto hodnoty zapisovány, je pomocí takzvané \BPname{kontingenční tabulky}. Podoba takovéto kontingenční tabulky je znázorněna v tabulce \ref{contingency_table}.
+Standardním způsobem, jak jsou tyto hodnoty zapisovány, je pomocí \BPname{kontingenční tabulky}. Její podoba je znázorněna v tabulce \ref{contingency_table}.
 
 \begin{table}[h]
 	\caption{Kontingenční tabulka}\label{contingency_table}
@@ -33,7 +33,7 @@ Standardním způsobem, jak jsou tyto hodnoty zapisovány, je pomocí takzvané 
 \end{table}
 
 \section{Indikátory kvality binárního klasifikátoru}\label{quality_indicators}
-Cílem jakéhokoliv odhadu v úloze binární klasifikace je minimalizovat počet falešně pozitivních a falešně negativních odhadů. Ne vždy je ale možné minimalizovat obě tyto hodnoty a je třeba o nich uvažovat vždy najednou -- aproximace, která označí všechny objekty jako pozitivní nebude mít žádné falešně negativní odhady, ale v praxi nemá takováto aproximace žádnou hodnotu. Obdobně aproximace označující všechny objekty za negativní nebude produkovat žádné falešně pozitivní odhady, ale opět to není vhodná aproximace. -- Aby tedy bylo možno uvažovat o kvalitě nějakého binárního klasifikátoru, jsou dále zavedeny některé \BPname{indikátory kvality}.
+Cílem jakéhokoliv odhadu v úloze binární klasifikace je minimalizovat počet falešně pozitivních a falešně negativních odhadů. Ne vždy je ale možné minimalizovat obě tyto hodnoty a je třeba o nich uvažovat vždy najednou -- aproximace, která označí všechny objekty jako pozitivní, nebude mít žádné falešně negativní odhady, ale v praxi nemá taková aproximace žádnou hodnotu. Obdobně aproximace označující všechny objekty za negativní nebude produkovat žádné falešně pozitivní odhady, ale opět to není vhodná aproximace. -- Aby tedy bylo možno uvažovat o kvalitě nějakého binárního klasifikátoru, jsou dále zavedeny některé \BPname{indikátory kvality}.
 
 \begin{define}
 	Nechť \( \operatorname{tp} \) je počet pravdivě pozitivních odhadů nějakého binárního klasifikátoru na daném souboru dat. Nechť \( \operatorname{pp} \) je celkový počet pozitivních odhadů tohoto binárního klasifikátoru (tedy počet pravdivě pozitivních a falešně pozitivních). Jako \BPname{přesnost} (\BPenname{precision}) tohoto klasifikátoru je označována hodnota
@@ -48,7 +48,7 @@ Přesnost je jednou z nejdůležitějšich vlastností zvláště v oboru počí
 	Odezva je také nazývána \BPname{pravdivě pozitivní mírou} (\BPenname{true positive rate}).
 \end{define}
 
-Opět na příkladu počítačové bezpečnosti se odezva jeví jako velice důležitá, zachytit nežádoucí software je totiž většinou původní motivací pro tvorbu klasifikátorů. Je tedy cílem dosáhnout co největší odevzvy při co nejmenším snížení přesnosti.
+V oboru počítačové bezpečnosti se odezva jeví jako velice důležitá, zachytit nežádoucí software je totiž většinou původní motivací pro tvorbu klasifikátorů. Je tedy cílem dosáhnout co největší odezvy při co nejmenším snížení přesnosti.
 
 \begin{define}
 	Nechť \( \operatorname{fp} \) je počet falešně pozitivních odhadů nějakého binárního klasifikátoru na daném souboru dat. Nechť \( \operatorname{rn} \) je celkový počet negativních vzorků v datovém souboru (tedy počet pravdivě negativních a falešně pozitivních). Jako \BPname{falešně pozitivní míra} (\BPenname{false positive rate}) tohoto klasifikátoru je označována hodnota
@@ -76,47 +76,48 @@ F-skóre je jedinou zde zavedenou hodnotou, která dává do spojitosti jak fale
 
 \section{Volba pracovního bodu}\label{continuous_aprox}
 
-Přestože v úloze binární klasifikace jsou objekty zařazované do jedné ze dvou tříd, může nastat případ, kdy aproximace klasifikační funkce má jiný obor hodnot než množinu \( \left\{ -1, +1 \right\} \). V obecném případě může být oborem hodnot této aproximace celý obor \( \BPfield R \). Je tedy třeba rozhodnout, které hodnoty binárního klasifikátoru budou považovány za pozitivní a které za negativní. Zřejmě se nabízí přístup, kdy je stanoven nějaký práh (taktéž zvaný \BPname{pracovní bod}) a všechny hodnoty vyšší než tento práh jsou považovány za pozitivní odhad, všechny hodnoty nižší než tento práh jsou považovány za negativní odhad. Indikátory kvality lze poté chápat jako funkce takovéhoto prahu. Volba pracovního bodu ovšem není triviálním úkolem.
+Přestože v úloze binární klasifikace jsou objekty zařazované do jedné ze dvou tříd, může nastat případ, kdy aproximace klasifikační funkce má jiný obor hodnot než množinu \( \left\{ -1, +1 \right\} \). V obecném případě může být oborem hodnot této aproximace celý obor \( \BPfield R \). Je tedy třeba rozhodnout, které hodnoty binárního klasifikátoru budou považovány za pozitivní a které za negativní. Zřejmě se nabízí přístup, kdy je stanoven nějaký práh (taktéž zvaný \BPname{pracovní bod}) a všechny hodnoty vyšší než tento práh jsou považovány za pozitivní odhad, všechny hodnoty nižší než tento práh jsou považovány za negativní odhad. Indikátory kvality lze poté chápat jako funkce takového prahu. Volba pracovního bodu ovšem není triviálním úkolem.
 
-Jedním z možných řešení problému volby pracovního bodu je přístup pomocí určování hodnoty indikátorů kvality binárního klasifikátoru pro všechny možné prahy. Vzhledem k předpokladu konečnosti klasifikovaného souboru dat jsou tyto indikátory (považované za funkce prahu) po částech konstantní a tedy postačuje je vyhodnotit v konečně mnoha bodech. Pro velké datasety (například dataset popsaný v kapitole \ref{dataset}) avšak ani toto není výpočetně možné. Zvoleným řešením je nalézt kvantily všech možných hodnot pracovního bodu a vyhodnotit indikátory kvality v těchto bodech.
+Jedním z možných řešení problému volby pracovního bodu je přístup pomocí určování hodnoty indikátorů kvality binárního klasifikátoru pro všechny možné prahy. Vzhledem k předpokladu konečnosti klasifikovaného souboru dat jsou tyto indikátory (považované za funkce prahu) po částech konstantní a díky tomu je postačuje vyhodnotit v konečně mnoha bodech. Pro velké soubory dat (například ten popsaný v kapitole \ref{dataset}) není ale ani tato metoda výpočetně možná. Zvoleným řešením je nalézt kvantily všech možných hodnot pracovního bodu a vyhodnotit indikátory kvality v těchto bodech.
 
 \section{Křivky zobrazující vlastnosti binárního klasifikátoru}\label{evaluation_curves}
-V následující podkapitole jsou popsány 4 křivky, pomocí kterých lze vizualizovat vlastnosti binárních klasifikátorů. V celé podkapitole jsou indikátory kvality považovány za funkce prahu.
+V následující podkapitole jsou popsány čtyři křivky, pomocí kterých lze vizualizovat vlastnosti binárních klasifikátorů. V celé podkapitole jsou indikátory kvality považovány za funkce prahu.
 
 \subsection{PR křivka}
 \BPname{PR křivka} (\BPenname{Precision-Recall curve}) je křivkou zobrazující vztah mezi přesností a odezvou klasifikátoru pro různé prahy. PR křivka grafem množiny
 \[ \left\{ \left( recall \left( x \right), precision \left( x \right) \right) \middle| x \in \BPfield R \right\} \]
 Jde tedy o obor hodnot funkce \( \BPfield R \to \BPfield R^2 \), nikoliv o graf funkce \( \BPfield R \to \BPfield R \).
 
-PR křivka má vysokou důležitost právě pro problémy z oblasti počítačové bezpečnosti, dále pak vyhodnocování vyhledávačů, sběru dat, systémů navrhujících doporučení zákazníkům, tedy obecně problémů, kde je kladena jiná důležitost na přesnost a odezvu. V takovémto případě PR křivka umožňuje vybrat pracovní bod, který je nejlepší pro konkrétní úlohu.
+\todo{mathop}
+PR křivka má vysokou důležitost právě pro problémy z oblasti počítačové bezpečnosti, dále pro vyhodnocování vyhledávačů, sběru dat, systémů navrhujících doporučení zákazníkům, tedy obecně problémů, kde je kladena jiná důležitost na přesnost a odezvu. V takovém případě PR křivka umožňuje vybrat pracovní bod, který je nejlepší pro konkrétní úlohu.
 
 \subsection{ROC křivka}
-\BPname{ROC křivka} (\BPenname{Receiver operating characteristic curve}) je křivkou zobrazující vztah mezi falešně pozitivní mírou a pravdivě pozitivní mírou klasifikátoru pro různé prahy. ROC křivka grafem množiny
+\BPname{ROC křivka} (\BPenname{Receiver operating characteristic curve}) je křivkou zobrazující vztah mezi falešně pozitivní mírou a pravdivě pozitivní mírou klasifikátoru pro různé prahy. ROC křivka je grafem množiny
 \[ \left\{ \left( fpr \left( x \right), tpr \left( x \right) \right) \middle| x \in \BPfield R \right\} \]
-V grafu ROC křivky je vyznačena i množina všech bodů \( \left( x, x \right) \), neboť náhodně volená klasifikační funkce by měla ROC křivku blízkou takovéto množině. Osa X grafu ROC křivky je v logaritmickém měřítku.
+V grafu ROC křivky je vyznačena i množina všech bodů \( \left( x, x \right) \), neboť náhodně volená klasifikační funkce by měla ROC křivku blízkou této množině. Osa X grafu ROC křivky je v logaritmickém měřítku.
 
-ROC křivka je standardním způsobem vyhodnocování kvality binárních klasifikátorů a jako taková je používána napříč obory, ve kterých se vyskytují problémy binární klasifikace
+ROC křivka je standardním způsobem vyhodnocování kvality binárních klasifikátorů a je používána napříč obory, ve kterých se vyskytují problémy binární klasifikace
 
 \subsection{DET křivka}
 \BPname{DET křivka} (\BPenname{Detection error tradeoff curve}, srov. \cite{martin_det_1997}) je modifikací ROC křivky. DET křivka je grafem množiny
 \[ \left\{ \left( fpr \left( x \right), fnr \left( x \right) \right) \middle| x \in \BPfield R \right\} \]
-Z věty \ref{tpr+fnr} je zřejmé, že DET křivka je ROC křivkou otočenou podle osy Y. Rozdílem ovšem je měřítko, v jakém je tato křivka vykreslována. Na obě osy grafu je aplikována funkce
+Z věty \ref{tpr+fnr} je zřejmé, že DET křivka je ROC křivkou překlopenou podle osy Y. Rozdílem je měřítko, v jakém je tato křivka vykreslována. Na obě osy grafu je aplikována funkce \todo{mathop}
 \[ q \left( x \right) = \sqrt{2} \cdot erf^{-1} \left( 2x - 1 \right) \]
 kde
 \[ erf \left( x \right) = \frac{1}{\sqrt{\pi}} \int_{-x}^{x} e^{-t^2} \mathrm{d} t \]
 
-DET křivka je nejméně častou ze zde popisovaných křivek. Jde o modifikaci ROC křivky, mezi jejíž výhody patří nelineární měřítko, umožňující porovnávat i velice podobné klasifikátory. DET křivka je (narozdíl od ROC křivky) relativně přímá a její tvar je indikátorem preference mezi falešně pozitivn=imi a falešně negativními odhady.
+DET křivka je nejméně častou ze zde popisovaných křivek. Jde o modifikaci ROC křivky, mezi jejíž výhody patří nelineární měřítko, umožňující porovnávat i velice podobné klasifikátory. DET křivka je (na rozdíl od ROC křivky) relativně přímá a její tvar je indikátorem preference mezi falešně pozitivními a falešně negativními odhady.
 
 \subsection{Křivka F-skóre}
 Křivka F-skóre je grafem funkce \( x \mapsto F_1 \left( x \right) \).
 
 \section{Důvody vedoucí k vlastní implementaci}
-K výpočtu křivek popsaných v kapitole \ref{evaluation_curves} bylo vyzkoušeno několik softwarových balíčků dostupných pro jazyk Julia (\cite{zea_roc.jl:_2015}, \cite{leeuwen_rocanalysis.jl:_2016} a \cite{lin_mlbase.jl:_2017}). Žádný z těchto bylíčků však neumožňoval výpočet indikátorů kvality z důvodů příliš vysoké výpočetní či paměťové náročnosti. Všechny tyto balíčky rovněž neumožňují paralelní výpočet indikátorů kvality. Proto byl navržen vlastní balíček s názvem EduNetsEvaluate.jl, který umožňuje výpočet indikátorů kvality popsaných v kapitole \ref{quality_indicators} i pro soubory dat tak velké jako ten, popsaný v kapitole \ref{dataset}. Výpočet všech indikátorů kvality je z velké části paralelizovaný, což umožňuje plně využít výpočetní kapacity moderních vícejádrových procesorů a procesorů využívajících technologii Hyper-threading.
+K výpočtu křivek popsaných v kapitole \ref{evaluation_curves} bylo vyzkoušeno několik softwarových balíčků dostupných pro jazyk Julia (\cite{zea_roc.jl:_2015}, \cite{leeuwen_rocanalysis.jl:_2016} a \cite{lin_mlbase.jl:_2017}). Žádný z těchto balíčků však neumožňoval výpočet indikátorů kvality z důvodů příliš vysoké výpočetní či paměťové náročnosti. Všechny tyto balíčky rovněž neumožňují paralelní výpočet indikátorů kvality. Proto byl navržen vlastní balíček s názvem EduNetsEvaluate.jl, který umožňuje výpočet indikátorů kvality popsaných v kapitole \ref{quality_indicators} i pro soubory dat, které jsou srovnatelně velké jako soubor popsaný v kapitole \ref{dataset}. Výpočet všech indikátorů kvality je z velké části paralelizovaný, což umožňuje plně využít výpočetní kapacity moderních vícejádrových procesorů a procesorů využívajících technologii Hyper-threading.
 
 \section{Implementace}
 Následující podkapitola obsahuje přehled metod použitých k implementaci paralelního výpočtu PR křivky a ROC křivky.
 
-Vzhledem k tomu, že použitý dataset je rozdělen do mnoha souborů, je možné každý takovýto soubor zpracovat zvlášť a následně agregovat výsledky. O velké části souborů je známo, že obsahují pouze objekty negativní třídy. Pokud je předpokládáno, že všechny objekty jsou seřazené podle hodnoty jejich předpovědi, při postupném procházení se při přechodu od negativního objektu k následujícímu negativnímu objektu nezmění hodnota odezvy. Tedy pokud bude PR křivka počítána pouze z pozitivních objektů, na její tvar to nebude mít žádný vliv. Pro ROC křivku platí stejné pozorování. Tím je umožněn výpočet vhodných hodnot prahů (ve smyslu kapitoly \ref{continuous_aprox}) pouze ze souborů, v nichž jsou nějaké pozitivní objekty. Tento výpočet je popsán v algoritmu \ref{thresholds}.
+Vzhledem k tomu, že použitý soubor dat je rozdělen do mnoha částí, je možné každou část zpracovat zvlášť a následně agregovat výsledky. Mnoho částí použitého souboru dat obsahuje pouze objekty negativní třídy. Pokud je předpokládáno, že všechny objekty jsou seřazené podle hodnoty jejich předpovědi, při postupném procházení se při přechodu od negativního objektu k přímo následujícímu negativnímu objektu nezmění hodnota odezvy. Tedy pokud bude PR křivka počítána pouze z pozitivních objektů, na její tvar to nebude mít žádný vliv. Pro ROC křivku platí stejné pozorování. Tím je umožněn výpočet vhodných hodnot prahů (ve smyslu kapitoly \ref{continuous_aprox}) pouze ze souborů, v nichž jsou nějaké pozitivní objekty. Tento výpočet je popsán v algoritmu \ref{thresholds}.
 
 \begin{algorithm}
 	\caption{Výpočet prahů}
@@ -133,14 +134,14 @@ Vzhledem k tomu, že použitý dataset je rozdělen do mnoha souborů, je možn�
 	\end{algorithmic}
 \end{algorithm}
 
-Následně lze spočítat odezvu binárního klasifikátoru, k jejímuž výpočtu opět postačují pouze soubory, obsahující nějaké pozitivní objekty. Paralelizace tohoto výpočtu je umožněná	přístupem, kdy pro každý soubor je spočítán celkový počet pozitivních objektů v souboru a pro každý práh počet pravdivě pozitivních odhadů. Tyto hodnoty jsou poté sečteny přes všechny soubory a na jejich základě je spočítána odezva. Tento výpočet je popsán v algoritmu \ref{recall}. Pro výpočet přesnosti je již potřeba zohlednit všechny soubory včetně těch, které obsahují pouze negativní objekty. Pro každý soubor je zvlášť spočítán počet pravdivě pozitivních odhadů a celkový počet pozitivních odhadů. Tyto hodnoty jsou poté sečteny přes všechny soubory a na jejich základě je spočítána přesnost. Tento výpočet je analogický s výpočtem odezvy. 
+Následně lze spočítat odezvu binárního klasifikátoru, k jejímuž výpočtu opět postačují pouze soubory, obsahující nějaké pozitivní objekty. Paralelizace tohoto výpočtu je umožněna přístupem, kdy pro každý soubor je spočítán celkový počet pozitivních objektů v souboru a pro každý práh počet pravdivě pozitivních odhadů. Tyto hodnoty jsou poté sečteny přes všechny soubory a na jejich základě je spočítána odezva. Tento výpočet je popsán v algoritmu \ref{recall}. Pro výpočet přesnosti je již potřeba zohlednit všechny soubory včetně těch, které obsahují pouze negativní objekty. Pro každý soubor je zvlášť spočítán počet pravdivě pozitivních odhadů a celkový počet pozitivních odhadů. Hodnoty jsou poté sečteny přes všechny soubory a na jejich základě je spočítána přesnost. Výpočet je analogický s výpočtem odezvy. 
 
 \begin{algorithm}
 	\caption{Výpočet odezvy}
 	\label{recall}
 	\begin{algorithmic}
 		\Require $ mixed\_files $ \Comment Soubory obsahující pozitivní i negativní objekty
-		\Require $ thresholds $
+		\Require $ thresholds $ \Comment Prahy
 		\Statex
 		\State $ RP \gets \Call{array}{} \left[ \Call{size}{mixed\_files} \right] $ \Comment Pole čísel
 		\State $ TP \gets \Call{array}{} \left[ \Call{size}{thresholds} \right] \left[ \Call{size}{mixed\_files} \right] $ \Comment Pole polí
@@ -154,7 +155,7 @@ Následně lze spočítat odezvu binárního klasifikátoru, k jejímuž výpoč
 	\end{algorithmic}
 \end{algorithm}
 
-Pokud jsou objekty nejprve seřazeny podle hodnoty jejich předpovědi, lze poté počet pravdivě pozitivních i počet pozitivních odhadů počítat s asymptotickou složitostí \( \mathcal O \left( n \right) \), což spolu se složitostí řazení dává celkovou asymptotickou složitost \( \mathcal O \left( n \log n \right) \). Tento způsob efektivního výpočtu počtu pravdivě pozitivních odhadů je popsán v algoritmu \ref{TP}.
+Pokud jsou objekty nejprve seřazeny podle hodnoty jejich předpovědi, lze počet pravdivě pozitivních i počet pozitivních odhadů počítat s asymptotickou složitostí \( \mathcal O \left( n \right) \), což spolu se složitostí řazení dává celkovou asymptotickou složitost \( \mathcal O \left( n \log n \right) \). Tento způsob efektivního výpočtu počtu pravdivě pozitivních odhadů je popsán v algoritmu \ref{TP}.
 
 \begin{algorithm}
 	\caption{Výpočet počtu pravdivě pozitivních odhadů se složitostí \( \mathcal O \left( n \right) \)}
@@ -162,7 +163,7 @@ Pokud jsou objekty nejprve seřazeny podle hodnoty jejich předpovědi, lze pot�
 	\begin{algorithmic}
 		\Require $ predicted $ \Comment Odhady pro nějaký soubor objektů, seřazené vzestupně
 		\Require $ real $ \Comment Skutečné třídy pro tento soubor ve stejném pořadí
-		\Require $ thresholds $
+		\Require $ thresholds $ \Comment Prahy
 		\Statex
 		\State $ TP \gets \Call{array}{} \left[ \Call{size}{thresholds} \right] $
 		\State $ TPcounter \gets \Call{count\_positives}{real} $
