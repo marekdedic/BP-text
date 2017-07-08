@@ -2,10 +2,10 @@
 
 V současné době existují dva převládající přístupy k učení z příkladů. Těmi jsou \BPname{učení s učitelem} (\BPenname{supervised learning}) a \BPname{učení bez učitele} (\BPenname{unsupervised learning}). Učení s učitelem má za cíl naučit se správné zařazení příkladů do tříd z trénovacích příkladů, pro které jsou tyto třídy známé. Následně je toto zařazení rozšířeno na nové, neznámé příklady. Učení bez učitele má za cíl naučit se odvodit strukturu příkladů, kde třídy nejsou známé ani pro trénovací data. Oba tyto přístupy předpokádají, že příklady jsou reprezentovány vektory o konstantní délce. \cite{dietterich_solving_1997} navrhli přístup pomocí \BPname{multi-instančního učení} (\BPenname{multi-instance learning, MIL}), které rozšiřuje metodu učení s učitelem na problémy, ve kterých příklady nelze vyjádřit vektory o konstantní délce. Jednotlivé příklady v multi-instančním učení jsou reprezentovány \BPname{taškami} (\BPenname{bags}), které mohou obsahovat libovolné množství objektů. Třídy nemusí být známé na úrovni těchto objektů, stačí pouze znalost tříd na úrovni tašek.
 
-Aby bylo možné korektně matematicky popsat multi-instanční učení, je potřeba zavést několik pojmů z teorie množin.
+Aby bylo možné korektně matematicky popsat multi-instanční učení, je zapotřebí zavést několik pojmů z teorie množin.
 
 \section{Multimnožiny}
-\cite{knuth_art_1968} definuje pojem multimnožiny, tedy množiny, ve které se prvky moho opakovat, následovně.
+\cite{knuth_art_1968} definuje pojem multimnožiny, tedy množiny, ve které se prvky mohou opakovat, následovně.
 
 \begin{define}
 	Nechť \( \BPset A \) je množina a \( m : \BPset A \to \BPfield N \).
@@ -13,7 +13,7 @@ Aby bylo možné korektně matematicky popsat multi-instanční učení, je pot�
 	\[ a \in \left( \BPset A, m \right) \]
 \end{define}
 
-Z faktu, že multimnožina je rozšířením pojmu množina vychází i značení, kdy multimnožina může být definována výčtem prvků, ve kterém je prvek opakován tolikrát, jaká je jeho multiplicita.
+Z faktu, že multimnožina je rozšířením pojmu množina, vychází i značení, kdy multimnožina může být definována výčtem prvků, ve kterém je prvek opakován tolikrát, jaká je jeho multiplicita.
 
 \begin{example}
 	Multimnožinu \( \left( \left\{ a, b, c \right\}, \left\{ \left( a, 2 \right), \left( b, 3 \right), \left( c, 5 \right) \right\} \right) \) zapisujeme jako \( \left\{ a, a, b, b, b, c, c, c, c, c \right\} \).
@@ -31,7 +31,7 @@ Je možné rozšířit i definici potenční množiny, běžně označované \( 
 
 \begin{define}
 	Nechť \( \BPset A \) je množina. Jako \BPname{množinu všech podmultimnožin \( \BPset A \)} označujeme množinu
-	\[ \mathcal P^M \left( \BPset A \right) = \left\{ \left( \BPset B, m \right) \middle| \left( \BPset B, m \right) \text{ je multimnožinou } \land \left( \BPset B, m \right) \subset \BPset A \right\} \]
+	\[ \mathcal P^M \left( \BPset A \right) = \left\{ \left( \BPset B, m \right) \middle| \left( \BPset B, m \right) \text{ je multimnožina } \land \left( \BPset B, m \right) \subset \BPset A \right\} \]
 \end{define}
 
 \begin{define}
@@ -41,7 +41,7 @@ Je možné rozšířit i definici potenční množiny, běžně označované \( 
 
 \section{Multi-instanční učení}
 
-Multi-instanční učení (srov. \cite{dietterich_solving_1997}) předpokládá existenci vstupních objektů, náležících obecně do vstupního prostoru \( \BPspace X \). Je dále předpokládána existence výstupních objektů (tříd) z nějakého výstupního prostoru \( \BPspace Y \). Za účelem klasifikace jsou jednotlivé vstupní objekty seskupeny do tašek, definovaných následovně.
+Multi-instanční učení (srov. \cite{dietterich_solving_1997}) předpokládá existenci vstupních objektů, náležících obecně do vstupního prostoru \( \BPspace X \). Dále je předpokládána existence výstupních objektů (tříd) z nějakého výstupního prostoru \( \BPspace Y \). Za účelem klasifikace jsou jednotlivé vstupní objekty seskupeny do tašek, definovaných následovně.
 
 \begin{define}
 	Nechť \( \BPspace X \) je prostorem vstupních objektů. Potom \BPname{prostorem tašek} je multimnožina \( \BPspace B \) splňující podmínky
@@ -52,13 +52,13 @@ Multi-instanční učení (srov. \cite{dietterich_solving_1997}) předpokládá 
 	Prvky prostoru tašek se nazývají \BPname{taškami}.
 \end{define}
 
-Cílem mutli-instančního učení je řešit problémy, ve kterých není známá správná třída pro vstupní objety, avšak je známá třída právě pro tašky vstupních objektů. \cite{dietterich_solving_1997} dává za příklad multi-instančního problému následující úlohu:
+Cílem mutli-instančního učení je řešit problémy, ve kterých není známa správná třída pro vstupní objety, avšak je známá třída právě pro tašky vstupních objektů. \cite{dietterich_solving_1997} dávají za příklad multi-instančního problému následující úlohu:
 
 \begin{example}
-	Dveře od skladu v kanceláři mají zámek, od nějž mají klíče všichni zaměstnanci v kanceláři. Každý zaměstananec má svazek klíčů, ze kterých právě jeden je od tohoto sdíleného skladu. V kanceláři je avšak používán tzv. systém generálního klíče, tedy zatímco některým zaměstancům slouží klíč od skladu pouze k otevření skladu, jiní používají stejný klíč nejenom k přístupu ke skladu, ale i k odemčení jedněch, či dokonce více dalších dveří. Naší úlohou (například v roli zámečníka) je najít nejobecnější tvar, jaký klíč musí mít, aby odemknul dveře od skladu. To by nám umožnilo inspekcí libovolného klíče určit, zda tento klíč odemkne sklad či ne. Naše práce je ale ztížena tím, že zaměstnanci nejsou ochotní nám ukázat, který klíč z jejich svazku odemyká sklad, pouze nám předají celý svůj svazek klíču. Přístup ke skladu je omezen, tedy nemůžeme žádný z klíčů vyzkoušet. Tedy obecný tvar klíče můžeme odvodit pouze studiem získaných svazků klíčů.
+	Dveře od skladu v kanceláři mají zámek, od nějž mají klíče všichni zaměstnanci v kanceláři. Každý zaměstananec má svazek klíčů, ze kterých právě jeden je od sdíleného skladu. V kanceláři je ale používán tzv. systém generálního klíče, tedy zatímco některým zaměstancům slouží klíč od skladu pouze k otevření skladu, jiní používají stejný klíč nejenom k přístupu ke skladu, ale i k odemknutí jedněch, či dokonce více dalších dveří. Naší úlohou (například v roli zámečníka) je najít nejobecnější tvar, jaký klíč musí mít, aby odemkl dveře od skladu. To by nám umožnilo inspekcí libovolného klíče určit, zda tento klíč odemkne sklad, či ne. Naše práce je ale ztížena tím, že zaměstnanci nejsou ochotni nám ukázat, který klíč z jejich svazku odemyká sklad, pouze nám předají celý svůj svazek klíčů. Přístup ke skladu je omezen, proto nemůžeme žádný z klíčů vyzkoušet. Obecný tvar klíče můžeme odvodit pouze studiem získaných svazků klíčů.
 \end{example}
 
-V tomto příkladu mají jednotlivé klíče (resp. jejich popis nějakým vektorem příznaků, popsaným v kapitole \ref{URL_MIL_representation}) funkci vstupních objektů, svazky klíčů jsou pak taškami. Přestože má smysl se u každého klíče ptát, zda odemyká sklad, není tato informace k dispozici pro žádný z klíčů, pouze pro celé svazky. Má také smysl tvrdit o celých svazcích, že odemykají (respektive neodemykají) dveře od skladu, pokud obsahují alespoň jeden (respektive neobsahují žádný) klíč, kterým lze sklad odemknout. Tím je zaveden pojem \BPname{třídy tašky}, který \cite{dietterich_solving_1997} definuje následovně:
+V tomto příkladu mají jednotlivé klíče (resp. jejich popis nějakým vektorem příznaků, popsaným v kapitole \ref{URL_MIL_representation}) funkci vstupních objektů, svazky klíčů jsou taškami. Přestože má smysl se u každého klíče ptát, zda odemyká sklad, není tato informace k dispozici pro žádný z klíčů, pouze pro celé svazky. Má také smysl tvrdit o celých svazcích, že odemykají (respektive neodemykají) dveře od skladu, pokud obsahují alespoň jeden (respektive neobsahují žádný) klíč, kterým lze sklad odemknout. Tím je zaveden pojem \BPname{třídy tašky}, který \cite{dietterich_solving_1997} definují následovně:
 
 \begin{define}\label{baglabel}
 	Nechť \( \BPspace X \) je prostorem vstupních objektů, \( \BPspace Y \) je prostorem tříd, kde platí
@@ -67,20 +67,20 @@ V tomto příkladu mají jednotlivé klíče (resp. jejich popis nějakým vekto
 	\[ y_b = \max_{x \in b} \left( y_x \right) \in \BPspace Y \]
 \end{define}
 
-Jak bude ale dále ukázáno, je tato definice ve většině případů přinejmenším problematická, neboť velké množství úloh (včetně úlohy popsané v kapitole \ref{problem}) předpokládá, že třídy vstupních objektů nejenom nejsou známé, ale nejsou ani dobře definované.
+Tato definice se jeví, jak bude dále ukázáno, ve většině případů přinejmenším problematickou, neboť velké množství úloh (včetně úlohy popsané v kapitole \ref{problem}) předpokládá, že třídy vstupních objektů nejenom nejsou známé, ale nejsou ani dobře definované.
 
 \section{Metody řešení multi-instančních úloh}
 
-V následující podkapitole jsou popsány tři převládající přístupy k řešení Multi-instančních problémů. Celá tato podkapitola vychází z \cite{pevny_using_2016}, \cite{pevny_discriminative_2016} a \cite{amores_multiple_2013}.
+V následující podkapitole jsou popsány tři převládající přístupy k řešení multi-instančních problémů. Celá tato podkapitola vychází z \cite{pevny_using_2016}, \cite{pevny_discriminative_2016} a \cite{amores_multiple_2013}.
 
 \subsection{Paradigma prostoru instancí}
-\BPname{Paradigma prostoru instancí} (\BPenname{Instance-space paradigm}) je původní přístup k multi-instančnímu učení tak, jak jej popsal \cite{dietterich_solving_1997}. Předpokládá existenci (neznámých) tříd pro vstupní objekty a využívá definice \ref{baglabel}.
-Je předpokládána existence výstupních objektů pro všechny vstupní objekty (odpovídající instancím), přestože tyto hodnoty nejsou známé. Pro každou tašku je pak předpokládána exitence výstupního objektu \( y_b \). Cílem metody je najít klasifikační funkci \( f : \BPspace X \to \BPspace Y \) a posléze určit
+\BPname{Paradigma prostoru instancí} (\BPenname{Instance-space paradigm}) je původním přístupem k multi-instančnímu učení tak, jak jej popsali \cite{dietterich_solving_1997}. Předpokládá existenci (neznámých) tříd pro vstupní objekty a využívá definice \ref{baglabel}.
+Je předpokládána existence výstupních objektů pro všechny vstupní objekty (odpovídající instancím), přestože tyto hodnoty nejsou známé. Pro každou tašku je pak předpokládána existence výstupního objektu \( y_b \). Cílem metody je najít klasifikační funkci \( f : \BPspace X \to \BPspace Y \) a posléze určit
 \[ y_b = \max_{x \in b} \left( f \left( x \right) \right) \]
 
 Existuje mnoho přístupů využívajících paradigmatu prostoru instancí (srov. \cite{andrews_support_2003} a \cite{zhang_multiple_2006}). Následuje přehled nejdůležitějších z těchto přístupů.
 
-\BPname{BP-MIP} (srov. \cite{zhou_neural_2002}) řeší problém binární klasifikace (tedy \( \BPspace Y = \left\{ -1, +1 \right\} \)) a předpokládá výstup nějaké vrstevnaté neuronové sítě (\BPenname{feedforward neural network}) \( o_{ij} \) pro \(j\)-tý vstupní objekt v \(i\)-té tašce. Symbolem \( y_{b_i} \) je označována třída tašky \( b_i \). Dále je pak definována chybová funkce pro vstupní objekty
+\BPname{BP-MIP} (srov. \cite{zhou_neural_2002}) řeší problém binární klasifikace (tedy \( \BPspace Y = \left\{ -1, +1 \right\} \)) a předpokládá výstup nějaké vrstevnaté neuronové sítě (\BPenname{feedforward neural network}) \( o_{ij} \) pro \(j\)-tý vstupní objekt v \(i\)-té tašce. Symbolem \( y_{b_i} \) je označována třída tašky \( b_i \). Dále je definována chybová funkce pro vstupní objekty
 \[ E_{ij} = \begin{cases}
 	0 \quad \text{pro} \quad y_{b_i} = +1 \land o_{ij} \geq 0.5 \\
 	0 \quad \text{pro} \quad y_{b_i} = -1 \land o_{ij} < 0.5 \\
@@ -95,7 +95,7 @@ A dále globální chybová funkce jako
 \[ E = \sum_{i = 1}^{\left| \BPspace B \right|} E_i \]
 Díky takto dobře definované chybové funkci lze využít k trénování neuronové sítě \BPname{algoritmus zpětné propagace} (\BPenname{backpropagation}), modifikovaný pro multi-instanční učení (modifikace popsána v \cite{zhou_neural_2002}).
 
-\BPname{EM-DD} (srov. \cite{zhang_em-dd:_2002}) kombinuje EM (\BPenname{Expectation-maximization}) algoritmus (srov. \cite{dempster_maximum_1977}) a DD (\BPenname{Diverse density}) algoritmus (srov. \cite{maron_framework_1998}). EM-DD vychází z nějakého odhadu cílového bodu \( h \) v prostoru vstupních objektů, tuto hypotézu \( h \) poté vylepšuje EM algoritmem. V E-kroku je z každé tašky vybrán jeden vstupní objekt, o němž se předpokládá, že má největší vliv na třídu tašky. V M-kroku je využito algoritmu gradientního vzestupu (\BPenname{gradient ascent}) k nalezení nové hypotézy \( h' \), která maximalizuje \( DD \left( h \right) \) (odpovídající pravděpodobnosti, že \( h \) je skutečným cílovým bodem). Opakováním těchto kroků je hypotéza stále vylepšována.
+\BPname{EM-DD} (srov. \cite{zhang_em-dd:_2002}) kombinuje EM (\BPenname{Expectation-maximization}) algoritmus (srov. \cite{dempster_maximum_1977}) a DD (\BPenname{Diverse density}) algoritmus (srov. \cite{maron_framework_1998}). Algoritmus EM-DD vychází z nějakého odhadu cílového bodu \( h \) v prostoru vstupních objektů, tuto hypotézu \( h \) poté vylepšuje EM algoritmem. V E-kroku je z každé tašky vybrán jeden vstupní objekt, o němž se předpokládá, že má největší vliv na třídu tašky. V M-kroku je využito algoritmu gradientního vzestupu (\BPenname{gradient ascent}) k nalezení nové hypotézy \( h' \), která maximalizuje \( DD \left( h \right) \) (odpovídající pravděpodobnosti, že \( h \) je skutečným cílovým bodem). Opakováním těchto kroků je hypotéza stále vylepšována.
 
 \subsection{Paradigma prostoru tašek}
 \BPname{Paradigma prostoru tašek} (\BPenname{Bag-space paradigm}) omezuje předpoklady úlohy  pouze na existenci tříd na úrovni tašek a zcela opouští představu existence tříd vstupních objektů a s ní i definici \ref{baglabel}. Přístup pomocí paradigmatu prostoru tašek často definuje nějakou vzdálenostní funkci (\BPenname{distance function}) nebo jádrovou funkci (\BPenname{kernel function}), mající podobu
@@ -106,15 +106,15 @@ Vzhledem k tomu, že není zaveden pojem třídy vstupního objektu, má hledan�
 \[ H \left( b_1, b_2 \right) = \min_{x \in b_1} \min_{y \in b_2} \left\Vert x - y \right\Vert \]
 Je využit algoritmus k-nejbližších sousedů (srov. \cite{dasarathy_nearest_1991}), modifikovaný o systém tzv. \BPname{citací}, kde kromě k-nejbližších sousedů (zde nazývaných \BPname{reference}) je definováno i c-nejbližších citujících, kde za \( c \)-nejbližších citujících instance \( x \in b \) je považováno
 \[ \operatorname{Citers} \left( x, c \right) = \left\{ x_i \middle| \operatorname{Rank} \left( x_i, x \right) \leq c \land x_i \in b \right\} \]
-Pro každou tašku je pak pomocí Haudorffovy vzdálenosti nalezeno \( r \)-nejbližšich referencí a \( c \)-nejbližších citujících. Pokud je mezi těmito referencemi a citujícími dohromady více pozitivních tašek než negativních, je taška označena za pozitivní. V opačném případě je taška označena za negativní.
+Pro každou tašku je následovně pomocí Haudorffovy vzdálenosti nalezeno \( r \)-nejbližšich referencí a \( c \)-nejbližších citujících. Pokud je mezi těmito referencemi a citujícími dohromady více pozitivních tašek než negativních, je taška označena za pozitivní. V opačném případě je taška označena za negativní.
 
 Citation-kNN je pouze jedním z přístupů pomocí paradigmatu prostoru tašek. Mezi další patří \cite{wang_solving_2000}, \cite{kwok_marginalized_2007}, \cite{gartner_multi-instance_2002}, \cite{haussler_convolution_1999}, \cite{zhou_multi-instance_2009} a \cite{muandet_learning_2012}.
 
 \subsection{Paradigma vloženého prostoru}\label{embedded-space-paradigm}
 
-Při použítí \BPname{paradigmatu vloženého prostoru} (\BPenname{Embedded-space paradigm}) jsou, stejně jako v případě paradigmatu prostoru tašek, předpoklady omezeny pouze na existenci výstupních objektů na úrovni tašek. Je zde zavedena \BPname{vkládající funkce} (\BPenname{embedding function}) \( \phi : \BPspace B \to \bar{\BPspace X} \), kde \( \bar{\BPspace X} \) je nějaký vstupní prostor, který může, ale nemusí být totožný s prostorem \( \BPspace X \). Díky této funkci lze reprezentovat kažkou tašku vstupním objektem \( \phi \left( b \right) \in \bar{\BPspace X} \) a nasledně lze použít jakýkoliv algoritmus používaný při klasickém učení s učitelem. Jedny z nejjednodušších vkládajících funkcí jsou například funkce minimum, maximum či aritmetický průměr.
+Při použítí \BPname{paradigmatu vloženého prostoru} (\BPenname{Embedded-space paradigm}) jsou, stejně jako v případě paradigmatu prostoru tašek, předpoklady omezeny pouze na existenci výstupních objektů na úrovni tašek. Je zde zavedena \BPname{vkládající funkce} (\BPenname{embedding function}) \( \phi : \BPspace B \to \bar{\BPspace X} \), kde \( \bar{\BPspace X} \) je nějaký vstupní prostor, který může, ale nemusí být totožný s prostorem \( \BPspace X \). Díky této funkci lze reprezentovat každou tašku vstupním objektem \( \phi \left( b \right) \in \bar{\BPspace X} \) a nasledně lze použít jakýkoliv algoritmus používaný při klasickém učení s učitelem. K nejjednodušším vkládajícím funkcím patří funkce minimum, maximum či aritmetický průměr.
 
-\BPname{MILES} (srov. \cite{chen_miles:_2006}) předpokládá existenci nějakého slovníku vstupních objektů \( \BPspace D \) a pokouší se definovat vkládající funkci jako míru podobnosti tašky s objekty ve slovníku, tedy jako
+\BPname{MILES} (srov. \cite{chen_miles:_2006}) předpokládá existenci nějakého slovníku vstupních objektů \( \BPspace D \) a definuje vkládající funkci jako míru podobnosti tašky s objekty ve slovníku, tedy jako
 \[ \phi : \BPspace B \to \BPfield R^{\left| \BPspace D \right|} \]
 definovanou po složkách jako
 \[ \phi_i \left( b \right) = \sum_{x \in b} k \left( x, d_i \right) \quad \text{kde} \quad d_i \in \BPspace D \]
@@ -132,17 +132,17 @@ V následující podkapitole je popsán alternativní formalismus pro mutli-inst
 
 Pro prostor vstupních objektů \( \BPspace X \) nechť existuje měřitelný prostor \( \left( \BPspace X, \BPspace A \right) \), kde \( \BPspace A \) je \( \sigma \)-algebrou prostoru \( \BPspace X \). Nechť \( \BPspace P^{\BPspace X} \) je množinou všech pravděpodobnostních měr prostoru \( \left( \BPspace X, \BPspace A \right) \). Na každou tašku \( b \) pak lze pohlížet jako na realizaci nějaké náhodné veličiny s pravděpodobnostní distribucí \( P \left( p_b, y_b \right) \), kde \( p_b \in \BPspace P^{\BPspace X} \) je rozdělení pravděpodobnosti instancí v \( b \) a \( y_b \in \BPspace Y \) je třída této tašky. Prostor všech tašek lze zapsat jako
 \[ \BPspace B = \left\{ x_i \middle| \left( \forall i \in \hat n \right) \left( x_i \sim p \in \BPspace P^{\BPspace X} \right) \right\} \]
-Hledaná klasifikační funkci je v tomto formalismu tvaru \( f : \BPspace P^{\BPspace X} \to \BPspace Y \).
+Hledaná klasifikační funkce je v tomto formalismu tvaru \( f : \BPspace P^{\BPspace X} \to \BPspace Y \).
 
 Je tedy předpokladem, že pravděpodobnostní distribuce jsou odlišné v závislosti na třídě, tj. v případě binární klasifikace \( p_+ \neq p_- \) kde \( p_+ \sim P(p, +1) \) a \( p_- \sim P(p, -1) \).
 
-\cite{muandet_learning_2012} definuje jádrovou funkci na prostoru tašek, což je v tomto stochastickém formalismu o něco složitější. Nechť \( k \) je jádrovou funkcí prostoru \( \BPspace X \), tedy \( k : \BPspace X \times \BPspace X \to \BPfield R \). Nechť \( \BPspace H \) je Hilbertovým prostorem funkcí \( \BPspace X \to \BPfield R \). Tento prostor je Hilbertovým prostorem reprodukujícím jádro \( k \). Dále nechť je definované zobrazení \( \mu \) jako
+\cite{muandet_learning_2012} definují jádrovou funkci na prostoru tašek, což je v tomto stochastickém formalismu poněkud složitější. Nechť \( k \) je jádrovou funkcí prostoru \( \BPspace X \), tedy \( k : \BPspace X \times \BPspace X \to \BPfield R \). Nechť \( \BPspace H \) je Hilbertovým prostorem funkcí \( \BPspace X \to \BPfield R \). Tento prostor je Hilbertovým prostorem reprodukujícím jádro \( k \). Dále nechť je definované zobrazení \( \mu \) jako
 \[ \mu : \BPspace P^{\BPspace X} \to \BPspace H : p \mapsto \int_{\BPspace X} k \left( x, \cdot \right) \mathrm{d}p \left( x \right) \]
 Pomocí tohoto zobrazení lze definovat jádrovou funkci \( K : \BPspace P^{\BPspace X} \times \BPspace P^{\BPspace X} \to \BPfield R \) jako
 \[ K \left( p, q \right) = \braket{\mu \left( p \right) , \mu \left( q \right)}_{\BPspace H} = \iint k \left( x, y \right) \mathrm{d} p \left( x \right) \mathrm{d} q \left( y \right) \]
 
 \section{Výhody paradigmatu vloženého prostoru}
-Pro modelování klasifikační funkce úlohy popsané v kapitole \ref{problem} bylo použito paradigma vloženého prostoru. Dle autorova názoru nemá smysl definovat pro jednotlivé části adresy URL, zda spadají do pozitivní či negativní třídy, třída je v této úloze dobře definována pouze na úrovni celých adres URL. To je důvodem, proč nebylo zvoleno paradigma prostoru instancí. Důvody pro upřednostnění paradigmatu vloženého prostoru před paradigmatem prostoru tašek jsou 2. Prvním z nich je vyšší výpočetní náročnost algoritmů využívajících paradigma prostoru tašek. Vzhledem ke složitosti úlohy a množství dostupných dat je výpočetní složitost natolik důležitá, že ovlivňuje i výběr algoritmu. Druhým důvodem je možnost použití standardních algoritmů pro učení s učitelem při použítí paradigmatu vloženého prostoru.
+Pro modelování klasifikační funkce úlohy popsané v kapitole \ref{problem} bylo použito paradigmatu vloženého prostoru. Dle autorova názoru nemá smysl definovat pro jednotlivé části adresy URL, zda spadají do pozitivní či negativní třídy, třída je v této úloze dobře definována pouze na úrovni celých adres URL. To je důvodem, proč nebylo zvoleno paradigma prostoru instancí. Důvody pro upřednostnění paradigmatu vloženého prostoru před paradigmatem prostoru tašek jsou dva. Prvním z nich je vyšší výpočetní náročnost algoritmů využívajících paradigmatu prostoru tašek. Vzhledem ke složitosti úlohy a množství dostupných dat je výpočetní náročnost natolik důležitá, že ovlivňuje i výběr algoritmu. Druhým důvodem je možnost použití standardních algoritmů pro učení s učitelem při použití paradigmatu vloženého prostoru.
 \begin{remark}
-	\cite{pevny_using_2016} poukazuje na podobnost mezi paradigmatem prostoru tašek a paradigmatem vloženého prostoru, kde jádrovou funkci lze chápat jako funkci vkládající do nějakého Hilbertova prostoru a naopak jádrovou funkci lze aproximovat skalárním součinem v Eukleidovském prostoru.
+	\cite{pevny_using_2016} poukazují na podobnost mezi paradigmatem prostoru tašek a paradigmatem vloženého prostoru, kde jádrovou funkci lze chápat jako funkci vkládající do nějakého Hilbertova prostoru a naopak jádrovou funkci lze aproximovat skalárním součinem v eukleidovském prostoru.
 \end{remark}

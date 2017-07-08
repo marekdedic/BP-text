@@ -1,6 +1,6 @@
 \chapter{Řešená úloha}\label{problem}
 
-Řešená úloha je problémem binární klasifikace, tedy problém, kdy je cílem zařadit objekty do jedné ze dvou tříd, jež nazýváme pozitivní a negativní. Tedy cílem je navrhnout vhodnou klasifikační funkci, který pro daný vstupní objekt určí příslušnou třídu. Vstupními objekty jsou v tomto případě adresy URL (srov. \cite{berners-lee_uniform_1994}). Příklad takovéto adresy je na obrázku \ref{url}. \BPname{Negativní třídou} se rozumí veškerý síťový provoz, který je součástí běžného provozu uživatele-klienta a jím spuštěných programů. \BPname{Pozitivní třídou} se rozumí síťový provoz který pochází z aktivit malware a nežádoucího software.
+Řešená úloha je problémem binární klasifikace, tedy problémem, kdy je cílem zařadit objekty do jedné ze dvou tříd, jež nazýváme pozitivní a negativní, tedy navrhnout vhodnou klasifikační funkci, která pro daný vstupní objekt určí příslušnou třídu. Vstupními objekty jsou v tomto případě adresy URL (srov. \cite{berners-lee_uniform_1994}). Příklad takové adresy je na obrázku \ref{url}. \BPname{Negativní třídou} se rozumí veškerý síťový provoz, který je součástí běžného provozu uživatele-klienta a jím spuštěných programů. \BPname{Pozitivní třídou} se rozumí síťový provoz který pochází z aktivit malware a nežádoucího software.
 
 \begin{figure}[h]
 	\centering
@@ -12,15 +12,15 @@ Adresa URL se skládá z několika částí, mezi běžné patří \BPname{proto
 
 \section{Struktura adresy URL}\label{URL_structure}
 
-\cite{berners-lee_uniform_1994} definuje abecedu (dále označovanou \( \Sigma \)) všech možných znaků v adrese URL jako malá a velká písmena anglické abecedy, čísla a znaky \$ - \_ . + ! * ' ( ) , \% ; / ? : @ \& =. Každá adresa URL je pak slovem abecedy \( \Sigma \) (ne však naopak). Vybrané tři části adresy URL jsou definovány následovně.
+\cite{berners-lee_uniform_1994} definuje abecedu (dále označovanou \( \Sigma \)) všech možných znaků v adrese URL jako malá a velká písmena anglické abecedy, čísla a znaky \$ - \_ . + ! * ' ( ) , \% ; / ? : @ \& =. Každá adresa URL je slovem abecedy \( \Sigma \) (ne však naopak). Vybrané tři části adresy URL jsou definovány následovně.
 \begin{define}
-	\BPname{Doména} je podslovem adresy URL konstruovaným následovně: Pokud adresa URL obsahuje podslovo "://", doména začíná za tímto podslovem. V opačném případě doména začíná na záčátku adresy URL. Doména končí před prvním výskytem znaku "/" po začátku domény, případně na konci adresy URL, pokud tato už žádný znak "/" neobsahuje.
+	\BPname{Doména} je podslovem adresy URL konstruovaným následovně: Pokud adresa URL obsahuje podslovo "://", doména začíná za tímto podslovem. V opačném případě doména začíná na začátku adresy URL. Doména končí před prvním výskytem znaku "/" po začátku domény, případně na konci adresy URL, pokud tato už žádný znak "/" neobsahuje.
 \end{define}
 \begin{define}
 	Pokud je doména sufixem adresy URL, je \BPname{cesta} definována jako prázdné slovo. V opačném případě je cesta definována jako podslovo adresy URL, začínající za znakem "/" ukončujícím doménu. Cesta končí před prvním výskytem znaku "?" po začátku cesty, případně na konci adresy URL, pokud tato už žádný znak "?" neobsahuje.
 \end{define}
 \begin{define}
-	Pokud je doména nebo cesta sufixem adresy URL, je \BPname{dotaz} definován jako prázdné slovo. V opačném případě je dotaz definován jako sufix adresy URL, začínající za za znakem "?" ukončujícím cestu.
+	Pokud je doména nebo cesta sufixem adresy URL, je \BPname{dotaz} definován jako prázdné slovo. V opačném případě je dotaz definován jako sufix adresy URL začínající za znakem "?" ukončujícím cestu.
 \end{define}
 
 \begin{figure}[h]
@@ -31,7 +31,7 @@ Adresa URL se skládá z několika částí, mezi běžné patří \BPname{proto
 
 Na obrázku \ref{url_parts} je příklad dělení adresy URL. Doména ja zvýrazněná červenou barvou, cesta fialovou a dotaz modrou.
 
-Každá z těchto tří částí adresy URL se sama skládá z několika částí, zvaných \BPname{tokeny}. Doména se skládá z několika úrovní, lišících se obecností. Tyto tokeny jsou odděleny znakem ".". Cesta se skládá z názvů složek a souborů, které jsou dotazovány. Tyto tokeny jsou odděleny znakem "/". Dotaz je tvořen dvojicemi klíč--hodnota, oddělenými znakem "\&". Na obrázku \ref{url_subparts} je příklad tohoto rozdělení, v barvách korespondujících s obrázkem \ref{url_parts}, v různých odstínech pro různé tokeny.
+Každá z těchto tří částí adresy URL se sama skládá z několika částí, obecně zvaných \BPname{tokeny}. Doména se skládá z několika úrovní majících funkci tokenů, lišících se obecností a oddělených znakem ".". Cesta se skládá z tokenů, které jsou názvy složek a souborů, jež jsou dotazovány, a jsou odděleny znakem "/". Dotaz je tvořen tokeny tvaru klíč--hodnota, oddělenými znakem "\&". Na obrázku \ref{url_subparts} je příklad tohoto rozdělení, barvy korespondují s obrázkem \ref{url_parts}, různé tokeny jedné části adresy URL se liší odstínem téže barvy.
 
 \begin{figure}[h]
 	\centering
@@ -39,15 +39,15 @@ Každá z těchto tří částí adresy URL se sama skládá z několika část�
 	\caption{Části a tokeny adresy URL}\label{url_subparts}
 \end{figure}
 
-Je zřejmé, že na pořadí tokenů domény záleží, definují "cestu" k cílovému serveru a jsou řazeny od nejkonkrétnější k nejobecnější (srov. \cite{mockapetris_domain_1987}). Stejně tak u cesty závisí na pořádí, které definuje adresářové umístění požadovaného souboru na serveru.
+Je zřejmé, že záleží na pořadí tokenů domény, definují totiž "cestu" k cílovému serveru a jsou řazeny od nejkonkrétnějšího k nejobecnějšímu (srov. \cite{mockapetris_domain_1987}). Stejně tak u cesty závisí na pořadí, které definuje adresářové umístění požadovaného souboru na serveru.
 
 \section{Výhody přístupu pomocí MIL}
 
-Klasifikační funkce byla odhadována pomocí tzv. \BPname{multi-instančního učení} (MIL)\footnote{resp. jeho speciální varianta, blíže popsaná v kapitole \ref{model}}, poprvé popsaného v \cite{dietterich_solving_1997}. Tento přístup, podrobněji popsaný v kapitole \ref{MIL}, vychází z předpokladu, že vzorek nelze reprezentovat vektorem o konstantní délce, ale sadou (dále zvanou \BPname{taška}) takovýchto vektorů (dále zvaných \BPname{instance}). Dále je pak předpokládáno, že každou tašku, obsahující neznámý počet instancí, je možno zařadit do nějaké třídy, přestože ne všechny její objekty náleží do této třídy. Adresu URL lze považovat za takovouto tašku za využití jejího hierarchického modelu, nastíněného v sekci \ref{URL_structure}. Proto lze přístup pomocí Multi-instančního učení aplikovat na tento problém.
+Klasifikační funkce byla realizována pomocí tzv. \BPname{multi-instančního učení} (MIL)\footnote{resp. jeho speciální varianta, blíže popsaná v kapitole \ref{model}}, poprvé popsaného v \cite{dietterich_solving_1997}. Tento přístup, podrobněji popsaný v kapitole \ref{MIL}, vychází z předpokladu, že vzorek nelze reprezentovat vektorem o konstantní délce, ale sadou (dále zvanou \BPname{taška}) takových vektorů (dále zvaných \BPname{instance}). Dále je předpokládáno, že každou tašku, obsahující neznámý počet instancí, je možno zařadit do nějaké třídy, přestože ne všechny její instance náleží do této třídy. Adresu URL lze považovat za takovou tašku při využití jejího hierarchického modelu, nastíněného v sekci \ref{URL_structure}. Proto lze přístup pomocí multi-instančního učení aplikovat na tento problém.
 
-Přístup pomocí Multi-instančního učení produkuje topologicky složitější modely než je srovnatelný model založený na ručně navržených příznacích. Výměnou za tuto nevýhodu v podobě zvětšené složitosti implementační je zmenšená složitost výpočetní. Multi-instanční model totiž modeluje každou instanci nejprve zvlášť a teprve poté následuje model pro celý vzorek. To v případě použití neuronové sítě znamená výrazně méné propojení než u srovnatelné plně propojené síťě se stejnými počty neuronů ve stejných vrstvách. Důležitým rozdílem též je, že narozdíl od tohoto modelu je multi-instanční model rozdělen do dvou částí (model pro instance a model pro tašky), přičemž ten samý instanční model je použit několikrát v rámci jedné tašky.
+Přístup pomocí multi-instančního učení produkuje topologicky složitější modely, než je srovnatelný model založený na ručně navržených příznacích. Výměnou za tuto nevýhodu v podobě zvětšené složitosti implementační je zmenšená složitost výpočetní. Multi-instanční model totiž modeluje každou instanci nejprve zvlášť, a teprve poté následuje model pro celý vzorek. To v případě použití neuronové sítě znamená výrazně méně propojení než u srovnatelné plně propojené síťě se stejnými počty neuronů ve stejných vrstvách. Důležitým rozdílem též je, že narozdíl od tohoto modelu je multi-instanční model rozdělen do dvou částí (model pro instance a model pro tašky), přičemž ten samý instanční model je v rámci jedné tašky použit několikrát.
 
-Multi-instanční přístup nám tedy dovoluje vytvořit model, jehož topologie odpovídá hierarchické struktuře adresy URL, je výpočetně méně náročný než srovnatelný klasický model a umožňuje znovupoužití některých částí. To jsou důvody, proč byl tento přístup zvolen.
+Multi-instanční přístup tedy dovoluje vytvořit model, jehož topologie odpovídá hierarchické struktuře adresy URL, je výpočetně méně náročný než srovnatelný klasický model a umožňuje opětovné použití některých částí. To jsou důvody, proč byl tento přístup zvolen.
 
 \section{Trénovací a testovací data}\label{dataset}
 K trénování a testování modelu byla použita data získaná z Cisco Cloud Web Security. Tato data představují záznamy HTTP provozu více jak 100 společností v šesti různých časových úsecích mezi listopadem 2013 a březnem 2015. Datový soubor je rozdělen na data určená k trénování a data určená k ověření kvality navržených klasifikátorů. Oba tyto soubory jsou dále rozděleny na dvě části, z nichž jedna obsahuje pouze legitimní provoz a druhá obsahuje směs legitimního provozu a provozu pocházejícího z činnosti malware. Toto rozdělení datového souboru je shrnuto v tabulce \ref{dataset_table}.
@@ -59,7 +59,7 @@ K trénování a testování modelu byla použita data získaná z Cisco Cloud W
 		\toprule
 		\null & \multicolumn{2}{c}{Počet adres} \\
 		\cmidrule(l){2-3}
-		Dataset & Legitimní & Malware \\
+		Datový soubor & Legitimní & Malware \\
 		\midrule
 		Trénovací legitimní & 417 208 484 & 0 \\
 		Trénovací směs & 17 390 889 & 34 359 733 \\
