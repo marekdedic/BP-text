@@ -3,13 +3,13 @@
 \section{Srovnání s nejlepším předchozím modelem}\label{prior_art_comparison}
 Obrázek \ref{prior_art} srovnává PR křivky nejlepšího modelu (srovnání parametrů v následujících podkapitolách) s nejlepším předchozím modelem pro soubor dat popsaný v kapitole \ref{dataset} (srov. \cite{machlica_learning_2017}). Nejlepší model má vstupní vektor příznaků o délce 2053, příznaky jsou generované z trigramů. Všechny tři funkce operující na úrovní částí adresy URL jsou shodně realizovány jednou vrstvou 20 neuronů s přenosovou funkcí ReLU, následovanou agregací tašky funkcí aritmetického průměru. Funkce operující na úrovni celé adresy URL obsahuje jednu vrstvu 60 neuronů s lineární přenosovou funkcí, následovanou výstupní vrstvou 2 neuronů s přenosovou funkcí softmax. Síť byla učena metodou ADAM minimalizující cross-entropii, ukončenou po 25 000 krocích. Váha na pozitivní třídě byla 0.5. Mini-batch obsahovaly 100 pozitivních a 100 negativních vzorků. Srovnávaný předchozí model využívá rozšířenou nepublikovanou sadu 557 příznaků z \cite{machlica_learning_2017}. Model obsahoval 3 vrstvy 128 neuronů typu ReLU, následované výstupní vrstvou 2 neuronů s přenosovou funkcí softmax. Síť byla učena metodou ADAM minimalizující cross-entropii, ukončenou po 100 000 krocích. Váha na pozitivní třídě byla 0.5. Mini-batch obsahovaly 1000 pozitivních a 1000 negativních vzorků. Všechny křivky v této kapitole byly počítány s~kvantilizací pomocí percentilů (ve smyslu kapitoly \ref{continuous_aprox}).
 
-\result{prior_art_PR.pdf}{prior_art}{Srovnání PR křivek s nejlepším předchozím modelem}
+\result{prior_art/prior_art.pdf}{prior_art}{Srovnání PR křivek s nejlepším předchozím modelem}
 
 \section{Srovnání vlivu topologie sítě}
 
 Bylo vyzkoušeno 5 různých topologií neuronových sítí, odpovídajících modelu popsanému v kapitole \ref{model}. Všechny tyto topologie používají tři identické neuronové sítě realizující funkce na úrovni částí adresy URL. Topologie označované jako \BPname{relumean}, \BPname{relurelumean}, \BPname{maxout3mean} a \BPname{maxout3maxout3mean} shodně realizují klasifikační funkci na úrovni celé adresy URL jednou vrstvou neuronů s lineární přenosovou funkcí a jednou vrstvou s přenosovou funkcí softmax. Topologie relumean používá pro funkce na úrovni částí adresy URL jednu vrstvu typu ReLU, následovanou agregační funkcí aritmetického průměru. Topologie relurelumean používá dvě vrstvy typu ReLU následované agregační funkcí aritmetického průměru. Topologie maxout3mean používá jednu vrstvu typu maxout3 (tj. maxout s parametrem \( k = 3 \)) následovanou agregační funkcí aritmetického průměru. Topologie maxout3maxout3mean využívá 2 vrstvy typu maxout3 následované agregační funkcí aritmetického průměru. Topologie \BPname{relurelumeanrelu} má funkce na úrovni částí adresy URL shodné s topologií relurelumean, avšak funkci na úrovni celé adresy URL realizuje jako jednu vrstvu typu ReLU následovanou jednou vrstvou s lineární přenosovou funkcí následovanou jednou vrstvou typu softmax. Ostatní parametry jsou shodné s parametry popsanými v kapitole \ref{prior_art_comparison}. PR křivky všech těchto topologií jsou zobrazeny na obrázku \ref{topologies}. \todo{Grafy v TikZ, aby byly stejné fonty, možná 2 vedle sebe. legenda na dobrém místě, české legendy}
 
-\result{topology_PR.pdf}{topologies}{Srovnání PR křivek různých topologií}
+\result{topology/topology.pdf}{topologies}{Srovnání PR křivek různých topologií}
 
 \section{Srovnání vlivu parametrů generátoru příznaků}
 
@@ -39,9 +39,9 @@ Pro srovnání vlivu hodnoty \( n \) byly naučeny tři rozdílné modely využ�
 
 Pro srovnání vlivu délky vektoru příznaků byly naučeny modely s délkou 509, 1021, 2053, 4099 a 8191 \todo{Opravdu?}. Všechny tyto modely využívají trigramy. Na obrázku \ref{feature_count} jsou srovnány PR křivky těchto modelů.
 
-\result{placeholder.pdf}{feature_count}{Srovnání PR křivek pro různé počty příznaků}
+\result{feature_count/feature_count.pdf}{feature_count}{Srovnání PR křivek pro různé počty příznaků}
 
 \section{Srovnání vlivu váhy na pozitivních taškách}
 Při trénování umělé neuronové sítě lze pozitivním a negativním taškám přiřadit různé váhy, které odpovídají tomu, jak nežádoucí jsou falešně negativní a falešně pozitivní odhady. Výchozí váha pozitivní třídy (tj. 0.5) neodpovídá souboru dat představenému v kapitole \ref{dataset}, kde pozitivních vzorků je výrazně méně, přestože cílem je právě jejich detekce. Proto byly vyzkoušeny modely s váhou (pozitivní třídy) 0.5, 0.1 a 0.01 se všemi ostatními parametry ponechanými na hodnotách z kapitoly \ref{prior_art_comparison}. PR křivky těchto modelů jsou srovnány na obrázku \ref{weights}.
 
-\result{weights_PR.pdf}{weights}{Srovnání PR křivek pro různé váhy pozitivní třídy}
+\result{weights/weights.pdf}{weights}{Srovnání PR křivek pro různé váhy pozitivní třídy}
