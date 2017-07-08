@@ -94,9 +94,30 @@ Lze tedy vrstvu maxout chápat jako \( k \) lineárních vrstev, z nichž je vyb
 \subsection{Softmax}
 Přenosová funkce pro neurony typu \BPname{softmax} je taktéž definována pro celou vrstvu po složkách \( h_i : \BPfield R^n \to \BPfield R \) jako funkce (bez váhy a vychýlení)
 \[ h_i \left( x \right) = \frac{e^{x_i}}{\sum_{j = 1}^n e^{x_j}} \]
+Výhodou této přenosové funkce pro její využití spolu s objektivní funkcí popsanou v kapitole \ref{loss_function} je její jednoduchá derivace tvaru
+\[ \frac{\partial h_i}{\partial x_j} = \begin{cases}
+	h_i \left( 1 - h_i \right) \quad \text{pro} \quad i = j \\
+	-h_i h_j \quad \text{jinak}
+\end{cases} \]
 
-\section{Použitá objektivní funkce}
-\todo{Loss funkce}
+\section{Použitá objektivní funkce}\label{loss_function}
+Při využití neuronů s přenosovou funkcí softmax jako poslední vrstvy neuronové sítě lze za objektivní funkci položit funkci, která pro parametry modelu \( \theta \), vstupní vektor \( x \) a skutečnou třídu \( y \) maximalizuje věrohodnostní funkci
+\[ \mathcal L \left( \theta \middle| y, x \right) \]
+Tuto věrohodnostní funkci lze zapsat jako sdruženou pravděpodobnost, kterou naopak lze zapsat pomocí podmíněné pravděpodobnosti, tedy platí
+\[ \mathcal L \left( \theta \middle| y, x \right) = P \left( y, x \middle| \theta \right) = P \left( y \middle| x, \theta \right) P \left( x \middle| \theta \right) \]
+Pro pevné hodnoty parametrů \( \theta \) tedy platí
+\[ \mathcal L \left( \theta \middle| y, x \right) = P \left( y \middle| x \right) = \prod_{i = 1}^n P \left( y_i \middle| x \right)^{y_i} \]
+Hodnota \( P \left( y_i \middle| x \right) \) je v poslední vrstvě předpovídána softmax přenosovou funkcí \( h_i \). Je tedy maximalizována hodnota
+\[ \prod_{i = 1}^n h_i^{y_i} \]
+Úloha maximalizace této hodnoty je ekvivalentní úloze minimalizace jejího záporného logaritmu. Je tedy minimalizována hodnota takto definované funkce \( J \), dané předpisem
+\[ J = -\log \prod_{i = 1}^n h_i^{y_i} = -\sum_{i = 1}^n y_i \log h_i \]
+Tuto funkci \( J \) nazýváme \BPname{objektivní funkcí minimalizující cross-entropii}. V případě binární klasifikace (\( n = 2 \)) lze tuto funkci zapsat jako 
+\[ J = - y_i \log h_i - \left( 1 - y_i \right) \log \left( 1 - h_i \right) \]
+
+Výhodou objektivní funkce minimalizující cross-entropii je její jednoduchá derivace tvaru
+\[ \frac{\partial J}{\partial x_i} = h_i - y_i \]
+
+Celá tato podkapitola byla převzata z \cite{roelants_how_2017}
 
 \section{Metody trénování neuronových sítí}
 Jednou ze základních metod trénování neuronových sítí je metoda \BPname{gradientního sestupu} (srov. \cite{cauchy_methode_1847}). Předpokládá se existence nějaké objektivní funkce \( J \left( \theta \right) \), jejíž minimum je hledáno. \( \theta \in \BPfield R^d \) jsou učené parametry modelu. Tyto parametry se opakovaně mění, dokud není nalezeno požadované minimum funkce \( J \). Metoda gradientního sestupu počítá nové parametry \( \hat \theta \) jako
