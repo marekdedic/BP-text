@@ -33,11 +33,11 @@ Bylo vyzkoušeno 5 různých topologií neuronových sítí, odpovídajících m
 
 Jako funkce \( \psi \) projektující tokeny adresy URL do vektorů příznaků byla použita funkce popsaná algoritmem \ref{feature_generator}. Tato funkce každý token rozloží na posloupnost \( n \)\BPname{-gramů} (podslov délky \( n \)) a tyto \( n \)-gramy převede na indexy odpovídající pozicím ve vektoru příznaků. Vektor příznaků je pak vektorem četnosti výskytů jednotlivých trigramů. Tento algoritmus je nastaven dvěma parametry, a sice délkou vektoru příznaků (využívanou jako modulo při převodu \( n \)-gramů na indexy) a délkou podslov \( n \). Všechny ostatní parametry byly ponechány na hodnotách z kapitoly \ref{prior_art_comparison}.
 
-Pro srovnání vlivu hodnoty \( n \) byly naučeny tři rozdílné modely využívající unigramy (\( n = 1 \)), bigramy (\( n = 2 \)) \todo{Bigramy?} a trigramy (\( n = 3 \)). Všechny tyto modely mají délku vektoru příznaků 2053. Na obrázku \ref{ngrams} jsou srovnány PR křivky pro tyto tři modely.
+Pro srovnání vlivu hodnoty \( n \) byly naučeny tři rozdílné modely využívající unigramy (\( n = 1 \)), bigramy (\( n = 2 \)) a trigramy (\( n = 3 \)). Všechny tyto modely mají délku vektoru příznaků 2053. Na obrázku \ref{ngrams} jsou srovnány PR křivky pro tyto tři modely.
 
-\result{placeholder.pdf}{ngrams}{Srovnání PR křivek pro různé velikosti příznaků}
+\result{ngrams/ngrams.pdf}{ngrams}{Srovnání PR křivek pro různé velikosti příznaků}
 
-Pro srovnání vlivu délky vektoru příznaků byly naučeny modely s délkou 509, 1021, 2053, 4099 a 8191 \todo{Opravdu?}. Všechny tyto modely využívají trigramy. Na obrázku \ref{feature_count} jsou srovnány PR křivky těchto modelů.
+Pro srovnání vlivu délky vektoru příznaků byly naučeny modely s délkou 509, 1021 a 2053. Všechny tyto modely využívají trigramy. Na obrázku \ref{feature_count} jsou srovnány PR křivky těchto modelů.
 
 \result{feature_count/feature_count.pdf}{feature_count}{Srovnání PR křivek pro různé počty příznaků}
 
