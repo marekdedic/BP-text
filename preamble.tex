@@ -2,12 +2,17 @@
 
 \usepackage{etoolbox}
 
+\newbool{printed}
+
+%\booltrue{printed}
+\boolfalse{printed} % Default
+
 \makeatletter
-\patchcmd{\@chapter}% <cmd>
-	{\chaptermark{#1}}% <search>
+\patchcmd{\@chapter}%
+	{\chaptermark{#1}}%
 	{\chaptermark{#1}%
-	\addtocontents{loa}{\protect\addvspace{10\p@}}}% replace
-	{}{}% <success><failure>
+	\addtocontents{loa}{\protect\addvspace{10\p@}}}%
+	{}{}%
 \makeatother
 
 \usepackage{polyglossia}
@@ -22,8 +27,7 @@
 \usepackage{url}
 \usepackage[backend=biber,style=iso-authoryear,sortlocale=cs_CZ,autolang=other,bibencoding=UTF8]{biblatex}
 \usepackage{setspace}
-\usepackage{hyperref}
-\usepackage[ocgcolorlinks]{ocgx2}
+\usepackage[\ifbool{printed}{hidelinks=true}{colorlinks=true}]{hyperref}
 \usepackage{braket}
 \usepackage{enumerate}
 \usepackage[chapter]{algorithm}
@@ -40,7 +44,6 @@
 \setcounter{secnumdepth}{3}
 \addbibresource{zotero.bib}
 \hypersetup{
-	colorlinks,
 	pdfencoding=auto,
 	unicode=true,
 	bookmarksopen=true,
