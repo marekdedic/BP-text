@@ -46,7 +46,21 @@
 
 \input{conclusion.tex}
 
-\todo {Seznam obrázku, grafů, tabulek}
+\clearpage
+
+\begingroup
+	\let\clearpage\relax
+
+	\listoffigures
+	\addcontentsline{toc}{chapter}{Seznam obrázků}
+	\listof{graph}{Seznam grafů}
+	\addcontentsline{toc}{chapter}{Seznam grafů}
+	\listoftables
+	\addcontentsline{toc}{chapter}{Seznam tabulek}
+	\listofalgorithms
+	\addcontentsline{toc}{chapter}{Seznam algoritmů}
+\endgroup
+
 \printbibliography[title=Literatura]
 
 \end{document}
