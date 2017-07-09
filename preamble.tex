@@ -1,5 +1,15 @@
 \documentclass[a4paper,11pt,oneside]{book}
 
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\@chapter}% <cmd>
+	{\chaptermark{#1}}% <search>
+	{\chaptermark{#1}%
+	\addtocontents{loa}{\protect\addvspace{10\p@}}}% replace
+	{}{}% <success><failure>
+\makeatother
+
 \usepackage{polyglossia}
 \usepackage{fontspec}
 \usepackage{csquotes}
@@ -16,7 +26,7 @@
 \usepackage[ocgcolorlinks]{ocgx2}
 \usepackage{braket}
 \usepackage{enumerate}
-\usepackage{algorithm}
+\usepackage[chapter]{algorithm}
 \usepackage{algorithmicx}
 \usepackage{algpseudocode}
 \usepackage{booktabs}
@@ -71,11 +81,17 @@
 \algnewcommand\Break{\algorithmicbreak{}}
 
 \newcommand{\result}[3]{%
-	\begin{figure}[h]%
+	\begin{graph}[h]%
 		\centering%
 		\includegraphics[width=\textwidth]{images/results/#1}%
 		\caption{#3}\label{#2}%
-	\end{figure}%
+	\end{graph}%
 }
+
+\renewcommand{\listalgorithmname}{Seznam algoritmů}
+
+\floatstyle{plain}
+\newfloat{graph}{tbph}{logr}[chapter]
+\floatname{graph}{Graf}
 
 \usepackage{todonotes}
